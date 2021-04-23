@@ -11,6 +11,14 @@ Students work in small groups on the 3 assignments. For each assignment, the stu
 
 # Assignment A
 
+Part 1 - Design and set-up of true experiment
+
+Part 2 - Generalized linear models
+- Twitter sentiment analysis (between-subjects-single-factor)
+- Website visits (between-subjects-two-factors)
+
+Part 3 - Multilevel model (within-subjects)
+
 # Assignment B
 
 # Assignment C
