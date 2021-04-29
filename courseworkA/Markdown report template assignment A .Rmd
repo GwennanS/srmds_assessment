@@ -1,7 +1,7 @@
 ---
-title: "Report Template coursework assignment A - 2021"
+title: "Report coursework assignment A - 2021"
 subtitle: "CS4125 Seminar Research Methodology for Data Science"
-author: "Student names (student numbers)"
+author: "Nikki Bouman (4597648), Anuj Singh (), Gwennan Smitskamp ()"
 date: "20/04/2021"
 output:
    pdf_document:
@@ -70,7 +70,8 @@ Include the annotated R script (excluding your personal Keys and Access Tokens i
 
 #during writing you could add "eval = FALSE",  kntr will than not run this code chunk (take some time do)
 
-setwd("~/surfdrive/Teaching/own teaching/IN4125 - Seminar Research Methodology for Data Science/2019/coursework A") 
+#setwd("~/surfdrive/Teaching/own teaching/IN4125 - Seminar Research Methodology for Data Science/2019/coursework A") 
+# commented this. Let's make this relative when trying to fix this file
 # apple , note use / instead of \, which used by windows
 
 
@@ -132,7 +133,7 @@ clearTweets <- function(tweets, excl) {
 #access_token <- 'your access token'
 #access_scret <- 'your access scret'
 
-source("wpb_twitter.R") #this file will set my personal variables for my twitter app, adjust the name of this file. use the provide template your_twitter.R
+source("your_twitter.R") #this file will set my personal variables for my twitter app, adjust the name of this file. use the provide template your_twitter.R
 
 setup_twitter_oauth(consumer_key,consumer_scret, access_token,access_scret) #connect to  twitter app
 
