@@ -20,18 +20,18 @@ knitr::opts_chunk$set(echo = TRUE)
 # Part 1 - Design and set-up of true experiment 
 
 
-## The motivation for the planned research 
+## The motivation for the planned research
 (Max 250 words)
 
 ## The theory underlying the research  
 (Max 250 words) Preferable based on theories reported in literature
 
 
-##Research questions 
+## Research questions 
 The research question that will be examined in the experiment (or alternatively the hypothesis that will be tested in the experiment)
 
 
-##The related conceptual model 
+## The related conceptual model 
 This model should include:
 *Independent variable(s)
 *Dependent variable
@@ -39,7 +39,7 @@ This model should include:
 *Moderating variable (at least 1)
 
 
-##Experimental Design 
+## Experimental Design 
 Note that the study should have a true experimental design
 
 ## Experimental procedure 
