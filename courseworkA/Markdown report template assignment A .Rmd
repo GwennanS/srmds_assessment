@@ -21,30 +21,63 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ## The motivation for the planned research
-(Max 250 words)
+<!-- (Max 250 words) -->
+The recent outbreak of the COVID-19 pandemic has changed our daily lives significantly. People are obligated to stay at home, disrupting their usual social interactions in both work and private life. The situation compels people to meet online. Typically, in such digital interactions, interlocutors can see each other by means of webcam streaming. However, this may not always be the case. Some or all interlocutors may not be visible during online dialogue, which could affect the quality of the conversation and the mutual understanding.
+
+An important effect of the shift from face-to-face to online interaction can be revealed by studying laughter, as it is extremely contagious social behavior (Provine, 1992). Humans are very prone to unintentionally or unconsciously laugh as a social signal in any form; from a minor smile to laughing out loud. Additionally, laughing is one of the most important social signals for lubricating the flow of social interaction (Griffin et al., 2015).
+
 
 ## The theory underlying the research  
-(Max 250 words) Preferable based on theories reported in literature
+<!-- (Max 250 words) Preferable based on theories reported in literature -->
+The effect of visibility on the use of gestures as a communicative function has been studied broadly (Alibali, Heath, & Myers, 2001; J. B. Bavelas, Chovil, Lawrie, & Wade, 1992; Cohen & Harrison, 1973; Cohen, 1977; Emmorey & Casey, 2001; Krauss, Dushay, Chen, & Rauscher, 1995; Rim´e, 1982). , J. Bavelas, Gerwing, Sutton, and Prevost (2008) provide a summary of previous experiments where rate and form of gestures were compared under two conditions: where the addressee could see the speaker and where the addressee could not see the speaker. These experiments show that speakers gestured at higher rate when they communicated with mutual visibility than without. J. Bavelas et al. (2008) extended these experiments by focusing on both visibility and dialogue as a variable, finding similar results. Furthermore, they found that speakers gestured at a significantly higher rate in a telephone dialogue than in a monologue to a tape recorder, confirming that visibility is not the only variable operating in telephone conversations. These experiments showed us that visibility plays a major role in the rate of gesturing, but that people also gesture when they are not visible to each other. As laughter can be seen as a form of gesturing, these findings are relevant for this study.
+
+Laughing together is found to be essentially collaborative (Mehu & Dunbar, 2008; Coates, 2007). Joint laughter therefore serves important means to achieve effective team meetings (Ponton, Osbourne, Greenwood, & Thompson, 2018), considering that people who laugh on video are perceived with a higher likeability than people who do not (Reysen, 2006). This social function of joint laughter emphasises the relevance of studying the occurrence, now that the majority of meetings take place online.
 
 
 ## Research questions 
-The research question that will be examined in the experiment (or alternatively the hypothesis that will be tested in the experiment)
+<!-- The research question that will be examined in the experiment (or alternatively the hypothesis that will be tested in the experiment) -->
+We will aim to answer the following research question:
 
+What is the effect of webcam visibility during online dialogue on the frequency and duration of joint laughter?
+
+When recognizing laughter we do not focus on the reason why someone is laughing. We
+consider anything from an awkward laugh in a moment of silence to laughing out loud about
+a joke as a laughter episode regardless of the context. In order to guide the experiment to
+answering the research question, the following sub-questions are considered:
+
+1. To what extent does webcam visibility affect the frequency of joint laughter?
+
+2. To what extent does webcam visibility affect the duration of joint laughter?
 
 ## The related conceptual model 
-This model should include:
-*Independent variable(s)
-*Dependent variable
-*Mediating variable (at least 1)
-*Moderating variable (at least 1)
+
+<!-- ![\label{cm}](img/A-1 conceptual model.png) -->
+```{r pressure, echo=FALSE, fig.cap="The conceptual model to test the effect of mutual webcam visibility on joint laughter", out.width = '100%'}
+knitr::include_graphics("img/A-1 conceptual model.png")
+```
 
 
 ## Experimental Design 
-Note that the study should have a true experimental design
+One of the most important requirements for the setup of the experiment, was the creation of a comfortable and pleasant ambiance so that people would laugh. Therefore, it was decided that a game would comply, as the participants get the chance to interact with each other in a undemanding setting where the attention of the participants would be drawn to a task. It was reasoned that this would contribute to a reduction of awkwardness and give all the participants the option to speak and laugh. Additionally, the game needed to have a smooth flow that would automatically keep going to keep the interference of the researchers to a minimum. 
+
+The game that was chosen is called 30 Seconds. During the game, participants work together in teams (in the case of the experiment: two teams of two people) and gain points by guessing what the team member is describing. These descriptions include concepts such as famous persons, locations, movies and brands. Every team gets 30 seconds to guess as many concepts on the card as possible. Who is describing and who is guessing switches after every card.
+
+
 
 ## Experimental procedure 
-Describe how the experiment will be executed step by step
+The experiment will be set up in an online setting in a Zoom meeting. The host, one of us (not visible), will be able to send private messages containing the five words, share their screen and sound for a 30 second timer, and turn the participants' webcams on and off.
 
+The following will repeat for every card of five words:
+
+1. The host sends the words to the participant who has the turn to describe.
+
+2. The host starts the 30 second timer.
+
+3. The participant will try to describe as many words as possible, while his/her teammate will try to guess the words.
+
+4. The timer rings, the host puts the score in the chat.
+
+During the experiment, multiple things will happen. Each time all players have guessed and described a card (i.e. after four cards total), their webcams will switch on or off. After each player has guessed and described four cards (i.e. after sixteen cards total), the final score will be displayed and the teams will be rearranged. The previous will then repeat until every participant has been in a team with every other participant.
 
 ## Measures
 Describe the measure that will be used
