@@ -50,9 +50,11 @@ answering the research question, the following sub-questions are considered:
 2. To what extent does webcam visibility affect the duration of joint laughter?
 
 ## The related conceptual model 
+The conceptual model related to the research question can be viewed in \autoref{fig:concept_mocel}. The main question is about the effect of mutual visibility on joint laughter. The mediating variables are the duration and the frequency of the laughter, since that is how we will have to express joint laughter in order to arrive at a conclusion. The moderating variable is familiarity, which we can define as the level of friendliness or intimacy between people. This can be caused when people know each other (which we aim to avoid), but also when people find similarities in their interests and behaviours. It is even possible that people of the same gender will feel more familiar with each other. 
+<!-- not sure about mediating variables -->
 
 <!-- ![\label{cm}](img/A-1 conceptual model.png) -->
-```{r pressure, echo=FALSE, fig.cap="The conceptual model to test the effect of mutual webcam visibility on joint laughter", out.width = '100%'}
+```{r concept_model, echo=FALSE, fig.cap="\\label{fig:concept_model}The conceptual model to test the effect of mutual webcam visibility on joint laughter", out.width = '100%'}
 knitr::include_graphics("img/A-1 conceptual model.png")
 ```
 
@@ -77,16 +79,25 @@ The following will repeat for every card of five words:
 
 4. The timer rings, the host puts the score in the chat.
 
-During the experiment, multiple things will happen. Each time all players have guessed and described a card (i.e. after four cards total), their webcams will switch on or off. After each player has guessed and described four cards (i.e. after sixteen cards total), the final score will be displayed and the teams will be rearranged. The previous will then repeat until every participant has been in a team with every other participant.
+During the experiment, multiple things will happen. Each time all players have guessed and described a card (i.e. after four cards total), their webcams will switch on or off. After each player has guessed and described four cards (i.e. after sixteen cards total), the final score will be displayed and the teams will be rearranged. The previous will then repeat until every participant has been in a team with every other participant. An example of such an experiment is displayed in \autoref{fig:concept_setup}. To counterbalance the experiments, half of the experiments will start with the webcams on, while the other half will start with the webcams off.
+
+```{r concept_setup, echo=FALSE, fig.cap="\\label{fig:concept_setup}An example of an experimental setup.", out.width = '100%'}
+knitr::include_graphics("img/exp_setup.png")
+```
+
 
 ## Measures
-Describe the measure that will be used
+The data that has been collected includes audio and video of participants. The first step in data analysis involves annotating the signals. This will be done with a program in which we can manually select timesteps in which the participant is laughing, containing a duration of that laughter. In the end we will have annotations for every person that contains the total amount of laughter (frequency), the amount of laughter with their webcam of, the amount of laughter with their webcam on, and the duration of every laughter episode.
+
+In a case where different people will annotate this data, we will first let every one of them annotate the same data sample. Then we can calculate the consistency in the annotations with for example Krippendorf's Alpha or Cohen's Kappa. When this is high enough, they can start annotating separate data.
 
 ## Participants
-Describe which participants will recruit in the study and how they will be recruited
+<!-- Describe which participants will recruit in the study and how they will be recruited-->
+The research is not specifically about a certain group of people. The number of patricipants depends on the acceptable margin or error, which we do not know since we would have to go much more in-depth. However, since the population size basically includes more than 10.000 people and the independent variable is categorical, we will aim for around 385 participants (W.P. Brinkman, 2009). This results into around 96 experiments.
 
 ## Suggested statistical analyses
-Describe the statistical test you suggest to care out on the collected data
+<!-- Describe the statistical test you suggest to care out on the collected data-->
+To determine the significance of the results we will subject the data to statistical tests. To test the effect of mutual visibility (categorical, since it is either on or off) on frequency (numerical) and duration (numerical) we will use the Wilcoxon signed rank test. The Wilcoxon signed rank test is a suitable statistical test when the measurements for a single variable are taken under two different conditions. It is similar to the paired t-test, however the paired t-test assumes that the data is normally distributed which we cannot assume for frequency and duration of laughter. It tests the null hypothesis that the median difference of a two sets of observations is zero. 
 
 <!-- # Part 2 - Generalized linear models -->
 
