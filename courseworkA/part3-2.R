@@ -1,5 +1,5 @@
 # Get data
-filepath <- "set0.csv"
+filepath <- "courseworkA/set0.csv"
 ds <- read.csv(file=filepath, header=TRUE)
 ds <- data.frame(ds)
 

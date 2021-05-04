@@ -10,6 +10,6 @@
 \contentsline {subsection}{\numberline {1.9}Suggested statistical analyses}{2}{subsection.1.9}%
 \contentsline {section}{\numberline {2}Part 3 - Multilevel model}{2}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Visual inspection}{2}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Frequentist approach}{2}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Multilevel analysis}{2}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}Report section for a scientific publication}{5}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2}Frequentist approach}{5}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Multilevel analysis}{5}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Report section for a scientific publication}{8}{subsubsection.2.2.2}%
