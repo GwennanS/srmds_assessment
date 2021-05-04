@@ -308,9 +308,9 @@ Describe the statistical test you suggest to care out on the collected data
 
 
 
-<!-- # Part 3 - Multilevel model -->
+# Part 3 - Multilevel model
 
-<!-- ## Visual inspection -->
+## Visual inspection
 <!-- Use graphics to inspect the distribution of the score, and relationship between session and score -->
 
 
@@ -318,21 +318,43 @@ Describe the statistical test you suggest to care out on the collected data
 <!-- #include your code and output in the document -->
 <!-- ``` -->
 
-<!-- ## Frequentist approach -->
+## Frequentist approach
 
-<!-- ### Multilevel analysis -->
+### Multilevel analysis
 <!-- Conduct multilevel analysis and calculate 95% confidence intervals, determine: -->
 
 <!-- * If session has an impact on people score -->
 <!-- * If there is significant variance between the participants in their score -->
 
 
-<!-- ```{r} -->
-<!-- #include your code and output in the document -->
-<!-- ``` -->
+```{r}
+# Get data
+filepath <- "set0.csv"
+ds <- read.csv(file=filepath, header=TRUE)
+ds <- data.frame(ds)
 
-<!-- ### Report section for a scientific publication -->
+# set labels
+ds$sessionF <- factor(ds$session, levels=c(0:49), labels=c(0:49))
+
+# create models as given in slides lecture 4
+model0 <- lm(formula=score~1, data=ds, na.action=na.exclude)
+model1 <- lm(formula=score~sessionF, data=ds, na.action=na.exclude)
+
+# analysis, see if predictor improves fitting
+anova(model0,model1)
+summary(model1)
+
+# examine estimators
+anova(model1)
+
+# gives CI95%
+confint(model1)
+```
+
+### Report section for a scientific publication
 <!-- Write a small section for a scientific publication, in which you report the results of the analyses, and explain the conclusions that can be drawn. -->
+
+A Linear Model analysis was conducted to test the difference between sessions on the score. The results found a significant effect (F(49,16078) = 52.793, p < .001) for the sessions on the score.
 
 <!-- ## Bayesian approach -->
 
