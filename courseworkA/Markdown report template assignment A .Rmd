@@ -95,6 +95,8 @@ library(RColorBrewer)
 library(wordcloud)
 #install.packages("reshape", dependencies=T)
 library(reshape)
+library(car)
+library(sm)
 
 ################### functions
 
@@ -200,7 +202,6 @@ Analyze the homogeneity of variance of sentiments of the tweets of the different
 
 ```{r}
 #include your code and output in the document
-library(car)
 leveneTest(semFrame$score, semFrame$Candidate, center = median)
 ```
 
@@ -209,6 +210,15 @@ leveneTest(semFrame$score, semFrame$Candidate, center = median)
 Graphically examine the mean and distribution sentiments of tweets for each celebrity, and provide interpretation
 
 ```{r}
+boxplot(score ~ Candidate, data = semFrame)
+sm.density.compare(semFrame$score, semFrame$Candidate, xlab = "Candidate")
+  title(main="Visual inspection Mean and distribution sentiments")
+  legend('topright', legend = levels(semFrame$Candidate), col=c('red', 'blue', 'green'),
+         title="Candidates", lty=1:2, cex=0.8, text.font = 4, bg='lightblue')
+means <- aggregate(semFrame$score ~ semFrame$Candidate, FUN = mean)
+abline(v = means[1,2], col = 2)
+abline(v = means[2,2], col = 3, lty = 2)
+abline(v = means[3,2], col = 4, lty = 3)
 #include your code and output in the document
 ```
 ### Frequentist approach
@@ -217,6 +227,19 @@ Graphically examine the mean and distribution sentiments of tweets for each cele
 Use a linear model to analyze whether the knowledge to which celebrity a tweet relates has a significant impact on explaining the sentiments of the tweets. Provide interpretation of results
 
 ```{r}
+model0 <- lm(formula = score ~ 1 , data = semFrame)
+model1 <- lm(formula = score ~ Candidate , data = semFrame)
+anova(model0, model1, test = "F")
+summary(model1)
+
+smodel0 <-summary(model0)
+llm0 <-sum(dnorm(semFrame$score, mean = predict(model0), sd= smodel0$sigma, log=TRUE))
+AIC_model0 <- -2*llm0 + 2*2
+AIC_model0
+smodel1 <-summary(model1)
+llm1 <-sum(dnorm(semFrame$score, mean = predict(model1), sd= smodel1$sigma, log=TRUE))
+AIC_model1 <- -2*llm1 + 2*3
+AIC_model1
 #include your code and output in the document
 ```
 
@@ -224,6 +247,8 @@ Use a linear model to analyze whether the knowledge to which celebrity a tweet r
 If a model that includes the celebrity is better in explaining the sentiments of tweets than a model without such predictor, conduct a post-hoc analysis with e.g. Bonferroni correction, to examine which of celebrity tweets differ from the other celebrity tweets. Provide interpretation of the results
 
 ```{r}
+pairwise.t.test(semFrame$score, semFrame$Candidate, paired = FALSE, p.adjust.method = "bonferroni")
+
 #include your code and output in the document
 ```
 

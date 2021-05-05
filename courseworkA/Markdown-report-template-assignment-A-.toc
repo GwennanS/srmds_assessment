@@ -14,11 +14,11 @@
 \contentsline {subsubsection}{\numberline {2.1.2}Collecting tweets, and data preparation}{2}{subsubsection.2.1.2}%
 \contentsline {subsubsection}{\numberline {2.1.3}Homogeneity of variance analysis}{2}{subsubsection.2.1.3}%
 \contentsline {subsubsection}{\numberline {2.1.4}Visual inspection Mean and distribution sentiments}{2}{subsubsection.2.1.4}%
-\contentsline {subsubsection}{\numberline {2.1.5}Frequentist approach}{3}{subsubsection.2.1.5}%
-\contentsline {paragraph}{\numberline {2.1.5.1}Linear model}{3}{paragraph.2.1.5.1}%
-\contentsline {paragraph}{\numberline {2.1.5.2}Post Hoc analysis}{3}{paragraph.2.1.5.2}%
-\contentsline {paragraph}{\numberline {2.1.5.3}Report section for a scientific publication}{3}{paragraph.2.1.5.3}%
-\contentsline {subsubsection}{\numberline {2.1.6}Bayesian Approach}{3}{subsubsection.2.1.6}%
-\contentsline {paragraph}{\numberline {2.1.6.1}Model description}{3}{paragraph.2.1.6.1}%
-\contentsline {paragraph}{\numberline {2.1.6.2}Model comparison}{3}{paragraph.2.1.6.2}%
-\contentsline {paragraph}{\numberline {2.1.6.3}Comparison celebrity pair}{3}{paragraph.2.1.6.3}%
+\contentsline {subsubsection}{\numberline {2.1.5}Frequentist approach}{4}{subsubsection.2.1.5}%
+\contentsline {paragraph}{\numberline {2.1.5.1}Linear model}{4}{paragraph.2.1.5.1}%
+\contentsline {paragraph}{\numberline {2.1.5.2}Post Hoc analysis}{5}{paragraph.2.1.5.2}%
+\contentsline {paragraph}{\numberline {2.1.5.3}Report section for a scientific publication}{5}{paragraph.2.1.5.3}%
+\contentsline {subsubsection}{\numberline {2.1.6}Bayesian Approach}{5}{subsubsection.2.1.6}%
+\contentsline {paragraph}{\numberline {2.1.6.1}Model description}{5}{paragraph.2.1.6.1}%
+\contentsline {paragraph}{\numberline {2.1.6.2}Model comparison}{6}{paragraph.2.1.6.2}%
+\contentsline {paragraph}{\numberline {2.1.6.3}Comparison celebrity pair}{6}{paragraph.2.1.6.3}%
