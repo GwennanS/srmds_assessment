@@ -97,7 +97,8 @@ library(wordcloud)
 library(reshape)
 library(car)
 library(sm)
-
+library(BayesianFirstAid)
+library(rethinking)
 ################### functions
 
 
@@ -261,11 +262,32 @@ Write a small section for a scientific publication, in which you report the resu
 
 Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown). Justify the priors.
 
+Comparing multiple levels
+
 #### Model comparison
 
 Conduct model analysis and provide brief interpretation of the results
 
 ```{r}
+#semFrame1 <-subset(semFrame, (Candidate == "Donald Trump"))
+#semFrame2 <-subset(semFrame, (Candidate == "Hillary Clinton"))
+#semFrame3 <-subset(semFrame, (Candidate == "Bernie Sanders"))
+#fit <-bayes.t.test(semFrame1$score,semFrame2$score)
+#show(fit)
+#plot(fit)
+
+#fit <- bayes.t.test(semFrame$score)
+#plot(fit)
+
+#semFrame$yearF <-factor(semFrame$year, levels = c(2004:2007), labels = c(2004:2007)) 
+#da <-subset(semFrame, select = c(t_term1, yearF))
+
+m0 <-map2stan(alist(score ~ dnorm(mu, sigma),mu <-a ,a ~ dnorm(50, 25),sigma ~ dunif(0.001, 40)),  data =  semFrame ,iter= 10000, chains = 4, cores = 4 )
+
+m1 <-map2stan(alist(score ~ dnorm(mu, sigma),mu <-a[Candidate] ,a[Candidate] ~ dnorm(50, 25),sigma ~ dunif(0.001, 40)),  data =  semFrame ,iter= 10000, chains = 4, cores = 4 )
+
+compare(m0, m1, func=WAIC)
+precis(m1, depth = 2, prob = .95)
 #include your code and output in the document
 ```
 
