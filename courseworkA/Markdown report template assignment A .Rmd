@@ -16,6 +16,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 \tableofcontents
 
+```{r}
+library(ggplot2) # plotting
+library(AICcmodavg) # aictab
+library(pander) #for rendering output
+```
 
 # Part 1 - Design and set-up of true experiment 
 
@@ -312,11 +317,9 @@ Describe the statistical test you suggest to care out on the collected data
 
 ## Visual inspection
 <!-- Use graphics to inspect the distribution of the score, and relationship between session and score -->
-
+The boxplot and density plot show the distribution of the score. We can see that the mean score is 122 points. The minimum is set at 59, with outliers until 46, while the maximum is set at 190, with outliers until 248.
 
 ```{r}
-library(ggplot2)
-
 # Get data
 filepath <- ("set0.csv")
 ds <- read.csv(file=filepath, header=TRUE)
@@ -328,7 +331,11 @@ boxplot(ds$score)
 # density score overall distribution (with mean line)
 p <- ggplot(ds, aes(x=score)) + geom_density()
 p + geom_vline(aes(xintercept=mean(score)), color="blue", linetype="dashed",size=1)
+```
 
+The relationship between the score and the session can be observed with the next two figures. The regression line (blue) in the scatterplot clearly shows how the score rises with the amount of sessions. This can also be observed in the box plot when looking at the mean (black line) for every box.
+
+```{r}
 # set labels
 ds$sessionF <- factor(ds$session, levels=c(0:49), labels=c(0:49))
 
@@ -336,7 +343,7 @@ ds$sessionF <- factor(ds$session, levels=c(0:49), labels=c(0:49))
 boxplot(score~sessionF, data=ds, main="Score", xlab="session", ylab="score")
 
 # ggplot score per session
-hp <- ggplot(ds, aes(x=session, y=score)) + geom_point(shape=1) + geom_smooth(method=lm)
+hp <- ggplot(ds, aes(x=session, y=score)) + geom_point(shape=1) + geom_smooth(formula = y ~ x,method=lm)
 hp
 ```
 
@@ -344,40 +351,48 @@ hp
 
 ### Multilevel analysis
 <!-- Conduct multilevel analysis and calculate 95% confidence intervals, determine: -->
-<!-- * If session has an impact on people score -->
-We have conducted a multilevel analysis and calculated the 95% confidence intervals. The results show that the session has impact on the scores: the more sessions, the better the score. It can be observed that this increase in score stagnates around 30 sessions.
-
-<!-- * If there is significant variance between the participants in their score -->
-There is a significant variance between the participants in their score when the session number increases. (I think?) TODO
+We have conducted a multilevel analysis. We have an intercept only model (model0) which we compare to a model that includes a predictor parameter for the session (model1). By comparing these two models, we will know whether there is a difference in the score over the sessions.
 
 ```{r}
-# Get data
-filepath <- "set0.csv"
-ds <- read.csv(file=filepath, header=TRUE)
-ds <- data.frame(ds)
-
-# set labels
-ds$sessionF <- factor(ds$session, levels=c(0:49), labels=c(0:49))
-
 # create models as given in slides lecture 4
 model0 <- lm(formula=score~1, data=ds, na.action=na.exclude)
 model1 <- lm(formula=score~sessionF, data=ds, na.action=na.exclude)
 
 # analysis, see if predictor improves fitting
-anova(model0,model1)
-summary(model1)
-
-# examine estimators
-anova(model1)
-
-# gives CI95%
-confint(model1)
+pander(anova(model0,model1))
+pander(anova(model1))
 ```
+
+From this analysis we can see there is a significant variation between the sessions. We take a further look at the summary results.
+
+```{r}
+pander(summary(model1))
+```
+
+The summary compares the first session (intercept) with the other sessions. Looking at the estimates, we can see that compared to the first session, the scores are higher every later session. Next, we will take a look at the Akaike Information Criterion (AIC) to compare the models on the goodness-of-fit concering the out-of-sample deviance.
+
+```{r}
+#AIC
+models <- list(model0, model1)
+model.names <- c("model0", "model1")
+pander(aictab(cand.set = models, modnames=model.names), caption="Model selection based on AICc.")
+```
+
+Here we can see that model 1 has the best goodness-of-fit as it has the smallest AICc value. Lastly, we will obtain a 95% confidence interval of the estimates we have obtained earlier.
+
+```{r}
+# gives CI95%
+pander(confint(model1), caption="95% confidence interval of the estimates.")
+```
+
+<!-- * If session has an impact on people score -->
+<!-- * If there is significant variance between the participants in their score -->
+Here we can again see an increase in score related to the sessions. From this we can conclude that the session has a positive effect on people's score. Also, it seems there is a significant variance between the participants in their score.
 
 ### Report section for a scientific publication
 <!-- Write a small section for a scientific publication, in which you report the results of the analyses, and explain the conclusions that can be drawn. -->
 
-A Linear Model analysis was conducted to test the difference between sessions on the score. The results found a significant effect (F(49,16078) = 52.793, p < .001) for the sessions on the score. TODO
+A Linear Model analysis was conducted to test the difference between sessions on the score. The results found a significant effect (F(49,16078) = 52.793, p < .001) for the sessions on the score. We can conclude that over sessions the score per participant generally increases.
 
 ## Bayesian approach
 

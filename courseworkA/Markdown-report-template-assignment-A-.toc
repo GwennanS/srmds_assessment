@@ -13,7 +13,7 @@
 \contentsline {subsection}{\numberline {2.2}Frequentist approach}{6}{subsection.2.2}%
 \contentsline {subsubsection}{\numberline {2.2.1}Multilevel analysis}{6}{subsubsection.2.2.1}%
 \contentsline {subsubsection}{\numberline {2.2.2}Report section for a scientific publication}{9}{subsubsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.3}Bayesian approach}{9}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1}Model description}{9}{subsubsection.2.3.1}%
-\contentsline {subsubsection}{\numberline {2.3.2}Model comparison}{9}{subsubsection.2.3.2}%
-\contentsline {subsubsection}{\numberline {2.3.3}Estimates examination}{9}{subsubsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3}Bayesian approach}{10}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Model description}{10}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Model comparison}{10}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}Estimates examination}{10}{subsubsection.2.3.3}%

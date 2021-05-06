@@ -1,3 +1,5 @@
+library(AICcmodavg)
+
 # Get data
 filepath <- "courseworkA/set0.csv"
 ds <- read.csv(file=filepath, header=TRUE)
@@ -14,11 +16,26 @@ model1 <- lm(formula=score~sessionF, data=ds, na.action=na.exclude)
 anova(model0,model1)
 summary(model1)
 
-# examine estimators
-anova(model1)
+models <- list(model0, model1)
+model.names <- c("model0", "model1")
+aictab(cand.set = models, modnames=model.names)
 
-# gives CI95%
-confint(model1)
+# #AIC
+# smodel0 = summary(model0)
+# llm0 <- sum(dnorm(ds$score, mean=predict(model0), sd=smodel0$sigma, log=TRUE))
+# AIC_model0 <- -2*llm0 + 2*2
+# AIC_model0
+# 
+# smodel1 = summary(model1)
+# llm1 <- sum(dnorm(ds$score, mean=predict(model1), sd=smodel1$sigma, log=TRUE))
+# AIC_model1 <- -2*llm1 + 2*3
+# AIC_model1
 
-# plot figures
-#plot(model1)
+# # examine estimators
+# anova(model1)
+# 
+# # gives CI95%
+# confint(model1)
+# 
+# # plot figures
+# #plot(model1)
