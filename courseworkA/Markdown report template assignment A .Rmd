@@ -344,7 +344,7 @@ hp
 We have conducted a multilevel analysis and calculated the 95% confidence intervals. The results show that the session has impact on the scores: the more sessions, the better the score. It can be observed that this increase in score stagnates around 30 sessions.
 
 <!-- * If there is significant variance between the participants in their score -->
-There is (no?) significant variance between the participants in their score. TODO
+There is a significant variance between the participants in their score when the session number increases. (I think?) TODO
 
 ```{r}
 # Get data
@@ -375,22 +375,19 @@ confint(model1)
 
 A Linear Model analysis was conducted to test the difference between sessions on the score. The results found a significant effect (F(49,16078) = 52.793, p < .001) for the sessions on the score. TODO
 
-<!-- ## Bayesian approach -->
+## Bayesian approach
 
-<!-- ### Model description -->
-
+### Model description
 <!-- Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown). Justify the priors. -->
 
-<!-- ### Model comparison -->
-
+### Model comparison
 <!-- Select the first 100 participants from the data set. (hint to overcome the Stan problem with a zero index, increase subject id number with 1). Compare models with with increasing complexity.  -->
 
 <!-- ```{r} -->
 <!-- #include your code and output in the document -->
 <!-- ``` -->
 
-<!-- ### Estimates examination -->
-
+### Estimates examination
 <!-- Examine the estimate of parameters of the model with best fitt, and provide a brief interpretation. -->
 
 
