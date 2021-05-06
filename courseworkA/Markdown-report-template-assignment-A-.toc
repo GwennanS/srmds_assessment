@@ -20,5 +20,5 @@
 \contentsline {paragraph}{\numberline {2.1.5.3}Report section for a scientific publication}{5}{paragraph.2.1.5.3}%
 \contentsline {subsubsection}{\numberline {2.1.6}Bayesian Approach}{5}{subsubsection.2.1.6}%
 \contentsline {paragraph}{\numberline {2.1.6.1}Model description}{5}{paragraph.2.1.6.1}%
-\contentsline {paragraph}{\numberline {2.1.6.2}Model comparison}{6}{paragraph.2.1.6.2}%
+\contentsline {paragraph}{\numberline {2.1.6.2}Model comparison}{5}{paragraph.2.1.6.2}%
 \contentsline {paragraph}{\numberline {2.1.6.3}Comparison celebrity pair}{6}{paragraph.2.1.6.3}%
