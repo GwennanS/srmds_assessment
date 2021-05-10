@@ -16,10 +16,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 \tableofcontents
 
+# Introduction
+We will be using the following packages:
 ```{r}
 library(ggplot2) # plotting
 library(AICcmodavg) # aictab
 library(pander) #for rendering output
+library(rethinking) # for stan
 ```
 
 # Part 1 - Design and set-up of true experiment 
@@ -399,19 +402,68 @@ A Linear Model analysis was conducted to test the difference between sessions on
 ### Model description
 <!-- Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown). Justify the priors. -->
 
+For model 2, the model with session as a factor, we take as prior a normal distribution of N(125,30). This comes from the mean of the score, 125, and a bit more than the standard deviation, which is around 27. Our sigma is set at a uniform distribution of U(0.001,30).
+
 ### Model comparison
 <!-- Select the first 100 participants from the data set. (hint to overcome the Stan problem with a zero index, increase subject id number with 1). Compare models with with increasing complexity.  -->
 
-<!-- ```{r} -->
-<!-- #include your code and output in the document -->
-<!-- ``` -->
+We will create and compare the three described models. From the results we can see that m1 has the best fit since it has the smallest WAIC value
+
+```{r}
+ds <- ds[!(ds$Subject>99),] # select first 100 subjects
+ds$Subject <- ds$Subject +1 # increase subject number with 1 to overcome Stan zero index problem
+
+mean(ds$score) # check mean
+sd(ds$score) # check standard deviation
+
+ds$sessionF <- factor(ds$session, levels=c(0:49), labels=c(0:49))
+ds$subjF <- factor(ds$Subject, levels=c(1:100), labels=c(1:100))
+
+da <- subset(ds, select=c(score, sessionF))
+da1 <- subset(ds, select=c(score, subjF))
+
+# create model with fixed intercept (i)
+m0 <- map2stan(
+  alist(
+    score ~ dnorm(mu, sigma),
+    mu <- a,
+    a ~dnorm(125,30), # mean and sd from what we found above
+    sigma ~dunif(0.001,30)
+  ), data = da, iter = 10000, chains = 4, cores = 4
+)
+
+# create model extended with an adaptive prior for subject id (ii)
+m1 <- map2stan(
+  alist(
+    score ~ dnorm(mu, sigma),
+    mu <- a[subjF],
+    a[subjF] ~ dnorm(125,sigma_subj),
+    sigma_subj ~ dcauchy(0,10),
+    sigma ~dunif(0.001,30)
+  ), data = da1, iter = 10000, chains = 4, cores = 4
+)
+
+# create model with session as a factor (iii)
+m2 <- map2stan(
+  alist(
+    score ~ dnorm(mu, sigma),
+    mu <- a[sessionF],
+    a[sessionF] ~ dnorm(125,30),
+    sigma ~dunif(0.001,30)
+  ), data = da, iter = 10000, chains = 4, cores = 4
+)
+
+pander(compare(m0,m1,m2,func=WAIC))
+```
 
 ### Estimates examination
-<!-- Examine the estimate of parameters of the model with best fitt, and provide a brief interpretation. -->
+<!-- Examine the estimate of parameters of the model with best fit, and provide a brief interpretation. -->
+From the previous comparison we could see that m1 is the best fit model. We will further examine this model with 95% credible intervals of the parameters of this model.
 
+```{r}
+pander(precis(m1, depth=2, prob=.95))
+```
 
-<!-- ```{r} -->
-<!-- #include your code and output in the document -->
-<!-- ``` -->
+Looking at the mean we can see that in general the scores are increasing over the sessions. Moreover, the standard deviating is increasing as well. This could be due to the fact that not every subject has completed the same amount of sessions.
 
 
