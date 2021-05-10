@@ -99,6 +99,8 @@ library(car)
 library(sm)
 library(BayesianFirstAid)
 library(rethinking)
+library(ggplot2)
+library(pander)
 ################### functions
 
 
@@ -145,9 +147,12 @@ setup_twitter_oauth(consumer_key,consumer_scret, access_token,access_scret) #con
 ##  You should replace this with your own celebrities, at least 3, but more preferred
 ##  Note that it will take the computer some to collect the tweets
 
-tweets_T <- searchTwitter("#trump", n=129, lang="en", resultType="recent") #300 recent tweets about Donald Trump, in English (I think that 1500 tweets is max)
-tweets_C <- searchTwitter("#hillary", n=129, lang="en", resultType="recent") #300 recent tweets about Hillary Clinton
-tweets_B <- searchTwitter("#bernie", n=129, lang="en", resultType="recent") #300 recent tweets about Bernie Sanders
+tweets_C <- searchTwitter("#TuckerCarlson", n=300, lang="en", resultType="recent") #300 recent tweets about Donald Trump, in English (I think that 1500 tweets is max)
+tweets_T <- searchTwitter("#Trump", n=300, lang="en", resultType="recent") #300 recent tweets about Donald Trump
+tweets_A <- searchTwitter("#aoc", n=300, lang="en", resultType="recent") #300 recent tweets about Hillary Clinton
+tweets_B <- searchTwitter("#Bernie", n=300, lang="en", resultType="recent") #300 recent tweets about Bernie Sanders
+tweets_J <- searchTwitter("#biden", n=300, lang="en", resultType="recent") #300 recent tweets about Bernie Sanders
+
 
 
 
@@ -171,6 +176,8 @@ tweets_B <- searchTwitter("#bernie", n=129, lang="en", resultType="recent") #300
 tweets_T.text <- laply(tweets_T, function(t)t$getText()) #get text out of tweets
 tweets_C.text <- laply(tweets_C, function(t)t$getText()) #get text out of tweets
 tweets_B.text <- laply(tweets_B, function(t)t$getText()) #get text out of tweets
+tweets_J.text <- laply(tweets_J, function(t)t$getText()) #get text out of tweets
+tweets_A.text <- laply(tweets_A, function(t)t$getText()) #get text out of tweets
 
 
 
@@ -185,15 +192,22 @@ source("sentiment3.R") #load algoritm
 analysis_T <- score.sentiment(tweets_T.text, pos, neg)
 analysis_C <- score.sentiment(tweets_C.text, pos, neg)
 analysis_B <- score.sentiment(tweets_B.text, pos, neg)
+analysis_A <- score.sentiment(tweets_A.text, pos, neg)
+analysis_J <- score.sentiment(tweets_J.text, pos, neg)
 
 
-sem<-data.frame(analysis_T$score, analysis_C$score, analysis_B$score)
+sem<-data.frame(analysis_T$score, analysis_C$score, analysis_B$score, analysis_J$score, analysis_A$score)
 
 
 semFrame <-melt(sem, measured=c(analysis_T.score,analysis_C.score, analysis_B.score ))
-names(semFrame) <- c("Candidate", "score")
-semFrame$Candidate <-factor(semFrame$Candidate, labels=c("Donald Trump", "Hillary Clinton", "Bernie Sanders")) # change the labels for your celibrities
+names(semFrame) <- c("Celeb", "score")
+semFrame$Celeb <-factor(semFrame$Celeb, labels=c("Donald Trump", "Tucker Carlson","Bernie Sanders", "Alexandria Ocasio-Cortez ", "Joe Biden")) # change the labels for your celibrities
 
+#semFrame_more <- readRDS(file="semFrame.Rda")
+
+#semFrame <- rbind(semFrame_more, semFrame)
+
+#saveRDS(semFrame, file="semFrame.Rda")
 #The data you need for the analyses can be found in semFrame
 
 ```
@@ -203,25 +217,33 @@ Analyze the homogeneity of variance of sentiments of the tweets of the different
 
 ```{r}
 #include your code and output in the document
-leveneTest(semFrame$score, semFrame$Candidate, center = median)
+leveneTest(semFrame$score, semFrame$Celeb, center = median)
 ```
+The test reveals a p-value smaller than 0.05, indicating that there is significant difference between the group variances in score. We conclude that the variance among the five groups is not equal.
+
 
 
 ### Visual inspection Mean and distribution sentiments
 Graphically examine the mean and distribution sentiments of tweets for each celebrity, and provide interpretation
-
+We plot both a Boxplot and a distribution histogram which includes a mean line.
 ```{r}
-boxplot(score ~ Candidate, data = semFrame)
-sm.density.compare(semFrame$score, semFrame$Candidate, xlab = "Score")
-  title(main="Visual inspection Mean and distribution sentiments")
-  legend('topright', legend = levels(semFrame$Candidate), col=c('red', 'blue', 'green'),
-         title="Candidates", lty=1:2, cex=0.8, text.font = 4, bg='lightblue')
-means <- aggregate(semFrame$score ~ semFrame$Candidate, FUN = mean)
-abline(v = means[1,2], col = 2)
-abline(v = means[2,2], col = 3, lty = 2)
-abline(v = means[3,2], col = 4, lty = 3)
+boxplot(score ~ Celeb, data = semFrame)
+#sm.density.compare(semFrame$score, semFrame$Celeb, xlab = "Score")
+#  title(main="Visual inspection Mean and distribution sentiments")
+#  legend('topright', legend = levels(semFrame$Celeb), col=c('red', 'blue', 'green', #'hotpink', 'gold'),
+#         title="Celebs", lty=1:2, cex=0.8, text.font = 4, bg='lightblue')
+
+cdat <- ddply(semFrame, "Celeb", summarise, score.mean=mean(score))
+
+ggplot(semFrame, aes(x=score, fill=Celeb)) +
+  geom_histogram(binwidth=1, position="dodge") +
+  geom_vline(data=cdat, aes(xintercept=score.mean,  colour=Celeb),
+               linetype="solid", size=0.5)
+
 #include your code and output in the document
 ```
+We see all US politic Celebs have a mean between -1 and 1. #trump has the highest mean (positive terms)
+
 ### Frequentist approach
 
 #### Linear model
@@ -229,10 +251,15 @@ Use a linear model to analyze whether the knowledge to which celebrity a tweet r
 
 ```{r}
 model0 <- lm(formula = score ~ 1 , data = semFrame)
-model1 <- lm(formula = score ~ Candidate , data = semFrame)
-anova(model0, model1, test = "F")
-summary(model1)
-
+model1 <- lm(formula = score ~ Celeb , data = semFrame)
+pander(anova(model0, model1, test = "F"))
+```
+As the model comparison shows that the predictor improves the fitting.
+```{r}
+pander(summary(model1))
+```
+The p-value of the Celeb variable is low (p < 0.001), so it appears that the celeb scraped has a real impact on the sentiment score.
+```{r}
 smodel0 <-summary(model0)
 llm0 <-sum(dnorm(semFrame$score, mean = predict(model0), sd= smodel0$sigma, log=TRUE))
 AIC_model0 <- -2*llm0 + 2*2
@@ -241,17 +268,16 @@ smodel1 <-summary(model1)
 llm1 <-sum(dnorm(semFrame$score, mean = predict(model1), sd= smodel1$sigma, log=TRUE))
 AIC_model1 <- -2*llm1 + 2*3
 AIC_model1
-#include your code and output in the document
 ```
+A lower AIC indicates a better fit, which is the model with the predictor.
 
 #### Post Hoc analysis
 If a model that includes the celebrity is better in explaining the sentiments of tweets than a model without such predictor, conduct a post-hoc analysis with e.g. Bonferroni correction, to examine which of celebrity tweets differ from the other celebrity tweets. Provide interpretation of the results
 
 ```{r}
-pairwise.t.test(semFrame$score, semFrame$Candidate, paired = FALSE, p.adjust.method = "bonferroni")
-
-#include your code and output in the document
+pander(pairwise.t.test(semFrame$score, semFrame$Celeb, paired = FALSE, p.adjust.method = "bonferroni"))
 ```
+We see the pairs of trump-tucker, trump-bernie, trump-aoc, trump-biden differ sigificantly (p<0.001), while tucker-bernie, tucker-biden, bernie-aoc, bernie-biden and aoc-biden dont. 
 
 #### Report section for a scientific publication
 Write a small section for a scientific publication, in which you report the results of the analyses, and explain the conclusions that can be drawn.
@@ -262,43 +288,43 @@ Write a small section for a scientific publication, in which you report the resu
 
 Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown). Justify the priors.
 
-Comparing multiple levels
+$$ score \sim Norm(\mu, \sigma) $$
+$$ \mu = \alpha \\ $$
+$$ \alpha = Norm(0, 10) $$
+$$ \sigma  = Uniform(0.001, 10) $$
 
 #### Model comparison
 
 Conduct model analysis and provide brief interpretation of the results
 
 ```{r}
-#semFrame1 <-subset(semFrame, (Candidate == "Donald Trump"))
-#semFrame2 <-subset(semFrame, (Candidate == "Hillary Clinton"))
-#semFrame3 <-subset(semFrame, (Candidate == "Bernie Sanders"))
-#fit <-bayes.t.test(semFrame1$score,semFrame2$score)
-#show(fit)
-#plot(fit)
+m0 <-map2stan(alist(
+  score ~ dnorm(mu, sigma),
+  mu <-a,
+  a ~ dnorm(0, 10),
+  sigma ~ dunif(0.001, 10)), 
+  data =  semFrame ,  iter= 10000, chains = 4,   cores = 4 )
 
-#fit <- bayes.t.test(semFrame$score)
-#plot(fit)
+m1 <-map2stan(alist(
+  score ~ dnorm(mu, sigma),
+  mu <-a[Celeb] ,
+  a[Celeb] ~ dnorm(0, 10),
+  sigma ~ dunif(0.001, 10)), 
+  data =  semFrame ,iter= 10000, chains = 4, cores = 4 )
 
-#semFrame$yearF <-factor(semFrame$year, levels = c(2004:2007), labels = c(2004:2007)) 
-#da <-subset(semFrame, select = c(t_term1, yearF))
-
-m0 <-map2stan(alist(score ~ dnorm(mu, sigma),mu <-a 
-                    ,a ~ dnorm(50, 25),sigma ~ dunif(0.001, 40)), 
-              data =  semFrame ,iter= 10000, chains = 4, cores = 4 )
-
-m1 <-map2stan(alist(score ~ dnorm(mu, sigma),mu <-a[Candidate] ,
-                    a[Candidate] ~ dnorm(50, 25),sigma ~ dunif(0.001, 40)), 
-              data =  semFrame ,iter= 10000, chains = 4, cores = 4 )
-
-compare(m0, m1, func=WAIC)
-precis(m1, depth = 2, prob = .95)
-#include your code and output in the document
+pander(compare(m0, m1, func=WAIC))
+```
+Smaller WAIC is better, so with predictors is the winning model
+```{r}
+pander(precis(m1, depth = 2, prob = .95))
 ```
 
 #### Comparison celebrity pair
 
 Compare sentiments of celebrity pairs and provide a brief interpretation (e.g. CIs)
+```{r}
 
+```
 
 <!-- ## Question 2 - Website visits (between groups - Two factors) -->
 
