@@ -1,7 +1,7 @@
 ---
 title: "Report coursework assignment A - 2021"
 subtitle: "CS4125 Seminar Research Methodology for Data Science"
-author: "Nikki Bouman (4597648), Anuj Singh (), Gwennan Smitskamp ()"
+author: "Nikki Bouman (4597648), Anuj Singh (5305926), Gwennan Smitskamp (4349822)"
 date: "20/04/2021"
 output:
    pdf_document:
@@ -29,39 +29,82 @@ library(rethinking) # for stan
 
 
 ## The motivation for the planned research
-(Max 250 words)
+<!-- (Max 250 words) -->
+The recent outbreak of the COVID-19 pandemic has changed our daily lives significantly. People are obligated to stay at home, disrupting their usual social interactions in both work and private life. The situation compels people to meet online. Typically, in such digital interactions, interlocutors can see each other by means of webcam streaming. However, this may not always be the case. Some or all interlocutors may not be visible during online dialogue, which could affect the quality of the conversation and the mutual understanding.
+
+An important effect of the shift from face-to-face to online interaction can be revealed by studying laughter, as it is extremely contagious social behavior (Provine, 1992). Humans are very prone to unintentionally or unconsciously laugh as a social signal in any form; from a minor smile to laughing out loud. Additionally, laughing is one of the most important social signals for lubricating the flow of social interaction (Griffin et al., 2015).
+
 
 ## The theory underlying the research  
-(Max 250 words) Preferable based on theories reported in literature
+<!-- (Max 250 words) Preferable based on theories reported in literature -->
+The effect of visibility on the use of gestures as a communicative function has been studied broadly (Alibali, Heath, & Myers, 2001; J. B. Bavelas, Chovil, Lawrie, & Wade, 1992; Cohen & Harrison, 1973; Cohen, 1977; Emmorey & Casey, 2001; Krauss, Dushay, Chen, & Rauscher, 1995; Rim´e, 1982). , J. Bavelas, Gerwing, Sutton, and Prevost (2008) provide a summary of previous experiments where rate and form of gestures were compared under two conditions: where the addressee could see the speaker and where the addressee could not see the speaker. These experiments show that speakers gestured at higher rate when they communicated with mutual visibility than without. J. Bavelas et al. (2008) extended these experiments by focusing on both visibility and dialogue as a variable, finding similar results. Furthermore, they found that speakers gestured at a significantly higher rate in a telephone dialogue than in a monologue to a tape recorder, confirming that visibility is not the only variable operating in telephone conversations. These experiments showed us that visibility plays a major role in the rate of gesturing, but that people also gesture when they are not visible to each other. As laughter can be seen as a form of gesturing, these findings are relevant for this study.
+
+Laughing together is found to be essentially collaborative (Mehu & Dunbar, 2008; Coates, 2007). Joint laughter therefore serves important means to achieve effective team meetings (Ponton, Osbourne, Greenwood, & Thompson, 2018), considering that people who laugh on video are perceived with a higher likeability than people who do not (Reysen, 2006). This social function of joint laughter emphasises the relevance of studying the occurrence, now that the majority of meetings take place online.
 
 
 ## Research questions 
-The research question that will be examined in the experiment (or alternatively the hypothesis that will be tested in the experiment)
+<!-- The research question that will be examined in the experiment (or alternatively the hypothesis that will be tested in the experiment) -->
+We will aim to answer the following research question:
 
+What is the effect of webcam visibility during online dialogue on the frequency of joint laughter?
+
+When recognizing laughter we do not focus on the reason why someone is laughing. We
+consider anything from an awkward laugh in a moment of silence to laughing out loud about
+a joke as a laughter episode regardless of the context.
 
 ## The related conceptual model 
-This model should include:
-*Independent variable(s)
-*Dependent variable
-*Mediating variable (at least 1)
-*Moderating variable (at least 1)
+The conceptual model related to the research question can be viewed in \autoref{fig:concept_model}. The main question is about the effect of mutual visibility on joint laughter. The mediating variable is familiarity, which we can define as the level of friendliness or intimacy between people. This can be caused when people know each other (which we aim to avoid), but also when people find similarities in their interests and behaviours. It is even possible that people of the same gender will feel more familiar with each other. A moderating variable is the duration of the experiment. The participants will do the experiment for about one hour, which can have a negative effect on the frequency of laughter, thus on the frequency of joint laughter.
+<!-- not sure about mediating variables -->
+
+<!-- ![\label{cm}](img/A-1 conceptual model.png) -->
+```{r concept_model, echo=FALSE, fig.cap="\\label{fig:concept_model}The conceptual model to test the effect of mutual webcam visibility on joint laughter", out.width = '100%'}
+knitr::include_graphics("img/A-1 conceptual model.png")
+```
 
 
 ## Experimental Design 
-Note that the study should have a true experimental design
+One of the most important requirements for the setup of the experiment, was the creation of a comfortable and pleasant ambiance so that people would laugh. Therefore, it was decided that a game would comply, as the participants get the chance to interact with each other in a undemanding setting where the attention of the participants would be drawn to a task. It was reasoned that this would contribute to a reduction of awkwardness and give all the participants the option to speak and laugh. Additionally, the game needed to have a smooth flow that would automatically keep going to keep the interference of the researchers to a minimum. 
+
+The game that was chosen is called 30 Seconds. During the game, participants work together in teams (in the case of the experiment: two teams of two people) and gain points by guessing what the team member is describing. These descriptions include concepts such as famous persons, locations, movies and brands. Every team gets 30 seconds to guess as many concepts on the card as possible. Who is describing and who is guessing switches after every card.
+
+
 
 ## Experimental procedure 
-Describe how the experiment will be executed step by step
+The experiment will be set up in an online setting in a Zoom meeting. The host, one of us (not visible), will be able to send private messages containing the five words, share their screen and sound for a 30 second timer, and turn the participants' webcams on and off.
+
+The following will repeat for every card of five words:
+
+1. The host sends the words to the participant who has the turn to describe.
+
+2. The host starts the 30 second timer.
+
+3. The participant will try to describe as many words as possible, while his/her teammate will try to guess the words.
+
+4. The timer rings, the host puts the score in the chat.
+
+During the experiment, multiple things will happen. Each time all players have guessed and described a card (i.e. after four cards total), their webcams will switch on or off. After each player has guessed and described four cards (i.e. after sixteen cards total), the final score will be displayed and the teams will be rearranged. The previous will then repeat until every participant has been in a team with every other participant. An example of such an experiment is displayed in \autoref{fig:concept_setup}. To counterbalance the experiments, half of the experiments will start with the webcams on, while the other half will start with the webcams off.
+
+```{r concept_setup, echo=FALSE, fig.cap="\\label{fig:concept_setup}An example of an experimental setup.", out.width = '100%'}
+knitr::include_graphics("img/exp_setup.png")
+```
 
 
 ## Measures
-Describe the measure that will be used
+The data that has been collected includes audio and video of participants. The first step in data analysis involves annotating the signals. This will be done with a program in which we can manually select timesteps in which the participant is laughing. In the end we will have annotations for every person that contains the total amount of laughter (frequency), the amount of laughter with their webcam off, and the amount of laughter with their webcam on..
+
+In a case where different people will annotate this data, we will first let every one of them annotate the same data sample. Then we can calculate the consistency in the annotations with for example Krippendorf's Alpha or Cohen's Kappa. When this is high enough, they can start annotating separate data.
 
 ## Participants
-Describe which participants will recruit in the study and how they will be recruited
+<!-- Describe which participants will recruit in the study and how they will be recruited-->
+The research is not specifically about a certain group of people, but more in general. However, we do want to aim for people with experience in an online setting and people who speak the same language. To be exact, we will conduct the experiment with people from the ages of 18 to 50 who speak dutch. The number of patricipants depends on the acceptable margin or error, which we do not know since we would have to go much more in-depth. However, since the population size basically includes more than 10.000 people and the independent variable is categorical, we should aim for around 385 participants (W.P. Brinkman, 2009). This results into around 96 experiments.
+
+The experiments should be easy to conduct since the participants participate online; there is no need to travel. Moreover, the whole experiment should not take long. There will be 48 cards and for each card they have 30 seconds to explain. Taking some talking afterwards into account, the experiment should take 45 to 60 minutes.
+
+To find the participants we can thus search online. Using a medium on which we state the experiment, we can find dutch people from all around the Netherlands of different age groups. They could for example sign up for a specific date, and if four people have signed up, the experiment can be held. 
 
 ## Suggested statistical analyses
-Describe the statistical test you suggest to care out on the collected data
+<!-- Describe the statistical test you suggest to care out on the collected data-->
+To determine the significance of the results we will subject the data to statistical tests. To test the effect of mutual visibility (categorical, since it is either on or off) on the frequency (numerical) we will use the Wilcoxon signed rank test. The Wilcoxon signed rank test is a suitable statistical test when the measurements for a single variable are taken under two different conditions. It is similar to the paired t-test, however the paired t-test assumes that the data is normally distributed which we cannot assume for frequency of laughter. It tests the null hypothesis that the median difference of a two sets of observations is zero.
 
 <!-- # Part 2 - Generalized linear models -->
 
