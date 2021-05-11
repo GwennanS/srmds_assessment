@@ -22,7 +22,7 @@ m0 <- map2stan(
     score ~ dnorm(mu, sigma),
     mu <- a,
     a ~dnorm(125,30), # mean and sd from what we found above
-    sigma ~dunif(0.001,40)
+    sigma ~dunif(0.001,30)
   ), data = da, iter = 10000, chains = 4, cores = 4
 )
 
@@ -30,10 +30,11 @@ m0 <- map2stan(
 m1 <- map2stan(
   alist(
     score ~ dnorm(mu, sigma),
-    mu <- a[subjF],
-    a[subjF] ~ dnorm(125,sigma_subj),
+    mu <- a + a_subj[subjF],
+    a_subj[subjF] ~ dnorm(0,sigma_subj),
     sigma_subj ~ dcauchy(0,10),
-    sigma ~dunif(0.001,40)
+    a ~ dnorm(125,30),
+    sigma ~ dcauchy(0,30)
   ), data = da1, iter = 10000, chains = 4, cores = 4
 )
 
@@ -43,7 +44,8 @@ m2 <- map2stan(
     score ~ dnorm(mu, sigma),
     mu <- a[sessionF],
     a[sessionF] ~ dnorm(125,30),
-    sigma ~dunif(0.001,40)
+    sigma ~dunif(0.001,30)
   ), data = da, iter = 10000, chains = 4, cores = 4
 )
+
 compare(m0,m1,m2,func=WAIC)

@@ -346,7 +346,8 @@ ds$sessionF <- factor(ds$session, levels=c(0:49), labels=c(0:49))
 boxplot(score~sessionF, data=ds, main="Score", xlab="session", ylab="score")
 
 # ggplot score per session
-hp <- ggplot(ds, aes(x=session, y=score)) + geom_point(shape=1) + geom_smooth(formula = y ~ x,method=lm)
+hp <- ggplot(ds, aes(x=session, y=score)) + geom_point(shape=1) + 
+  geom_smooth(formula = y ~ x,method=lm)
 hp
 ```
 
@@ -378,7 +379,8 @@ The summary compares the first session (intercept) with the other sessions. Look
 #AIC
 models <- list(model0, model1)
 model.names <- c("model0", "model1")
-pander(aictab(cand.set = models, modnames=model.names), caption="Model selection based on AICc.")
+pander(aictab(cand.set = models, modnames=model.names), 
+       caption="Model selection based on AICc.")
 ```
 
 Here we can see that model 1 has the best goodness-of-fit as it has the smallest AICc value. Lastly, we will obtain a 95% confidence interval of the estimates we have obtained earlier.
@@ -390,12 +392,12 @@ pander(confint(model1), caption="95% confidence interval of the estimates.")
 
 <!-- * If session has an impact on people score -->
 <!-- * If there is significant variance between the participants in their score -->
-Here we can again see an increase in score related to the sessions. From this we can conclude that the session has a positive effect on people's score. Also, it seems there is a significant variance between the participants in their score.
+Here we can again see an increase in score related to the sessions. From this we can conclude that the session has a positive effect on people's score. Also, it seems there is a significant variance between the participants in their score when the sessions increase.
 
 ### Report section for a scientific publication
 <!-- Write a small section for a scientific publication, in which you report the results of the analyses, and explain the conclusions that can be drawn. -->
 
-A Linear Model analysis was conducted to test the difference between sessions on the score. The results found a significant effect (F(49,16078) = 52.793, p < .001) for the sessions on the score. We can conclude that over sessions the score per participant generally increases.
+A Linear Model analysis was conducted to test the difference between sessions on the score. The results found a significant effect (F(49,16078) = 52.793, p < .001) for the sessions on the score. From the results we can conclude that over sessions the score per participant generally increases. Moreover, the variance between the participants increases when the sessions increase, which we think is caused by missing scores on later sessions.
 
 ## Bayesian approach
 
@@ -404,10 +406,18 @@ A Linear Model analysis was conducted to test the difference between sessions on
 
 For model 2, the model with session as a factor, we take as prior a normal distribution of N(125,30). This comes from the mean of the score, 125, and a bit more than the standard deviation, which is around 27. Our sigma is set at a uniform distribution of U(0.001,30).
 
+$$ score \sim Norm(\mu, \sigma)$$
+
+$$ \mu = \alpha $$
+
+$$ alpha = Norm(125,30) $$
+
+$$ \sigma = Uniform(0.001, 30)$$
+
 ### Model comparison
 <!-- Select the first 100 participants from the data set. (hint to overcome the Stan problem with a zero index, increase subject id number with 1). Compare models with with increasing complexity.  -->
 
-We will create and compare the three described models. From the results we can see that m1 has the best fit since it has the smallest WAIC value
+We will create and compare the three described models. From the results we can see that model 1, the model with the adaptive prior for subject id, has the best fit since it has the smallest WAIC value and largest Akaike weight.
 
 ```{r}
 ds <- ds[!(ds$Subject>99),] # select first 100 subjects
@@ -420,7 +430,7 @@ ds$sessionF <- factor(ds$session, levels=c(0:49), labels=c(0:49))
 ds$subjF <- factor(ds$Subject, levels=c(1:100), labels=c(1:100))
 
 da <- subset(ds, select=c(score, sessionF))
-da1 <- subset(ds, select=c(score, subjF))
+da1 <- subset(ds, select=c(score, sessionF, subjF))
 
 # create model with fixed intercept (i)
 m0 <- map2stan(
@@ -436,10 +446,11 @@ m0 <- map2stan(
 m1 <- map2stan(
   alist(
     score ~ dnorm(mu, sigma),
-    mu <- a[subjF],
-    a[subjF] ~ dnorm(125,sigma_subj),
+    mu <- a + a_subj[subjF],
+    a_subj[subjF] ~ dnorm(0,sigma_subj),
     sigma_subj ~ dcauchy(0,10),
-    sigma ~dunif(0.001,30)
+    a ~ dnorm(125,30),
+    sigma ~ dcauchy(0.001,30)
   ), data = da1, iter = 10000, chains = 4, cores = 4
 )
 
@@ -458,12 +469,12 @@ pander(compare(m0,m1,m2,func=WAIC))
 
 ### Estimates examination
 <!-- Examine the estimate of parameters of the model with best fit, and provide a brief interpretation. -->
-From the previous comparison we could see that m1 is the best fit model. We will further examine this model with 95% credible intervals of the parameters of this model.
+From the previous comparison we could see that model 1 is the best fit model. We will further examine this model with 95% credible intervals of the parameters of this model.
 
 ```{r}
 pander(precis(m1, depth=2, prob=.95))
 ```
 
-Looking at the mean we can see that in general the scores are increasing over the sessions. Moreover, the standard deviating is increasing as well. This could be due to the fact that not every subject has completed the same amount of sessions.
+We can observe that the mean between the subjects has a high variance. This means that although the scores increase per session, the subjects have very different prior skills, achieving relatively higher or lower scores in their first session than average.
 
 
