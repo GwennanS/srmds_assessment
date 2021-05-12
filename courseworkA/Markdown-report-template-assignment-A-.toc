@@ -11,7 +11,7 @@
 \contentsline {subsection}{\numberline {1.10}Question 2 - Website visits (between groups - Two factors)}{3}{subsection.1.10}%
 \contentsline {subsubsection}{\numberline {1.10.1}Conceptual model}{3}{subsubsection.1.10.1}%
 \contentsline {subsubsection}{\numberline {1.10.2}Visual inspection}{3}{subsubsection.1.10.2}%
-\contentsline {subsubsection}{\numberline {1.10.3}Normality check}{5}{subsubsection.1.10.3}%
+\contentsline {subsubsection}{\numberline {1.10.3}Normality check}{4}{subsubsection.1.10.3}%
 \contentsline {subsubsection}{\numberline {1.10.4}Frequentist Approach}{9}{subsubsection.1.10.4}%
 \contentsline {paragraph}{\numberline {1.10.4.1}Model analysis}{9}{paragraph.1.10.4.1}%
 \contentsline {paragraph}{\numberline {1.10.4.2}Simple effect analysis}{11}{paragraph.1.10.4.2}%

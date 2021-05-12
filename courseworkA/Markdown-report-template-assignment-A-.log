@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 21.1) (preloaded format=pdflatex 2021.4.29)  11 MAY 2021 14:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 21.1) (preloaded format=pdflatex 2021.4.29)  12 MAY 2021 14:00
 entering extended mode
 **./Markdown-report-template-assignment-A-.tex
 (Markdown-report-template-assignment-A-.tex
@@ -637,22 +637,22 @@ tex/unnamed-chunk-2-1.pdf  used on input line 313.
 [4 <./Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-2
 -1.pdf>]
 <Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3-1.pd
-f, id=86, 469.755pt x 325.215pt>
+f, id=87, 469.755pt x 325.215pt>
 File: Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3
 -1.pdf Graphic file (type pdf)
 <use Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3-
 1.pdf>
 Package pdftex.def Info: Markdown-report-template-assignment-A-_files/figure-la
-tex/unnamed-chunk-3-1.pdf  used on input line 385.
+tex/unnamed-chunk-3-1.pdf  used on input line 338.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 <Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3-2.pd
-f, id=87, 469.755pt x 325.215pt>
+f, id=88, 469.755pt x 325.215pt>
 File: Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3
 -2.pdf Graphic file (type pdf)
 <use Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3-
 2.pdf>
 Package pdftex.def Info: Markdown-report-template-assignment-A-_files/figure-la
-tex/unnamed-chunk-3-2.pdf  used on input line 395.
+tex/unnamed-chunk-3-2.pdf  used on input line 348.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [5 <./Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3
 -1.pdf>]
@@ -663,7 +663,7 @@ File: Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3
 <use Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3-
 3.pdf>
 Package pdftex.def Info: Markdown-report-template-assignment-A-_files/figure-la
-tex/unnamed-chunk-3-3.pdf  used on input line 405.
+tex/unnamed-chunk-3-3.pdf  used on input line 358.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [6 <./Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3
 -2.pdf>]
@@ -674,7 +674,7 @@ File: Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3
 <use Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3-
 4.pdf>
 Package pdftex.def Info: Markdown-report-template-assignment-A-_files/figure-la
-tex/unnamed-chunk-3-4.pdf  used on input line 415.
+tex/unnamed-chunk-3-4.pdf  used on input line 368.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [7 <./Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3
 -3.pdf>]
@@ -685,24 +685,24 @@ File: Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3
 <use Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3-
 5.pdf>
 Package pdftex.def Info: Markdown-report-template-assignment-A-_files/figure-la
-tex/unnamed-chunk-3-5.pdf  used on input line 425.
+tex/unnamed-chunk-3-5.pdf  used on input line 378.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [8 <./Markdown-report-template-assignment-A-_files/figure-latex/unnamed-chunk-3
 -4.pdf>] [9 <./Markdown-report-template-assignment-A-_files/figure-latex/unname
-d-chunk-3-5.pdf>] [10] [11] [12] [13] (Markdown-report-template-assignment-A-.a
-ux)
+d-chunk-3-5.pdf>] [10] [11] [12] [13] [14] (Markdown-report-template-assignment
+-A-.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 14005 strings out of 479618
- 211606 string characters out of 2865026
- 558858 words of memory out of 3000000
+ 14014 strings out of 479618
+ 211697 string characters out of 2865026
+ 561858 words of memory out of 3000000
  30783 multiletter control sequences out of 15000+200000
- 457588 words of font info for 108 fonts, out of 3000000 for 9000
+ 457920 words of font info for 112 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 85i,6n,88p,813b,478s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 85i,6n,88p,813b,473s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/nikki/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C
 :/Users/nikki/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C
 :/Users/nikki/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C
@@ -720,10 +720,10 @@ i/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/nikk
 i/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtk10.pfb><C:/Users/nikk
 i/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/nikk
 i/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtti10.pfb>
-Output written on Markdown-report-template-assignment-A-.pdf (13 pages, 373964 
+Output written on Markdown-report-template-assignment-A-.pdf (14 pages, 376620 
 bytes).
 PDF statistics:
- 295 PDF objects out of 1000 (max. 8388607)
- 67 named destinations out of 1000 (max. 500000)
+ 299 PDF objects out of 1000 (max. 8388607)
+ 68 named destinations out of 1000 (max. 500000)
  28836 words of extra memory for PDF output out of 29859 (max. 10000000)
 

@@ -307,14 +307,6 @@ subset01 <- subset(data, version == '0' & portal == '1')
 subset10 <- subset(data, version == '1' & portal == '0')
 subset11 <- subset(data, version == '1' & portal == '1')
 
-
-mean(subset00$pages)
-mean(subset01$pages)
-mean(subset10$pages)
-mean(subset11$pages)
-
-mean(data$pages)
-
 ```
 
 
@@ -345,6 +337,8 @@ d <- density(subset11$pages)
 plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Page visits on New version for Company entries')
 abline(v = mean(subset11$pages), col = "orange")
 ```
+
+The Density plots indicate that none of the Page visit densities resemble a Gaussian distribtuion, apart from the page visits for New version and Old version company entries. The rest have skewed distributions and the Page visits for Old version consumer entries resembles a mixture of densities. General Linear Model analysis assumes the fact that the target continuous variable has Gaussian-error distribution and thus uses appropriate log-likelihoods for the best MLE regression fit. Since the densities don't resemble Normal distributions, this might hamper the interpretability of the results.
 
 ### Frequentist Approach
 
@@ -410,9 +404,11 @@ A linear model was fitted on the number of page visits by users, taking website 
 <!-- Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown). Justify the priors. -->
 A gaussian model is fitted to each of the models. Model m0 is the base model with only an intercept. Model m1 is an extension of model m0 where the version in introduced as a predictor. Model m2 is again an extension of model m0 with portal as a predictor. In model m3, both predictors are added as main effects, and model m4 extends model m3 by adding a two-way interaction effect between version and portal in the model. The priors are chosen with a normal distribution of N(0,1) for each of the model types.
 
-$$ score \sim Norm(\mu, \sigma)$$
+The most complete model is the one which uses both the factors (Version and Portal) to determine the mean of the Gaussian distribution to model the dependent variable of Page Visits. The prior for the first variable 'a' is chosen to be a normal distribution with the mean as the mean of the page visits from the data and the uncertainty in this estimate is reflected by the standard deviation of the mean page visits as 2. The priors for the coefficients of Version and Portal are chosen to be normal distributions of mean 0 and deviation 1 since these will be anyway adjusted by the counts of the factors. The prior for the standard deviation of the of the number of page visits is chosen to be uninformed between 0.1 and 2 visits with all values within this interval having an equal chance to be
 
-$$ \mu = \alpha $$
+$$ pages \sim Norm(\mu, \sigma)$$
+
+$$ \mu = a + b * versionN + c * portalN $$
 
 $$ alpha = Norm(0,1) $$
 
