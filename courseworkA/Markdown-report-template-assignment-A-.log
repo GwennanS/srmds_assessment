@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 21.1) (preloaded format=pdflatex 2021.4.29)  11 MAY 2021 11:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 21.1) (preloaded format=pdflatex 2021.4.29)  12 MAY 2021 14:32
 entering extended mode
 **./Markdown-report-template-assignment-A-.tex
 (Markdown-report-template-assignment-A-.tex
@@ -694,42 +694,7 @@ Overfull \hbox (7.47658pt too wide) in alignment at lines 671--675
  [] [] [] [] [] [] [] [] [] 
  []
 
-[12] [13] [14]
-Overfull \hbox (3.97531pt too wide) in alignment at lines 927--931
- [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (3.97531pt too wide) in alignment at lines 931--970
- [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (3.97531pt too wide) in alignment at lines 970--1008
- [] [] [] [] [] [] [] 
- []
-
-[15]
-Overfull \hbox (3.97531pt too wide) in alignment at lines 1008--1047
- [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (3.97531pt too wide) in alignment at lines 1047--1085
- [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (3.97531pt too wide) in alignment at lines 1085--1125
- [] [] [] [] [] [] [] 
- []
-
-[16]
-Overfull \hbox (3.97531pt too wide) in alignment at lines 1125--1129
- [] [] [] [] [] [] [] 
- []
-
-[17] (Markdown-report-template-assignment-A-.aux)
+[12] [13] [14] [15] [16] [17] (Markdown-report-template-assignment-A-.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -757,7 +722,7 @@ kki/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/nikk
 i/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/nikk
 i/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/nikk
 i/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtti10.pfb>
-Output written on Markdown-report-template-assignment-A-.pdf (17 pages, 1294978
+Output written on Markdown-report-template-assignment-A-.pdf (17 pages, 1296296
  bytes).
 PDF statistics:
  316 PDF objects out of 1000 (max. 8388607)

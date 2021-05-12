@@ -440,7 +440,7 @@ Here we can again see an increase in score related to the sessions. From this we
 ### Report section for a scientific publication
 <!-- Write a small section for a scientific publication, in which you report the results of the analyses, and explain the conclusions that can be drawn. -->
 
-A Linear Model analysis was conducted to test the difference between sessions on the score. The results found a significant effect (F(49,16078) = 52.793, p < .001) for the sessions on the score. From the results we can conclude that over sessions the score per participant generally increases. Moreover, the variance between the participants increases when the sessions increase, which we think is caused by missing scores on later sessions.
+A Linear Model analysis was conducted to test the difference between sessions on the score. The results found a significant effect (F(49,16078) = 52.79, p < .001) for the sessions on the score. From the results we can conclude that over sessions the score per participant generally increases. Moreover, the variance between the participants increases when the sessions increase, which we think is caused by missing scores on later sessions or the ground truth. We cannot make any conclusions on this until the missing data is available.
 
 ## Bayesian approach
 
@@ -451,16 +451,14 @@ For model 2, the model with session as a factor, we take as prior a normal distr
 
 $$ score \sim Norm(\mu, \sigma)$$
 
-$$ \mu = \alpha $$
+$$ \mu = a + b * sessionF + c * subjF $$
 
 $$ alpha = Norm(125,30) $$
 
-$$ \sigma = Uniform(0.001, 30)$$
+$$ \sigma = Uniform(0.001, 50)$$
 
 ### Model comparison
 <!-- Select the first 100 participants from the data set. (hint to overcome the Stan problem with a zero index, increase subject id number with 1). Compare models with with increasing complexity.  -->
-
-We will create and compare the three described models. From the results we can see that model 1, the model with the adaptive prior for subject id, has the best fit since it has the smallest WAIC value and largest Akaike weight.
 
 ```{r}
 ds <- ds[!(ds$Subject>99),] # select first 100 subjects
@@ -481,7 +479,7 @@ m0 <- map2stan(
     score ~ dnorm(mu, sigma),
     mu <- a,
     a ~dnorm(125,30), # mean and sd from what we found above
-    sigma ~dunif(0.001,30)
+    sigma ~dunif(0.001,50)
   ), data = da, iter = 10000, chains = 4, cores = 4
 )
 
@@ -493,7 +491,7 @@ m1 <- map2stan(
     a_subj[subjF] ~ dnorm(0,sigma_subj),
     sigma_subj ~ dcauchy(0,10),
     a ~ dnorm(125,30),
-    sigma ~ dcauchy(0.001,30)
+    sigma ~ dcauchy(0.001,50)
   ), data = da1, iter = 10000, chains = 4, cores = 4
 )
 
@@ -503,12 +501,14 @@ m2 <- map2stan(
     score ~ dnorm(mu, sigma),
     mu <- a[sessionF],
     a[sessionF] ~ dnorm(125,30),
-    sigma ~dunif(0.001,30)
+    sigma ~dunif(0.001,50)
   ), data = da, iter = 10000, chains = 4, cores = 4
 )
 
 pander(compare(m0,m1,m2,func=WAIC))
 ```
+
+We have created and compared the three described models. From the results we can see that model 1, the model with the adaptive prior for subject id, has the best fit since it has the smallest WAIC value and largest Akaike weight.
 
 ### Estimates examination
 <!-- Examine the estimate of parameters of the model with best fit, and provide a brief interpretation. -->
