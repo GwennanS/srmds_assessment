@@ -151,6 +151,7 @@ library(rethinking)
 library(ggplot2)
 library(pander)
 library(AICcmodavg)
+library(foreign)
 ################### functions
 
 # 
@@ -388,66 +389,238 @@ pander(precis(mTwitter1, depth=2, prob = .95))
 
 Looking at the credibility intervals of the celebrities effects, We see the conditions where the mean of a condition does not fall within a credibility interval of an other condition. This holds for the a[1] (Trump) condition and a couple other combinations. We can again conclude that some celebrities really do have an effect on the sentiment in Tweets. 
 
-<!-- ## Question 2 - Website visits (between groups - Two factors) -->
+## Question 2 - Website visits (between groups - Two factors)
 
-<!-- ### Conceptual model -->
+### Conceptual model
 <!-- Make a conceptual model underlying this research question -->
 
-<!-- ### Visual inspection -->
+```{r concept_diag, echo=FALSE, fig.cap="\\label{fig:concept_diag}The conceptual model underlying the research question.", out.width = '100%'}
+knitr::include_graphics("img/concept_diag.png")
+```
+
+### Visual inspection
 <!-- Graphically examine the variation in page visits for different factors levels (e.g. histogram, density plot etc.)  -->
 
 
-<!-- ```{r} -->
-<!-- #include your code and output in the document -->
-<!-- ``` -->
+```{r}
+filepath <- ("webvisit0.csv")
+data <- read.csv(file=filepath, header=TRUE)
 
+# changing dtype of the factors
+data$portal = as.factor(data$portal)
+data$version = as.factor(data$version)
 
-<!-- ### Normality check -->
+# Function to calculate the mean and the standard deviation for each factor group
+
+data_summary <- function(data, varname, groupnames){
+  require(plyr)
+  summary_func <- function(x, col){
+    c(mean = mean(x[[col]], na.rm=TRUE),
+      sd = sd(x[[col]], na.rm=TRUE))
+  }
+  data_sum<-ddply(data, groupnames, .fun=summary_func,
+                  varname)
+  data_sum <- rename(data_sum, c("mean" = varname))
+ return(data_sum)
+}
+
+df3 <- data_summary(data, varname="pages", 
+                    groupnames=c("version", "portal"))
+
+p <- ggplot(df3, aes(x=version, y=pages, fill=portal)) + 
+   geom_bar(stat="identity", position=position_dodge()) +
+  geom_errorbar(aes(ymin=pages-sd, ymax=pages+sd), width=.2,
+                 position=position_dodge(.9))
+  
+p + scale_fill_brewer(palette="Paired") + theme_minimal()
+
+# Creating subsets of data for each combination of factors
+subset00 <- subset(data, version == '0' & portal == '0')
+subset01 <- subset(data, version == '0' & portal == '1')
+subset10 <- subset(data, version == '1' & portal == '0')
+subset11 <- subset(data, version == '1' & portal == '1')
+
+```
+
+Notable observations from the bar-plot demonstrating the mean and standard deviation of the page visits are that the mean page visits across both the versions for the 0 - portal entries (Consumer) are almost the same but vary significantly for the 1 - portal entries (Company).
+
+### Normality check
 <!-- Visually inspect if variable page visits deviates from a Gaussian distribution, and discuss implication for general linear model analysis. -->
 
 
-<!-- ```{r} -->
-<!-- #include your code and output in the document -->
-<!-- ``` -->
+```{r}
+# Generating density plots
 
-<!-- ### Frequentist Approach -->
+d <- density(data$pages)
+plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Aggregated Page visits')
+abline(v = mean(data$pages), col = "black")
 
-<!-- #### Model analysis -->
+d <- density(subset00$pages)
+plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Page visits on Old version for Consumers entries')
+abline(v = mean(subset00$pages), col = "red")
+
+d <- density(subset01$pages)
+plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Page visits on Old version for Company entries')
+abline(v = mean(subset01$pages), col = "green")
+
+d <- density(subset10$pages)
+plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Page visits on New version for Consumers entries')
+abline(v = mean(subset10$pages), col = "blue")
+
+d <- density(subset11$pages)
+plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Page visits on New version for Company entries')
+abline(v = mean(subset11$pages), col = "orange")
+```
+
+The Density plots indicate that none of the Page visit densities resemble a Gaussian distribtuion, apart from the page visits for New version and Old version company entries. The rest have skewed distributions and the Page visits for Old version consumer entries resembles a mixture of densities. General Linear Model analysis assumes the fact that the target continuous variable has Gaussian-error distribution and thus uses appropriate log-likelihoods for the best MLE regression fit. Since the densities do not resemble Normal distributions, this might hamper the interpretability of the results.
+
+### Frequentist Approach
+
+#### Model analysis
 <!-- Conduct a model analysis, to examine the added values of adding 2 factors and interaction between the factors in the model to predict page visits, and include brief interpretation of the results. -->
 
 
-<!-- ```{r} -->
-<!-- #include your code and output in the document -->
-<!-- ``` -->
+```{r}
+# Model fitting for each factor and a combination of them
 
+modelWeb0 <- lm(pages ~ 1, data=data, na.action=na.exclude)
+modelWeb1 <- lm(pages ~ version, data=data, na.action=na.exclude)
+modelWeb2 <- lm(pages ~ portal, data=data, na.action=na.exclude)
+modelWeb3 <- lm(pages ~ version + portal, data=data, na.action=na.exclude)
+modelWeb4 <- lm(pages ~ version + portal + version:portal, data=data, na.action=na.exclude)
 
-<!-- #### Simple effect analysis -->
+# ANOVA results of the effect of adding the factors
+
+pander(anova(modelWeb0, modelWeb1), caption='Version as main effect on Page visits')
+
+pander(anova(modelWeb0, modelWeb2), caption='Portal as main effect on Page visits')
+
+pander(anova(modelWeb3, modelWeb4), caption='Interaction effect vs 2 main effects')
+
+pander(anova(modelWeb4), caption='Version, Portal and interaction effect on Page visits')
+
+# AICc scores of the models
+
+modelsWeb <-list(modelWeb0, modelWeb1, modelWeb2, modelWeb3, modelWeb4)
+modelWeb.names <-c("modelWeb0","modelWeb1","modelWeb2","modelWeb3","modelWeb4")
+pander(aictab(cand.set = modelsWeb, modnames=modelWeb.names))
+```
+
+The ANOVA results for the comparison of each model type indicate that the added values by including the factors individually, together and their interaction effect is statistically significant since all their p-values are <0.001. The AICc results show that model4 has the best goodness of fit since its corrected-AIC value is the least with the best log-likelihood score too.
+
+#### Simple effect analysis
 <!-- If the analysis shows a significant two-way interaction effect, conduct a Simple Effect analysis to explore this interaction effect in more detail.It helps first to look at the means of different conditions in a figure. Provide brief interpretation of the results. -->
 
 
-<!-- ```{r} -->
-<!-- #include your code and output in the document -->
-<!-- ``` -->
+```{r}
+data$simple <- interaction(data$version, data$portal)
+contrast0 <-c(1,-1,0,0) #Only the 0-portal data
+contrast1 <-c(0,0,1,-1) #Only the 1-portal data
 
+SimpleEff <- cbind(contrast0,contrast1)
+contrasts(data$simple) <- SimpleEff
 
-<!-- #### Report section for a scientific publication -->
+simpleEffectModel <-lm(pages ~ simple , data = data, na.action = na.exclude)
+pander(summary.lm(simpleEffectModel))
+```
+
+After fitting a linear model on the data, it can be observed that the company portal entries (1) have a statistically significant difference and not the consumer portal entries (0). This observation also agrees with the first plot indicating the variation in page visits for the 2 factors. The 1-portal page visits have a larger difference than the 0-portal page visits for the 0 and 1 - versions.
+
+#### Report section for a scientific publication
+
 <!-- Write a small section for a scientific publication, in which you report the results of the analyses, and explain the conclusions that can be drawn. -->
 
-<!-- ### Bayesian Approach -->
+A linear model was fitted on the number of page visits by users, taking website version and web portal entires as independent variables, and including a two-way interaction between these variables. The analysis found a significant main effect (F (1, 995) = 36.2, p. < 0.01) for the version factor and (F (1, 995) = 178.8, p. < 0.01) for portal factor. The analysis also found a significant two-way interaction effect ( F (1, 76) = 46.25, p. < 0.01) between these two variables. A Simple Effect analysis further examined the two-way interaction. It revealed a significant (t = 9.222, p. < 0.01) difference for the web portal entries by companies (1), but no significant effect (t = -0.4258, p. = 0.6703) was found for the web portal entries by consumers (0).
 
-<!-- #### Model description -->
+### Bayesian Approach
+
+
+#### Model description
 
 <!-- Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown). Justify the priors. -->
 
-<!-- #### Model comparison -->
+A gaussian model is fitted to each of the models. Model m0 is the base model with only an intercept. Model mWeb1 is an extension of model mWeb0 where the version in introduced as a predictor. Model mWeb2 is again an extension of model mWeb0 with portal as a predictor. In model mWeb3, both predictors are added as main effects, and model mWeb4 extends model mWeb3 by adding a two-way interaction effect between version and portal in the model. The priors are chosen with a normal distribution of N(0,1) for each of the model types.
+
+The most complete model is the one which uses both the factors (Version and Portal) to determine the mean of the Gaussian distribution to model the dependent variable of Page Visits. The prior for the first variable 'a' is chosen to be a normal distribution with the mean as the mean of the page visits from the data and the uncertainty in this estimate is reflected by the standard deviation of the mean page visits as 2. The priors for the coefficients of Version and Portal are chosen to be normal distributions of mean 0 and deviation 1 since these will be anyway adjusted by the counts of the factors. The prior for the standard deviation of the of the number of page visits is chosen to be uninformed between 0.1 and 2 visits with all values within this interval having an equal chance to be
+
+$$ pages \sim Norm(\mu, \sigma)$$
+
+$$ \mu = a + b * versionN + c * portalN $$
+
+$$ alpha = Norm(0,1) $$
+
+$$ \sigma = Uniform(0.1, 2)$$
+
+
+#### Model comparison
 
 <!-- Conduct model analysis and provide brief interpretation of the results -->
 
-<!-- ```{r} -->
-<!-- #include your code and output in the document -->
-<!-- ``` -->
 
+```{r}
+datasub <- subset(data, select = c(pages, version, portal))
+datasub$versionN <- as.numeric(datasub$version)
+datasub$portalN <- as.numeric(datasub$portal)
 
+#Fitting each variant of the model
+
+mWeb0 <-map2stan(    
+    alist(
+        pages ~ dnorm(mu, sigma),
+        mu <- a ,
+        a ~ dnorm(1, 2),
+        sigma ~ dunif(0.1, 2)
+    ), data = datasub, iter = 10000, chains = 4, cores = 4
+)
+
+mWeb1 <-map2stan(    
+    alist(
+        pages ~ dnorm(mu, sigma),
+        mu <- a + b*versionN ,
+        a ~ dnorm(1, 2),
+        b ~ dnorm(0, 1),
+        sigma ~ dunif(0.1, 2)
+    ), data = datasub, iter = 10000, chains = 4, cores = 4
+)
+
+mWeb2 <-map2stan(    
+    alist(
+        pages ~ dnorm(mu, sigma),
+        mu <- a + b*portalN ,
+        a ~ dnorm(1, 2),
+        b ~ dnorm(0, 1),
+        sigma ~ dunif(0.1, 2)
+    ), data = datasub, iter = 10000, chains = 4, cores = 4
+)
+
+mWeb3 <-map2stan(    
+    alist(
+        pages ~ dnorm(mu, sigma),
+        mu <- a + b*versionN + c*portalN ,
+        a ~ dnorm(1, 2),
+        b ~ dnorm(0, 1),
+        c ~ dnorm(0, 1),
+        sigma ~ dunif(0.1, 2)
+    ), data = datasub, iter = 10000, chains = 4, cores = 4
+)
+
+mWeb4 <-map2stan(    
+    alist(
+        pages ~ dnorm(mu, sigma),
+        mu <- a + b*versionN + c*portalN + d*versionN*portalN ,
+        a ~ dnorm(1, 2),
+        b ~ dnorm(0, 1),
+        c ~ dnorm(0, 1),
+        d ~ dnorm(0, 1),
+        sigma ~ dunif(0.1, 2)
+    ), data = datasub, iter = 10000, chains = 4, cores = 4
+)
+
+pander(compare(mWeb0,mWeb1,mWeb2,mWeb3,mWeb4))
+pander(precis(mWeb4, prob= .95))
+```
+
+The compare() function indicates the best goodness of fit has been observed for the model m4 with the least WAIC value. For further investigation of the 95% credibility intervals, the precis() function indicates that the mean value of the coefficient of version is approximately 0, unlike for the coefficients of all the other variables (c, d for portal and two-way interaction respectively).
 
 # Part 3 - Multilevel model
 
