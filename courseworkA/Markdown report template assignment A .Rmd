@@ -308,7 +308,7 @@ Taken together, these results suggest that some celebrities really do have an ef
 The sentiment scores seem to center around 0, and all seem to be single digits.
 
 $$ score \sim Norm(\mu, \sigma) $$
-$$ \mu = \alpha  $$
+$$ \mu = \alpha +b*Celeb $$
 $$ \alpha = Norm(0, 10) $$
 $$ \sigma  = Uniform(0.001, 10) $$
 
