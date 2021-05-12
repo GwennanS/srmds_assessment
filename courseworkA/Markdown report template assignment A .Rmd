@@ -68,7 +68,7 @@ knitr::include_graphics("img/twitter_model.png")
 
 ### Collecting tweets, and data preparation
 
-We found 5 celebrities in US politics: Donald Trump, Tucker Carlson, Bernie Sanders, Alexandria Ocasio-Cortez, Joe Biden.
+We found five celebrities in US politics: Donald Trump, Tucker Carlson, Bernie Sanders, Alexandria Ocasio-Cortez, Joe Biden.
 As dutch students we are not well-versed in the popular English twitter celebrities, so US politics was the best option for us to find celebrities that had enough recent Tweets for the Twitter API.
 
 
@@ -227,6 +227,7 @@ pander(leveneTest(semFrame$score, semFrame$Celeb))
 The Levene test reveals a p-value smaller than 0.001, indicating that there is significant difference between the group variances in sentiment score. We conclude that the variance among the five groups is not equal.
 
 ### Visual inspection Mean and distribution sentiments
+
 We plot both a line density and a distribution histogram which includes a mean line.
 ```{r}
 #boxplot(score ~ Celeb, data = semFrame, text.font = 4)
@@ -244,11 +245,13 @@ ggplot(semFrame, aes(x=score, fill=Celeb)) +
                linetype="solid", size=0.5) 
 
 ```
+
 We see all US politic Celebs have a mean around 0. #trump has the highest sentiment mean and the largest difference with the rest.
 
 ### Frequentist approach
 
 #### Linear model
+
 A one-way between subjects ANOVA was conducted to compare the effect of relation to celebrities on sentiment score in five conditions.
 
 ```{r}
@@ -289,18 +292,17 @@ A lower AIC indicates a better fit, which is the model with the predictor.
 #### Post Hoc analysis
 
 ```{r}
-(pairwise.t.test(semFrame$score, semFrame$Celeb, paired = FALSE, p.adjust.method = "bonferroni"))
+pander(pairwise.t.test(semFrame$score, semFrame$Celeb, paired = FALSE, p.adjust.method = "bonferroni"))
 ```
 
 Post hoc comparisons using the Bonferroni correction indicated that the corrected p-value for the trump condition was significantly different than the other conditions (p<0.001). However, between the others condition it does not show a significantly difference.
 
 #### Report section for a scientific publication
+
 A one-way between subjects ANOVA was conducted to compare the effect of relation to celebrities on sentiment score in five conditions. 
 There was a significant effect of relation to celebrities on sentiment score at the p<.001 level for the five conditions [F(4, 1465) = 56.06, p < 0.001]. 
 However, post hoc comparisons using the Bonferroni correction indicated that only the corrected p-value for the trump condition was significantly different than the other conditions (p<0.001), between the others condition it does not show a significantly difference. 
 Taken together, these results suggest that some celebrities really do have an effect on the sentiment in Tweets.
-
-
 
 ### Bayesian Approach
 
@@ -313,6 +315,7 @@ $$ \alpha = Norm(0, 10) $$
 $$ \sigma  = Uniform(0.001, 10) $$
 
 #### Model comparison
+
 ```{r}
 m0 <-map2stan(alist(
   score ~ dnorm(mu, sigma),
@@ -331,7 +334,7 @@ m1 <-map2stan(alist(
 pander(compare(m0, m1, func=WAIC))
 ```
 
-Lower WAIC indicates a better performing model, so with predictors is the winning model.
+Lower WAIC indicates a better performing model, so with predictors (m1) is the winning model.
 
 
 
@@ -341,7 +344,7 @@ Lower WAIC indicates a better performing model, so with predictors is the winnin
 pander(precis(m1, depth=2, prob = .95))
 ```
 
-Looking at the credibility intervals of the celebrities effects, We see the conditions where the mean of a condition does not fall within a credibility interval of an other condition. This holds for the Trump condition and a couple other combinations. We can again conclude that some celebrities really do have an effect on the sentiment in Tweets. 
+Looking at the credibility intervals of the celebrities effects, We see the conditions where the mean of a condition does not fall within a credibility interval of an other condition. This holds for the a[1] (Trump) condition and a couple other combinations. We can again conclude that some celebrities really do have an effect on the sentiment in Tweets. 
 
 <!-- ## Question 2 - Website visits (between groups - Two factors) -->
 
