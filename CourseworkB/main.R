@@ -23,9 +23,6 @@ d$transfer <- with(d, ifelse((grepl("B", d$model, fixed=TRUE)), 0, 1))
 # create plot
 ggplot(d, aes(score)) + geom_histogram(binwidth = 0.1) + facet_wrap(~transfer)
 
-# t-test on TrD vs no TrD
-t.test(score ~ transfer, d)
-
 # wilcoxon on TrD vs no TrD
 wilcox.test(score ~ transfer, d)
 
@@ -43,9 +40,6 @@ t1 %>% group_by(TrD1) %>% summarize(mean(score))
 
 # plot TrD 0 vs 1
 ggplot(t1, aes(score)) + geom_histogram(binwidth = 0.1) + facet_wrap(~TrD1)
-
-# t-test
-t.test(score ~TrD1, t1)
 
 # wilcoxon test
 wilcox.test(score ~ TrD1, t1)
