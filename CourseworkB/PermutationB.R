@@ -105,8 +105,7 @@ data %>%
   group_by(model, TeD) %>%
   summarize(mean(score))
 
-ModelxTeD = summarise(group_by(data, model, TeD), mean(score))
-
+c
 # Wilcoxon test fro testing dataset types
 modelCla = filter(data, task == "Classification" )
 modelRec = filter(data, task == "Recommendation" )
