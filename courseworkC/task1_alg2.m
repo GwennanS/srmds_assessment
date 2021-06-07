@@ -15,18 +15,26 @@ y = x - x_bar;          % use formula from slides
 g = y.' * y;     % use formula from slides
 
 % 4.Compute eigenvalues and eigenvectors of 1/m G
-[eigvec,eigval] = eig(1/n * g); 
+[eigvec,eigval] = eig(1/m * g); 
 
 % 5. Compute the basis vectors of the affine spaces
 for i = 1:size(eigvec,2)
     u(:,i) = y * eigvec(:,i) * inv(sqrtm(eigval(i,i))); 
 end
 
+% Visualize matrix
+figure
+scatter(u(:,end-1), u(:, end))
+
 a = 2;
 % modes
 for  i = 1:size(eigvec,2)
     m_max(:,i) = a * eigvec(:,i) * sqrt(eigval(i,i)) + x_bar.';
-    m_norm(:,i) = eigvec(:,i) * sqrt(eigval(i,i)) + x_bar.';
     m_min(:,i) = -a * eigvec(:,i) * sqrt(eigval(i,i)) + x_bar.';
 end
 
+% Visualize modes
+figure
+steps = linspace(0,1,size(x_bar,2))';
+fill([steps;flipud(steps)],[m_min(:,1);flipud(m_max(:,1))],[.9 .9 .9],'linestyle','none');
+line(steps,x_bar)
