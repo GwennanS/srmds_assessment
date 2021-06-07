@@ -1,4 +1,5 @@
 % MATLAB cities dataset
+clear;
 load cities
 x = ratings;
 
@@ -20,3 +21,12 @@ g = y.' * y;     % use formula from slides
 for i = 1:size(eigvec,2)
     u(:,i) = y * eigvec(:,i) * inv(sqrtm(eigval(i,i))); 
 end
+
+a = 2;
+% modes
+for  i = 1:size(eigvec,2)
+    m_max(:,i) = a * eigvec(:,i) * sqrt(eigval(i,i)) + x_bar.';
+    m_norm(:,i) = eigvec(:,i) * sqrt(eigval(i,i)) + x_bar.';
+    m_min(:,i) = -a * eigvec(:,i) * sqrt(eigval(i,i)) + x_bar.';
+end
+
