@@ -39,8 +39,8 @@ for i = 1:size(eigvec,2)
 end
 
 % Other way of computing u because I didn't understand wtf we were doing
-new = zeros(m, d);
-for j = 1:size(eigval)
+new = zeros(m, length(eigval));
+for j = 1:length(eigval)
     xi = (x-x_bar) * eigvec(:,j);
     %xi = ((x-x_bar).' .* U(:,j)) .* U(:,j) + x_bar.';
     new(:,j) = (x-x_bar) * eigvec(:,j);
@@ -54,13 +54,12 @@ diffeig = sum(eigval(end-d:end))/sum(eigval);
 figure;
 plot(u(:, end)); %ToDo: add color per cat
 figure;
-scatter3(u(:,1), u(:, 2), u(:,3),1,  species, 'filled')
-colormap([1 0 0; % red
-              0 0 1; % blue    
-              0 .5 .5; %     
-              0 .5 1; %     
-              0 1 0]);% green
-figure;
 gscatter(u(:,end-1), u(:, end), species, 'rgb')
-
+%figure;
+%scatter3(u(:,1), u(:, 2), u(:,3), 1,  actid, 'filled')
+%colormap([1 0 0; % red
+%              0 0 1; % blue    
+%              0 1 1; %     
+%              1 1 0; %     
+%              0 1 0]);% green
 
