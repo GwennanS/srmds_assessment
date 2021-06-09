@@ -1,4 +1,3 @@
-% MATLAB cities dataset
 clear;
 
 % 0. load data
@@ -18,12 +17,12 @@ x_bar = 1/n * x_sum;       % use formula from slides
 % 2. Compute the centered points
 y = x - x_bar;          % use formula from slides
 
-% snapshot data
+% 2.5 Sample data
 %random
 rand = randsample(m,round(m/10) );
-yr = y(rand, :);
+%yr = y(rand, :);
 %periodically
-yr = y(1:10:end, :);
+yr = y(1:1:end, :);
 
 % 3. Compute the Gram matrix
 g = yr.' * yr;     % use formula from slides
@@ -51,10 +50,49 @@ d = 2;
 diffeig = sum(eigval(end-d:end))/sum(eigval);
 
 % Visualize the affine subspace of dimension 1, 2 or 3
+
+% 1D 
+%x= u(:, end);
+% for ii = 1:length(x)
+%       y = x(ii);  % Data point ii has come in.
+%       if actid(ii) == 1
+%           c = 'r.';
+%       elseif actid(ii) ==2
+%           c = 'b.';
+%       elseif actid(ii) == 3
+%           c = 'g.';
+%        elseif actid(ii) == 4
+%           c = 'm.';
+%       elseif actid(ii) == 5
+%           c = 'c.';
+%       else 
+%           c = 'y*';
+%       end
+%       plot(ii, y,c)
+%       hold on
+% end
+  
+%for ii = 1:length(x)
+%      y = x(ii);  % Data point ii has come in.
+%      if strcmp(species(ii) , 'setosa')
+%          c = 'r*';
+%      elseif strcmp(species(ii), 'versicolor')
+%          c = 'b*';
+%      elseif strcmp(species(ii) , 'virginica')
+%          c = 'g*';
+%      else 
+ %         c = 'm*';
+%      end
+%      plot(ii, y,c)
+%      hold on
+%end
+  
+% 2D
 figure;
-plot(u(:, end)); %ToDo: add color per cat
-figure;
+%gscatter(u(:,end-1), u(:, end), actid, 'rgbmc')
 gscatter(u(:,end-1), u(:, end), species, 'rgb')
+
+% 3D
 %figure;
 %scatter3(u(:,1), u(:, 2), u(:,3), 1,  actid, 'filled')
 %colormap([1 0 0; % red
