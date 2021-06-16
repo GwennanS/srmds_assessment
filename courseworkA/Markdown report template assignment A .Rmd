@@ -45,8 +45,10 @@ consider anything from an awkward laugh in a moment of silence to laughing out l
 a joke as a laughter episode regardless of the context.
 
 ## The related conceptual model 
-The conceptual model related to the research question can be viewed in \autoref{fig:concept_model}. The main question is about the effect of mutual visibility on joint laughter. The mediating variable is familiarity, which we can define as the level of friendliness or intimacy between people. This can be caused when people know each other (which we aim to avoid), but also when people find similarities in their interests and behaviours. It is even possible that people of the same gender will feel more familiar with each other. A moderating variable is the duration of the experiment. The participants will do the experiment for about one hour, which can have a negative effect on the frequency of laughter, thus on the frequency of joint laughter.
-<!-- not sure about mediating variables -->
+The conceptual model related to the research question can be viewed in \autoref{fig:concept_model}. The main question is about the effect of mutual visibility on joint laughter. The mediating variable is acquaintancy, which we can define as the level of friendliness or intimacy between people who did not know each other before the experiment. This can occur when people find similarities in their interests and behaviours. Familiarity is like acquaintancy but with the factor of it being before the experiment, meaning when people know each other beforehand. Another moderating variable is the duration of the experiment. The participants will do the experiment for about one hour, which can have a negative effect on the frequency of laughter, thus on the frequency of joint laughter.
+
+
+<!-- TODO: CHANGE THIS FIGURE TO MATCH CORRECT WORDS -->
 
 <!-- ![\label{cm}](img/A-1 conceptual model.png) -->
 ```{r concept_model, echo=FALSE, fig.cap="\\label{fig:concept_model}The conceptual model to test the effect of mutual webcam visibility on joint laughter", out.width = '100%'}
@@ -55,10 +57,11 @@ knitr::include_graphics("img/A-1 conceptual model.png")
 
 
 ## Experimental Design 
-One of the most important requirements for the setup of the experiment, was the creation of a comfortable and pleasant ambiance so that people would laugh. Therefore, it was decided that a game would comply, as the participants get the chance to interact with each other in a undemanding setting where the attention of the participants would be drawn to a task. It was reasoned that this would contribute to a reduction of awkwardness and give all the participants the option to speak and laugh. Additionally, the game needed to have a smooth flow that would automatically keep going to keep the interference of the researchers to a minimum. 
+One of the most important requirements for the setup of the experiment was the creation of a comfortable and pleasant ambiance so that people would laugh. Therefore, it was decided that a game would comply, as the participants get the chance to interact with each other in a undemanding setting where the attention of the participants would be drawn to a task. It was reasoned that this would contribute to a reduction of awkwardness and give all the participants the option to speak and laugh. Additionally, the game needed to have a smooth flow that would automatically keep going to keep the interference of the researchers to a minimum. 
 
 The game that was chosen is called 30 Seconds. During the game, participants work together in teams (in the case of the experiment: two teams of two people) and gain points by guessing what the team member is describing. These descriptions include concepts such as famous persons, locations, movies and brands. Every team gets 30 seconds to guess as many concepts on the card as possible. Who is describing and who is guessing switches after every card.
 
+The participants will be playing on their laptops, seeing the other three participants and a chat screen on which they will receive the words for the game. This within-subject experiment will be held where half of the experiments will start with the webcams on, while the other half will start with the webcams off. 
 
 
 ## Experimental procedure 
@@ -74,7 +77,7 @@ The following will repeat for every card of five words:
 
 4. The timer rings, the host puts the score in the chat.
 
-During the experiment, multiple things will happen. Each time all players have guessed and described a card (i.e. after four cards total), their webcams will switch on or off. After each player has guessed and described four cards (i.e. after sixteen cards total), the final score will be displayed and the teams will be rearranged. The previous will then repeat until every participant has been in a team with every other participant. An example of such an experiment is displayed in \autoref{fig:concept_setup}. To counterbalance the experiments, half of the experiments will start with the webcams on, while the other half will start with the webcams off.
+During the experiment, multiple things will happen. Each time all players have guessed and described a card (i.e. after four cards total), their webcams will switch on or off. After each player has guessed and described four cards (i.e. after sixteen cards total), the final score will be displayed and the teams will be rearranged. The previous will then repeat until every participant has been in a team with every other participant. This makes sure every participant has an interaction with all the other participants, so the differences in laughter between people cannot be blamed on the interacting pairs. An example of such an experiment is displayed in \autoref{fig:concept_setup}. 
 
 ```{r concept_setup, echo=FALSE, fig.cap="\\label{fig:concept_setup}An example of an experimental setup.", out.width = '100%'}
 knitr::include_graphics("img/exp_setup.png")
@@ -82,7 +85,9 @@ knitr::include_graphics("img/exp_setup.png")
 
 
 ## Measures
-The data that has been collected includes audio and video of participants. The first step in data analysis involves annotating the signals. This will be done with a program in which we can manually select timesteps in which the participant is laughing. In the end we will have annotations for every person that contains the total amount of laughter (frequency), the amount of laughter with their webcam off, and the amount of laughter with their webcam on..
+A pre-test will be held to define the level of familiarity. The participants will receive a neutral picture (e.g. from a driver's license) of the other three participants, after which they have to indicate whether they know the person. The remaining test includes a question like "Do you feel related to this person?", after which the participant can indicate why (e.g. because of their skin colour, gender, hair colour, etc.). The same questionnaire will be held after the experiment to check the level of acquaintancy.
+
+The data that has been collected during the experiment includes audio and video of participants. The first step in data analysis involves annotating the signals. This will be done with a program in which we can manually select timesteps in which the participant is laughing. In the end we will have annotations for every person that contains the total amount of laughter (frequency), the amount of laughter with their webcam off, and the amount of laughter with their webcam on..
 
 In a case where different people will annotate this data, we will first let every one of them annotate the same data sample. Then we can calculate the consistency in the annotations with for example Krippendorf's Alpha or Cohen's Kappa. When this is high enough, they can start annotating separate data.
 
@@ -96,32 +101,32 @@ To find the participants we can thus search online. Using a medium on which we s
 
 ## Suggested statistical analyses
 <!-- Describe the statistical test you suggest to care out on the collected data-->
-To determine the significance of the results we will subject the data to statistical tests. To test the effect of mutual visibility (categorical, since it is either on or off) on the frequency (numerical) we will use the Wilcoxon signed rank test. The Wilcoxon signed rank test is a suitable statistical test when the measurements for a single variable are taken under two different conditions. It is similar to the paired t-test, however the paired t-test assumes that the data is normally distributed which we cannot assume for frequency of laughter. It tests the null hypothesis that the median difference of a two sets of observations is zero.
+To determine the significance of the results we will subject the data to statistical tests. To test the effect of mutual visibility (categorical, since it is either on or off) on the frequency (numerical) we will use the Wilcoxon signed rank test. The Wilcoxon signed rank test is a suitable statistical test when the measurements for a single variable are taken under two different conditions. It is similar to the paired t-test, however the paired t-test assumes that the data is normally distributed which we cannot assume for frequency of laughter. It tests the null hypothesis that the median difference of a two sets of observations is zero. The frequentist's approach is chosen since the experiment is repeated with the fixed parameters. Moreover, with this approach we can better control the Type I error. <!-- TODO: more explanation? -->
 
-# Part 2 - Generalized linear models
+<!-- # Part 2 - Generalized linear models -->
 
-## Question 1 Twitter sentiment analysis (Between groups - single factor)
+<!-- ## Question 1 Twitter sentiment analysis (Between groups - single factor) -->
 
-### Conceptual model
-Make a conceptual model for the following research question: Is there a difference in the sentiment of the tweets related to the different celebrities?
+<!-- ### Conceptual model -->
+<!-- Make a conceptual model for the following research question: Is there a difference in the sentiment of the tweets related to the different celebrities? -->
 
-```{r concept_model_twitter, echo=FALSE, fig.cap="\\label{fig:concept_model_twitter}The conceptual model for the research question: Is there a difference in the sentiment of the tweets related to the different celebrities?r", out.width = '100%'}
-knitr::include_graphics("img/twitter_model.png")
-```
+<!-- ```{r concept_model_twitter, echo=FALSE, fig.cap="\\label{fig:concept_model_twitter}The conceptual model for the research question: Is there a difference in the sentiment of the tweets related to the different celebrities?r", out.width = '100%'} -->
+<!-- knitr::include_graphics("img/twitter_model.png") -->
+<!-- ``` -->
 
-### Collecting tweets, and data preparation
+<!-- ### Collecting tweets, and data preparation -->
 
-We found five celebrities in US politics: Donald Trump, Tucker Carlson, Bernie Sanders, Alexandria Ocasio-Cortez, Joe Biden.
-As dutch students we are not well-versed in the popular English twitter celebrities, so US politics was the best option for us to find celebrities that had enough recent Tweets for the Twitter API.
+<!-- We found five celebrities in US politics: Donald Trump, Tucker Carlson, Bernie Sanders, Alexandria Ocasio-Cortez, Joe Biden. -->
+<!-- As dutch students we are not well-versed in the popular English twitter celebrities, so US politics was the best option for us to find celebrities that had enough recent Tweets for the Twitter API. -->
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, include = FALSE}
 
-#during writing you could add "eval = FALSE",  kntr will than not run this code chunk (take some time do)
-
-#setwd("~/surfdrive/Teaching/own teaching/IN4125 - Seminar Research Methodology for Data Science/2019/coursework A")
-# commented this. Let's make this relative when trying to fix this file
-# apple , note use / instead of \, which used by windows
+# <!-- #during writing you could add "eval = FALSE",  kntr will than not run this code chunk (take some time do) -->
+# 
+# <!-- #setwd("~/surfdrive/Teaching/own teaching/IN4125 - Seminar Research Methodology for Data Science/2019/coursework A") -->
+# <!-- # commented this. Let's make this relative when trying to fix this file -->
+# <!-- # apple , note use / instead of \, which used by windows -->
 
 
 #install.packages("twitteR", dependencies = TRUE)
@@ -152,475 +157,476 @@ library(ggplot2)
 library(pander)
 library(AICcmodavg)
 library(foreign)
-################### functions
-
+library(nlme)
+# <!-- ################### functions -->
 # 
-# clearTweets <- function(tweets, excl) {
-# 
-#   tweets.text <- sapply(tweets, function(t)t$getText()) #get text out of tweets
-# 
-# 
-#   tweets.text = gsub('[[:cntrl:]]', '', tweets.text)
-#   tweets.text = gsub('\\d+', '', tweets.text)
-#   tweets.text <- str_replace_all(tweets.text,"[^[:graph:]]", " ") #remove graphic
-# 
-# 
-#   corpus <- Corpus(VectorSource(tweets.text))
-# 
-#   corpus_clean <- tm_map(corpus, removePunctuation)
-#   corpus_clean <- tm_map(corpus_clean, content_transformer(tolower))
-#   corpus_clean <- tm_map(corpus_clean, removeWords, stopwords("english"))
-#   corpus_clean <- tm_map(corpus_clean, removeNumbers)
-#   corpus_clean <- tm_map(corpus_clean, stripWhitespace)
-#   corpus_clean <- tm_map(corpus_clean, removeWords, c(excl,"http","https","httpst"))
-# 
-# 
-#   return(corpus_clean)
-# }
-# 
-# 
-# ## capture all the output to a file.
-# 
-# ################# Collect from Twitter
-# 
-# # for creating a twitter app (apps.twitter.com) see youtube https://youtu.be/lT4Kosc_ers
-# #consumer_key <-'your key'
-# #consumer_scret <- 'your secret'
-# #access_token <- 'your access token'
-# #access_scret <- 'your access scret'
-# 
-# source("your_twitter.R") #this file will set my personal variables for my twitter app, adjust the name of this file. use the provide template your_twitter.R
-# 
-# setup_twitter_oauth(consumer_key,consumer_scret, access_token,access_scret) #connect to  twitter app
-# 
-# 
-# ##### This example uses the following 3 celebrities: "Donald Trump", "Tucker Carlson","Bernie Sanders", "Alexandria Ocasio-Cortez ", "Joe Biden"
-# ##  You should replace this with your own celebrities, at least 3, but more preferred
-# ##  Note that it will take the computer some to collect the tweets
-# 
-# tweets_C <- searchTwitter("#TuckerCarlson", n=294, lang="en", resultType="recent") #300 recent tweets about Donald Trump, in English (I think that 1500 tweets is max)
-# tweets_T <- searchTwitter("#Trump", n=294, lang="en", resultType="recent") #300 recent tweets about Donald Trump
-# tweets_A <- searchTwitter("#aoc", n=294, lang="en", resultType="recent") #300 recent tweets about Hillary Clinton
-# tweets_B <- searchTwitter("#Bernie", n=294, lang="en", resultType="recent") #300 recent tweets about Bernie Sanders
-# tweets_J <- searchTwitter("#biden", n=294, lang="en", resultType="recent") #300 recent tweets about Bernie Sanders
-# 
-# 
-# 
-# 
-# ######################## WordCloud
-# ### This not requires in the assignment, but still fun to do
-# 
-# # based on https://youtu.be/JoArGkOpeU0
-# 
-# #corpus_T<-clearTweets(tweets_T, c("trump","amp","realdonaldtrump","trumptrain","donald","trumps","alwaystrump")) #remove also some campain slogans
-# #wordcloud(corpus_T, max.words=50)
-# 
-# #corpus_C<-clearTweets(tweets_C, c("hillary","amp","clinton","hillarys"))
-# #wordcloud(corpus_C,  max.words=50)
-# 
-# #corpus_B<-clearTweets(tweets_B, c("bernie", "amp", "sanders","bernies"))
-# #wordcloud(corpus_B,  max.words=50)
-# ##############################
-# 
-# ######################## Sentiment analysis
-# 
-# tweets_T.text <- laply(tweets_T, function(t)t$getText()) #get text out of tweets
-# tweets_C.text <- laply(tweets_C, function(t)t$getText()) #get text out of tweets
-# tweets_B.text <- laply(tweets_B, function(t)t$getText()) #get text out of tweets
-# tweets_J.text <- laply(tweets_J, function(t)t$getText()) #get text out of tweets
-# tweets_A.text <- laply(tweets_A, function(t)t$getText()) #get text out of tweets
-# 
-# 
-# 
-# #taken from https://github.com/mjhea0/twitter-sentiment-analysis
-# pos <- scan('positive-words.txt', what = 'character', comment.char=';') #read the positive words
-# neg <- scan('negative-words.txt', what = 'character', comment.char=';') #read the negative words
-# 
-# source("sentiment3.R") #load algoritm
-# # see sentiment3.R form more information about sentiment analysis. It assigns a intereger score
-# # by substracitng the number of occurrence of negative words from that of positive words
-# 
-# analysis_T <- score.sentiment(tweets_T.text, pos, neg)
-# analysis_C <- score.sentiment(tweets_C.text, pos, neg)
-# analysis_B <- score.sentiment(tweets_B.text, pos, neg)
-# analysis_A <- score.sentiment(tweets_A.text, pos, neg)
-# analysis_J <- score.sentiment(tweets_J.text, pos, neg)
-# 
-# 
-# sem<-data.frame(analysis_T$score, analysis_C$score, analysis_B$score, analysis_J$score, analysis_A$score)
-# 
-# 
-# semFrame <-melt(sem, measured=c(analysis_T.score,analysis_C.score, analysis_B.score ))
-# names(semFrame) <- c("Celeb", "score")
-# semFrame$Celeb <-factor(semFrame$Celeb, labels=c("Donald Trump", "Tucker Carlson","Bernie Sanders", "Alexandria Ocasio-Cortez ", "Joe Biden")) # change the labels for your celibrities
+# <!-- #  -->
+# <!-- # clearTweets <- function(tweets, excl) { -->
+# <!-- #  -->
+# <!-- #   tweets.text <- sapply(tweets, function(t)t$getText()) #get text out of tweets -->
+# <!-- #  -->
+# <!-- #  -->
+# <!-- #   tweets.text = gsub('[[:cntrl:]]', '', tweets.text) -->
+# <!-- #   tweets.text = gsub('\\d+', '', tweets.text) -->
+# <!-- #   tweets.text <- str_replace_all(tweets.text,"[^[:graph:]]", " ") #remove graphic -->
+# <!-- #  -->
+# <!-- #  -->
+# <!-- #   corpus <- Corpus(VectorSource(tweets.text)) -->
+# <!-- #  -->
+# <!-- #   corpus_clean <- tm_map(corpus, removePunctuation) -->
+# <!-- #   corpus_clean <- tm_map(corpus_clean, content_transformer(tolower)) -->
+# <!-- #   corpus_clean <- tm_map(corpus_clean, removeWords, stopwords("english")) -->
+# <!-- #   corpus_clean <- tm_map(corpus_clean, removeNumbers) -->
+# <!-- #   corpus_clean <- tm_map(corpus_clean, stripWhitespace) -->
+# <!-- #   corpus_clean <- tm_map(corpus_clean, removeWords, c(excl,"http","https","httpst")) -->
+# <!-- #  -->
+# <!-- #  -->
+# <!-- #   return(corpus_clean) -->
+# <!-- # } -->
+# <!-- #  -->
+# <!-- #  -->
+# <!-- # ## capture all the output to a file. -->
+# <!-- #  -->
+# <!-- # ################# Collect from Twitter -->
+# <!-- #  -->
+# <!-- # # for creating a twitter app (apps.twitter.com) see youtube https://youtu.be/lT4Kosc_ers -->
+# <!-- # #consumer_key <-'your key' -->
+# <!-- # #consumer_scret <- 'your secret' -->
+# <!-- # #access_token <- 'your access token' -->
+# <!-- # #access_scret <- 'your access scret' -->
+# <!-- #  -->
+# <!-- # source("your_twitter.R") #this file will set my personal variables for my twitter app, adjust the name of this file. use the provide template your_twitter.R -->
+# <!-- #  -->
+# <!-- # setup_twitter_oauth(consumer_key,consumer_scret, access_token,access_scret) #connect to  twitter app -->
+# <!-- #  -->
+# <!-- #  -->
+# <!-- # ##### This example uses the following 3 celebrities: "Donald Trump", "Tucker Carlson","Bernie Sanders", "Alexandria Ocasio-Cortez ", "Joe Biden" -->
+# <!-- # ##  You should replace this with your own celebrities, at least 3, but more preferred -->
+# <!-- # ##  Note that it will take the computer some to collect the tweets -->
+# <!-- #  -->
+# <!-- # tweets_C <- searchTwitter("#TuckerCarlson", n=294, lang="en", resultType="recent") #300 recent tweets about Donald Trump, in English (I think that 1500 tweets is max) -->
+# <!-- # tweets_T <- searchTwitter("#Trump", n=294, lang="en", resultType="recent") #300 recent tweets about Donald Trump -->
+# <!-- # tweets_A <- searchTwitter("#aoc", n=294, lang="en", resultType="recent") #300 recent tweets about Hillary Clinton -->
+# <!-- # tweets_B <- searchTwitter("#Bernie", n=294, lang="en", resultType="recent") #300 recent tweets about Bernie Sanders -->
+# <!-- # tweets_J <- searchTwitter("#biden", n=294, lang="en", resultType="recent") #300 recent tweets about Bernie Sanders -->
+# <!-- #  -->
+# <!-- #  -->
+# <!-- #  -->
+# <!-- #  -->
+# <!-- # ######################## WordCloud -->
+# <!-- # ### This not requires in the assignment, but still fun to do -->
+# <!-- #  -->
+# <!-- # # based on https://youtu.be/JoArGkOpeU0 -->
+# <!-- #  -->
+# <!-- # #corpus_T<-clearTweets(tweets_T, c("trump","amp","realdonaldtrump","trumptrain","donald","trumps","alwaystrump")) #remove also some campain slogans -->
+# <!-- # #wordcloud(corpus_T, max.words=50) -->
+# <!-- #  -->
+# <!-- # #corpus_C<-clearTweets(tweets_C, c("hillary","amp","clinton","hillarys")) -->
+# <!-- # #wordcloud(corpus_C,  max.words=50) -->
+# <!-- #  -->
+# <!-- # #corpus_B<-clearTweets(tweets_B, c("bernie", "amp", "sanders","bernies")) -->
+# <!-- # #wordcloud(corpus_B,  max.words=50) -->
+# <!-- # ############################## -->
+# <!-- #  -->
+# <!-- # ######################## Sentiment analysis -->
+# <!-- #  -->
+# <!-- # tweets_T.text <- laply(tweets_T, function(t)t$getText()) #get text out of tweets -->
+# <!-- # tweets_C.text <- laply(tweets_C, function(t)t$getText()) #get text out of tweets -->
+# <!-- # tweets_B.text <- laply(tweets_B, function(t)t$getText()) #get text out of tweets -->
+# <!-- # tweets_J.text <- laply(tweets_J, function(t)t$getText()) #get text out of tweets -->
+# <!-- # tweets_A.text <- laply(tweets_A, function(t)t$getText()) #get text out of tweets -->
+# <!-- #  -->
+# <!-- #  -->
+# <!-- #  -->
+# <!-- # #taken from https://github.com/mjhea0/twitter-sentiment-analysis -->
+# <!-- # pos <- scan('positive-words.txt', what = 'character', comment.char=';') #read the positive words -->
+# <!-- # neg <- scan('negative-words.txt', what = 'character', comment.char=';') #read the negative words -->
+# <!-- #  -->
+# <!-- # source("sentiment3.R") #load algoritm -->
+# <!-- # # see sentiment3.R form more information about sentiment analysis. It assigns a intereger score -->
+# <!-- # # by substracitng the number of occurrence of negative words from that of positive words -->
+# <!-- #  -->
+# <!-- # analysis_T <- score.sentiment(tweets_T.text, pos, neg) -->
+# <!-- # analysis_C <- score.sentiment(tweets_C.text, pos, neg) -->
+# <!-- # analysis_B <- score.sentiment(tweets_B.text, pos, neg) -->
+# <!-- # analysis_A <- score.sentiment(tweets_A.text, pos, neg) -->
+# <!-- # analysis_J <- score.sentiment(tweets_J.text, pos, neg) -->
+# <!-- #  -->
+# <!-- #  -->
+# <!-- # sem<-data.frame(analysis_T$score, analysis_C$score, analysis_B$score, analysis_J$score, analysis_A$score) -->
+# <!-- #  -->
+# <!-- #  -->
+# <!-- # semFrame <-melt(sem, measured=c(analysis_T.score,analysis_C.score, analysis_B.score )) -->
+# <!-- # names(semFrame) <- c("Celeb", "score") -->
+# <!-- # semFrame$Celeb <-factor(semFrame$Celeb, labels=c("Donald Trump", "Tucker Carlson","Bernie Sanders", "Alexandria Ocasio-Cortez ", "Joe Biden")) # change the labels for your celibrities -->
 
 semFrame <- readRDS(file="semFrame.Rda")
 
 
-#saveRDS(semFrame, file="semFrame.Rda")
-#The data you need for the analyses can be found in semFrame
+# <!-- #saveRDS(semFrame, file="semFrame.Rda") -->
+# <!-- #The data you need for the analyses can be found in semFrame -->
 
 ```
 
-### Homogeneity of variance analysis
-```{r}
-pander(leveneTest(semFrame$score, semFrame$Celeb))
-```
+<!-- ### Homogeneity of variance analysis -->
+<!-- ```{r} -->
+<!-- pander(leveneTest(semFrame$score, semFrame$Celeb)) -->
+<!-- ``` -->
 
-The Levene test reveals a p-value smaller than 0.001, indicating that there is significant difference between the group variances in sentiment score. We conclude that the variance among the five groups is not equal.
+<!-- The Levene test reveals a p-value smaller than 0.001, indicating that there is significant difference between the group variances in sentiment score. We conclude that the variance among the five groups is not equal. -->
 
-### Visual inspection Mean and distribution sentiments
+<!-- ### Visual inspection Mean and distribution sentiments -->
 
-We plot both a line density and a distribution histogram which includes a mean line.
-```{r}
-#boxplot(score ~ Celeb, data = semFrame, text.font = 4)
-sm.density.compare(semFrame$score, semFrame$Celeb, xlab = "Score",
-                   col=c('red', 'blue', 'green', 'hotpink', 'gold'), lty=c(1,1,1,1,1))
-  title(main="Visual inspection Mean and distribution sentiments")
-  legend('topright', legend = levels(semFrame$Celeb),
-         col=c('red', 'blue', 'green', 'hotpink', 'gold'),
-         title="Celebs", lty=1, cex=0.8, text.font = 4, bg='lightblue')
+<!-- We plot both a line density and a distribution histogram which includes a mean line. -->
+<!-- ```{r} -->
+<!-- #boxplot(score ~ Celeb, data = semFrame, text.font = 4) -->
+<!-- sm.density.compare(semFrame$score, semFrame$Celeb, xlab = "Score", -->
+<!--                    col=c('red', 'blue', 'green', 'hotpink', 'gold'), lty=c(1,1,1,1,1)) -->
+<!--   title(main="Visual inspection Mean and distribution sentiments") -->
+<!--   legend('topright', legend = levels(semFrame$Celeb), -->
+<!--          col=c('red', 'blue', 'green', 'hotpink', 'gold'), -->
+<!--          title="Celebs", lty=1, cex=0.8, text.font = 4, bg='lightblue') -->
 
-cdat <- ddply(semFrame, "Celeb", summarise, score.mean=mean(score))
-ggplot(semFrame, aes(x=score, fill=Celeb)) +
-  geom_histogram(binwidth=1, position="dodge") +
-  geom_vline(data=cdat, aes(xintercept=score.mean,  colour=Celeb),
-               linetype="solid", size=0.5) 
+<!-- cdat <- ddply(semFrame, "Celeb", summarise, score.mean=mean(score)) -->
+<!-- ggplot(semFrame, aes(x=score, fill=Celeb)) + -->
+<!--   geom_histogram(binwidth=1, position="dodge") + -->
+<!--   geom_vline(data=cdat, aes(xintercept=score.mean,  colour=Celeb), -->
+<!--                linetype="solid", size=0.5)  -->
 
-```
+<!-- ``` -->
 
-We see all US politic Celebs have a mean around 0. #trump has the highest sentiment mean and the largest difference with the rest.
+<!-- We see all US politic Celebs have a mean around 0. #trump has the highest sentiment mean and the largest difference with the rest. -->
 
-### Frequentist approach
+<!-- ### Frequentist approach -->
 
-#### Linear model
+<!-- #### Linear model -->
 
-A one-way between subjects ANOVA was conducted to compare the effect of relation to celebrities on sentiment score in five conditions.
+<!-- A one-way between subjects ANOVA was conducted to compare the effect of relation to celebrities on sentiment score in five conditions. -->
 
-```{r}
-modelTwitter0 <- lm(formula = score ~ 1 , data = semFrame)
-modelTwitter1 <- lm(formula = score ~ Celeb , data = semFrame)
-pander(anova(modelTwitter0, modelTwitter1, test = "F"))
-```
+<!-- ```{r} -->
+<!-- modelTwitter0 <- lm(formula = score ~ 1 , data = semFrame) -->
+<!-- modelTwitter1 <- lm(formula = score ~ Celeb , data = semFrame) -->
+<!-- pander(anova(modelTwitter0, modelTwitter1, test = "F")) -->
+<!-- ``` -->
 
-There was a significant effect of relation to celebrities on sentiment score at the p<.001 level for the five conditions [F(4, 1465) = 56.06, p < 0.001]. 
+<!-- There was a significant effect of relation to celebrities on sentiment score at the p<.001 level for the five conditions [F(4, 1465) = 56.06, p < 0.001].  -->
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, include = FALSE}
-#(summary(model1))
+<!-- ```{r, echo=FALSE, message=FALSE, warning=FALSE, include = FALSE} -->
+<!-- #(summary(model1)) -->
 
-#The p-value of the Celeb variable is low (p < 0.001), so it appears that the relation to celebrities has a real impact on the sentiment score.
-```
+<!-- #The p-value of the Celeb variable is low (p < 0.001), so it appears that the relation to celebrities has a real impact on the sentiment score. -->
+<!-- ``` -->
 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, include = FALSE}
-# smodel0 <-summary(model0)
-# llm0 <-sum(dnorm(semFrame$score, mean = predict(model0), sd= smodel0$sigma, log=TRUE))
-# AIC_model0 <- -2*llm0 + 2*2
-# AIC_model0
-# smodel1 <-summary(model1)
-# llm1 <-sum(dnorm(semFrame$score, mean = predict(model1), sd= smodel1$sigma, log=TRUE))
-# AIC_model1 <- -2*llm1 + 2*3
-# AIC_model1
-```
-```{r}
-#AIC
-modelsTwitter <- list(modelTwitter0, modelTwitter1)
-modelTwitter.names <- c("modelTwitter0", "modelTwitter1")
-pander(aictab(cand.set = modelsTwitter, modnames=modelTwitter.names), 
-       caption="Model selection based on AICc.")
-```
+<!-- ```{r, echo=FALSE, message=FALSE, warning=FALSE, include = FALSE} -->
+<!-- # smodel0 <-summary(model0) -->
+<!-- # llm0 <-sum(dnorm(semFrame$score, mean = predict(model0), sd= smodel0$sigma, log=TRUE)) -->
+<!-- # AIC_model0 <- -2*llm0 + 2*2 -->
+<!-- # AIC_model0 -->
+<!-- # smodel1 <-summary(model1) -->
+<!-- # llm1 <-sum(dnorm(semFrame$score, mean = predict(model1), sd= smodel1$sigma, log=TRUE)) -->
+<!-- # AIC_model1 <- -2*llm1 + 2*3 -->
+<!-- # AIC_model1 -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- #AIC -->
+<!-- modelsTwitter <- list(modelTwitter0, modelTwitter1) -->
+<!-- modelTwitter.names <- c("modelTwitter0", "modelTwitter1") -->
+<!-- pander(aictab(cand.set = modelsTwitter, modnames=modelTwitter.names),  -->
+<!--        caption="Model selection based on AICc.") -->
+<!-- ``` -->
 
-A lower AIC indicates a better fit, which is the model with the predictor.
+<!-- A lower AIC indicates a better fit, which is the model with the predictor. -->
 
-#### Post Hoc analysis
+<!-- #### Post Hoc analysis -->
 
-```{r}
-pander(pairwise.t.test(semFrame$score, semFrame$Celeb, paired = FALSE, p.adjust.method = "bonferroni"))
-```
+<!-- ```{r} -->
+<!-- pander(pairwise.t.test(semFrame$score, semFrame$Celeb, paired = FALSE, p.adjust.method = "bonferroni")) -->
+<!-- ``` -->
 
-Post hoc comparisons using the Bonferroni correction indicated that the corrected p-value for the trump condition was significantly different than the other conditions (p<0.001). However, between the others condition it does not show a significantly difference.
+<!-- Post hoc comparisons using the Bonferroni correction indicated that the corrected p-value for the trump condition was significantly different than the other conditions (p<0.001). However, between the others condition it does not show a significantly difference. -->
 
-#### Report section for a scientific publication
+<!-- #### Report section for a scientific publication -->
 
-A one-way between subjects ANOVA was conducted to compare the effect of relation to celebrities on sentiment score in five conditions. 
-There was a significant effect of relation to celebrities on sentiment score at the p<.001 level for the five conditions [F(4, 1465) = 56.06, p < 0.001]. 
-However, post hoc comparisons using the Bonferroni correction indicated that only the corrected p-value for the trump condition was significantly different than the other conditions (p<0.001), between the others condition it does not show a significantly difference. 
-Taken together, these results suggest that some celebrities really do have an effect on the sentiment in Tweets.
+<!-- A one-way between subjects ANOVA was conducted to compare the effect of relation to celebrities on sentiment score in five conditions.  -->
+<!-- There was a significant effect of relation to celebrities on sentiment score at the p<.001 level for the five conditions [F(4, 1465) = 56.06, p < 0.001].  -->
+<!-- However, post hoc comparisons using the Bonferroni correction indicated that only the corrected p-value for the trump condition was significantly different than the other conditions (p<0.001), between the others condition it does not show a significantly difference.  -->
+<!-- Taken together, these results suggest that some celebrities really do have an effect on the sentiment in Tweets. -->
 
-### Bayesian Approach
+<!-- ### Bayesian Approach -->
 
-#### Model description
-The sentiment scores seem to center around 0, and all seem to be single digits.
+<!-- #### Model description -->
+<!-- The sentiment scores seem to center around 0, and all seem to be single digits. -->
 
-$$ score \sim Norm(\mu, \sigma) $$
-$$ \mu = \alpha +b*Celeb $$
-$$ \alpha = Norm(0, 10) $$
-$$ \sigma  = Uniform(0.001, 10) $$
+<!-- $$ score \sim Norm(\mu, \sigma) $$ -->
+<!-- $$ \mu = \alpha +b*Celeb $$ -->
+<!-- $$ \alpha = Norm(0, 10) $$ -->
+<!-- $$ \sigma  = Uniform(0.001, 10) $$ -->
 
-#### Model comparison
+<!-- #### Model comparison -->
 
-```{r}
-mTwitter0 <-map2stan(alist(
-  score ~ dnorm(mu, sigma),
-  mu <-a,
-  a ~ dnorm(0, 10),
-  sigma ~ dunif(0.001, 10)), 
-  data =  semFrame ,  iter= 10000, chains = 4,   cores = 4 )
+<!-- ```{r} -->
+<!-- mTwitter0 <-map2stan(alist( -->
+<!--   score ~ dnorm(mu, sigma), -->
+<!--   mu <-a, -->
+<!--   a ~ dnorm(0, 10), -->
+<!--   sigma ~ dunif(0.001, 10)),  -->
+<!--   data =  semFrame ,  iter= 10000, chains = 4,   cores = 4 ) -->
 
-mTwitter1 <-map2stan(alist(
-  score ~ dnorm(mu, sigma),
-  mu <-a[Celeb] ,
-  a[Celeb] ~ dnorm(0, 10),
-  sigma ~ dunif(0.001, 10)), 
-  data =  semFrame ,iter= 10000, chains = 4, cores = 4 )
+<!-- mTwitter1 <-map2stan(alist( -->
+<!--   score ~ dnorm(mu, sigma), -->
+<!--   mu <-a[Celeb] , -->
+<!--   a[Celeb] ~ dnorm(0, 10), -->
+<!--   sigma ~ dunif(0.001, 10)),  -->
+<!--   data =  semFrame ,iter= 10000, chains = 4, cores = 4 ) -->
 
-pander(compare(mTwitter0, mTwitter1, func=WAIC))
-```
+<!-- pander(compare(mTwitter0, mTwitter1, func=WAIC)) -->
+<!-- ``` -->
 
-Lower WAIC indicates a better performing model, so with predictors (mTwitter1) is the winning model.
+<!-- Lower WAIC indicates a better performing model, so with predictors (mTwitter1) is the winning model. -->
 
 
 
-#### Comparison celebrity pair
+<!-- #### Comparison celebrity pair -->
 
-```{r}
-pander(precis(mTwitter1, depth=2, prob = .95))
-```
+<!-- ```{r} -->
+<!-- pander(precis(mTwitter1, depth=2, prob = .95)) -->
+<!-- ``` -->
 
-Looking at the credibility intervals of the celebrities effects, We see the conditions where the mean of a condition does not fall within a credibility interval of an other condition. This holds for the a[1] (Trump) condition and a couple other combinations. We can again conclude that some celebrities really do have an effect on the sentiment in Tweets. 
+<!-- Looking at the credibility intervals of the celebrities effects, We see the conditions where the mean of a condition does not fall within a credibility interval of an other condition. This holds for the a[1] (Trump) condition and a couple other combinations. We can again conclude that some celebrities really do have an effect on the sentiment in Tweets.  -->
 
-## Question 2 - Website visits (between groups - Two factors)
+<!-- ## Question 2 - Website visits (between groups - Two factors) -->
 
-### Conceptual model
-<!-- Make a conceptual model underlying this research question -->
+<!-- ### Conceptual model -->
+<!-- <!-- Make a conceptual model underlying this research question --> -->
 
-```{r concept_diag, echo=FALSE, fig.cap="\\label{fig:concept_diag}The conceptual model underlying the research question.", out.width = '100%'}
-knitr::include_graphics("img/concept_diag.png")
-```
+<!-- ```{r concept_diag, echo=FALSE, fig.cap="\\label{fig:concept_diag}The conceptual model underlying the research question.", out.width = '100%'} -->
+<!-- knitr::include_graphics("img/concept_diag.png") -->
+<!-- ``` -->
 
-### Visual inspection
-<!-- Graphically examine the variation in page visits for different factors levels (e.g. histogram, density plot etc.)  -->
+<!-- ### Visual inspection -->
+<!-- <!-- Graphically examine the variation in page visits for different factors levels (e.g. histogram, density plot etc.)  --> -->
 
 
-```{r}
-filepath <- ("webvisit0.csv")
-data <- read.csv(file=filepath, header=TRUE)
+<!-- ```{r} -->
+<!-- filepath <- ("webvisit0.csv") -->
+<!-- data <- read.csv(file=filepath, header=TRUE) -->
 
-# changing dtype of the factors
-data$portal = as.factor(data$portal)
-data$version = as.factor(data$version)
+<!-- # changing dtype of the factors -->
+<!-- data$portal = as.factor(data$portal) -->
+<!-- data$version = as.factor(data$version) -->
 
-# Function to calculate the mean and the standard deviation for each factor group
+<!-- # Function to calculate the mean and the standard deviation for each factor group -->
 
-data_summary <- function(data, varname, groupnames){
-  require(plyr)
-  summary_func <- function(x, col){
-    c(mean = mean(x[[col]], na.rm=TRUE),
-      sd = sd(x[[col]], na.rm=TRUE))
-  }
-  data_sum<-ddply(data, groupnames, .fun=summary_func,
-                  varname)
-  data_sum <- rename(data_sum, c("mean" = varname))
- return(data_sum)
-}
+<!-- data_summary <- function(data, varname, groupnames){ -->
+<!--   require(plyr) -->
+<!--   summary_func <- function(x, col){ -->
+<!--     c(mean = mean(x[[col]], na.rm=TRUE), -->
+<!--       sd = sd(x[[col]], na.rm=TRUE)) -->
+<!--   } -->
+<!--   data_sum<-ddply(data, groupnames, .fun=summary_func, -->
+<!--                   varname) -->
+<!--   data_sum <- rename(data_sum, c("mean" = varname)) -->
+<!--  return(data_sum) -->
+<!-- } -->
 
-df3 <- data_summary(data, varname="pages", 
-                    groupnames=c("version", "portal"))
+<!-- df3 <- data_summary(data, varname="pages",  -->
+<!--                     groupnames=c("version", "portal")) -->
 
-p <- ggplot(df3, aes(x=version, y=pages, fill=portal)) + 
-   geom_bar(stat="identity", position=position_dodge()) +
-  geom_errorbar(aes(ymin=pages-sd, ymax=pages+sd), width=.2,
-                 position=position_dodge(.9))
-  
-p + scale_fill_brewer(palette="Paired") + theme_minimal()
+<!-- p <- ggplot(df3, aes(x=version, y=pages, fill=portal)) +  -->
+<!--    geom_bar(stat="identity", position=position_dodge()) + -->
+<!--   geom_errorbar(aes(ymin=pages-sd, ymax=pages+sd), width=.2, -->
+<!--                  position=position_dodge(.9)) -->
 
-# Creating subsets of data for each combination of factors
-subset00 <- subset(data, version == '0' & portal == '0')
-subset01 <- subset(data, version == '0' & portal == '1')
-subset10 <- subset(data, version == '1' & portal == '0')
-subset11 <- subset(data, version == '1' & portal == '1')
+<!-- p + scale_fill_brewer(palette="Paired") + theme_minimal() -->
 
-```
+<!-- # Creating subsets of data for each combination of factors -->
+<!-- subset00 <- subset(data, version == '0' & portal == '0') -->
+<!-- subset01 <- subset(data, version == '0' & portal == '1') -->
+<!-- subset10 <- subset(data, version == '1' & portal == '0') -->
+<!-- subset11 <- subset(data, version == '1' & portal == '1') -->
 
-Notable observations from the bar-plot demonstrating the mean and standard deviation of the page visits are that the mean page visits across both the versions for the 0 - portal entries (Consumer) are almost the same but vary significantly for the 1 - portal entries (Company).
+<!-- ``` -->
 
-### Normality check
-<!-- Visually inspect if variable page visits deviates from a Gaussian distribution, and discuss implication for general linear model analysis. -->
+<!-- Notable observations from the bar-plot demonstrating the mean and standard deviation of the page visits are that the mean page visits across both the versions for the 0 - portal entries (Consumer) are almost the same but vary significantly for the 1 - portal entries (Company). -->
 
+<!-- ### Normality check -->
+<!-- <!-- Visually inspect if variable page visits deviates from a Gaussian distribution, and discuss implication for general linear model analysis. --> -->
 
-```{r}
-# Generating density plots
 
-d <- density(data$pages)
-plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Aggregated Page visits')
-abline(v = mean(data$pages), col = "black")
+<!-- ```{r} -->
+<!-- # Generating density plots -->
 
-d <- density(subset00$pages)
-plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Page visits on Old version for Consumers entries')
-abline(v = mean(subset00$pages), col = "red")
+<!-- d <- density(data$pages) -->
+<!-- plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Aggregated Page visits') -->
+<!-- abline(v = mean(data$pages), col = "black") -->
 
-d <- density(subset01$pages)
-plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Page visits on Old version for Company entries')
-abline(v = mean(subset01$pages), col = "green")
+<!-- d <- density(subset00$pages) -->
+<!-- plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Page visits on Old version for Consumers entries') -->
+<!-- abline(v = mean(subset00$pages), col = "red") -->
 
-d <- density(subset10$pages)
-plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Page visits on New version for Consumers entries')
-abline(v = mean(subset10$pages), col = "blue")
+<!-- d <- density(subset01$pages) -->
+<!-- plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Page visits on Old version for Company entries') -->
+<!-- abline(v = mean(subset01$pages), col = "green") -->
 
-d <- density(subset11$pages)
-plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Page visits on New version for Company entries')
-abline(v = mean(subset11$pages), col = "orange")
-```
+<!-- d <- density(subset10$pages) -->
+<!-- plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Page visits on New version for Consumers entries') -->
+<!-- abline(v = mean(subset10$pages), col = "blue") -->
 
-The Density plots indicate that none of the Page visit densities resemble a Gaussian distribtuion, apart from the page visits for New version and Old version company entries. The rest have skewed distributions and the Page visits for Old version consumer entries resembles a mixture of densities. General Linear Model analysis assumes the fact that the target continuous variable has Gaussian-error distribution and thus uses appropriate log-likelihoods for the best MLE regression fit. Since the densities do not resemble Normal distributions, this might hamper the interpretability of the results.
+<!-- d <- density(subset11$pages) -->
+<!-- plot(d, xlab='Number of Page Visits', ylab='Prob. Density', main='Page visits on New version for Company entries') -->
+<!-- abline(v = mean(subset11$pages), col = "orange") -->
+<!-- ``` -->
 
-### Frequentist Approach
+<!-- The Density plots indicate that none of the Page visit densities resemble a Gaussian distribtuion, apart from the page visits for New version and Old version company entries. The rest have skewed distributions and the Page visits for Old version consumer entries resembles a mixture of densities. General Linear Model analysis assumes the fact that the target continuous variable has Gaussian-error distribution and thus uses appropriate log-likelihoods for the best MLE regression fit. Since the densities do not resemble Normal distributions, this might hamper the interpretability of the results. -->
 
-#### Model analysis
-<!-- Conduct a model analysis, to examine the added values of adding 2 factors and interaction between the factors in the model to predict page visits, and include brief interpretation of the results. -->
+<!-- ### Frequentist Approach -->
 
+<!-- #### Model analysis -->
+<!-- <!-- Conduct a model analysis, to examine the added values of adding 2 factors and interaction between the factors in the model to predict page visits, and include brief interpretation of the results. --> -->
 
-```{r}
-# Model fitting for each factor and a combination of them
 
-modelWeb0 <- lm(pages ~ 1, data=data, na.action=na.exclude)
-modelWeb1 <- lm(pages ~ version, data=data, na.action=na.exclude)
-modelWeb2 <- lm(pages ~ portal, data=data, na.action=na.exclude)
-modelWeb3 <- lm(pages ~ version + portal, data=data, na.action=na.exclude)
-modelWeb4 <- lm(pages ~ version + portal + version:portal, data=data, na.action=na.exclude)
+<!-- ```{r} -->
+<!-- # Model fitting for each factor and a combination of them -->
 
-# ANOVA results of the effect of adding the factors
+<!-- modelWeb0 <- lm(pages ~ 1, data=data, na.action=na.exclude) -->
+<!-- modelWeb1 <- lm(pages ~ version, data=data, na.action=na.exclude) -->
+<!-- modelWeb2 <- lm(pages ~ portal, data=data, na.action=na.exclude) -->
+<!-- modelWeb3 <- lm(pages ~ version + portal, data=data, na.action=na.exclude) -->
+<!-- modelWeb4 <- lm(pages ~ version + portal + version:portal, data=data, na.action=na.exclude) -->
 
-pander(anova(modelWeb0, modelWeb1), caption='Version as main effect on Page visits')
+<!-- # ANOVA results of the effect of adding the factors -->
 
-pander(anova(modelWeb0, modelWeb2), caption='Portal as main effect on Page visits')
+<!-- pander(anova(modelWeb0, modelWeb1), caption='Version as main effect on Page visits') -->
 
-pander(anova(modelWeb3, modelWeb4), caption='Interaction effect vs 2 main effects')
+<!-- pander(anova(modelWeb0, modelWeb2), caption='Portal as main effect on Page visits') -->
 
-pander(anova(modelWeb4), caption='Version, Portal and interaction effect on Page visits')
+<!-- pander(anova(modelWeb3, modelWeb4), caption='Interaction effect vs 2 main effects') -->
 
-# AICc scores of the models
+<!-- pander(anova(modelWeb4), caption='Version, Portal and interaction effect on Page visits') -->
 
-modelsWeb <-list(modelWeb0, modelWeb1, modelWeb2, modelWeb3, modelWeb4)
-modelWeb.names <-c("modelWeb0","modelWeb1","modelWeb2","modelWeb3","modelWeb4")
-pander(aictab(cand.set = modelsWeb, modnames=modelWeb.names))
-```
+<!-- # AICc scores of the models -->
 
-The ANOVA results for the comparison of each model type indicate that the added values by including the factors individually, together and their interaction effect is statistically significant since all their p-values are <0.001. The AICc results show that model4 has the best goodness of fit since its corrected-AIC value is the least with the best log-likelihood score too.
+<!-- modelsWeb <-list(modelWeb0, modelWeb1, modelWeb2, modelWeb3, modelWeb4) -->
+<!-- modelWeb.names <-c("modelWeb0","modelWeb1","modelWeb2","modelWeb3","modelWeb4") -->
+<!-- pander(aictab(cand.set = modelsWeb, modnames=modelWeb.names)) -->
+<!-- ``` -->
 
-#### Simple effect analysis
-<!-- If the analysis shows a significant two-way interaction effect, conduct a Simple Effect analysis to explore this interaction effect in more detail.It helps first to look at the means of different conditions in a figure. Provide brief interpretation of the results. -->
+<!-- The ANOVA results for the comparison of each model type indicate that the added values by including the factors individually, together and their interaction effect is statistically significant since all their p-values are <0.001. The AICc results show that model4 has the best goodness of fit since its corrected-AIC value is the least with the best log-likelihood score too. -->
 
+<!-- #### Simple effect analysis -->
+<!-- <!-- If the analysis shows a significant two-way interaction effect, conduct a Simple Effect analysis to explore this interaction effect in more detail.It helps first to look at the means of different conditions in a figure. Provide brief interpretation of the results. --> -->
 
-```{r}
-data$simple <- interaction(data$version, data$portal)
-contrast0 <-c(1,-1,0,0) #Only the 0-portal data
-contrast1 <-c(0,0,1,-1) #Only the 1-portal data
 
-SimpleEff <- cbind(contrast0,contrast1)
-contrasts(data$simple) <- SimpleEff
+<!-- ```{r} -->
+<!-- data$simple <- interaction(data$version, data$portal) -->
+<!-- contrast0 <-c(1,-1,0,0) #Only the 0-portal data -->
+<!-- contrast1 <-c(0,0,1,-1) #Only the 1-portal data -->
 
-simpleEffectModel <-lm(pages ~ simple , data = data, na.action = na.exclude)
-pander(summary.lm(simpleEffectModel))
-```
+<!-- SimpleEff <- cbind(contrast0,contrast1) -->
+<!-- contrasts(data$simple) <- SimpleEff -->
 
-After fitting a linear model on the data, it can be observed that the company portal entries (1) have a statistically significant difference and not the consumer portal entries (0). This observation also agrees with the first plot indicating the variation in page visits for the 2 factors. The 1-portal page visits have a larger difference than the 0-portal page visits for the 0 and 1 - versions.
+<!-- simpleEffectModel <-lm(pages ~ simple , data = data, na.action = na.exclude) -->
+<!-- pander(summary.lm(simpleEffectModel)) -->
+<!-- ``` -->
 
-#### Report section for a scientific publication
+<!-- After fitting a linear model on the data, it can be observed that the company portal entries (1) have a statistically significant difference and not the consumer portal entries (0). This observation also agrees with the first plot indicating the variation in page visits for the 2 factors. The 1-portal page visits have a larger difference than the 0-portal page visits for the 0 and 1 - versions. -->
 
-<!-- Write a small section for a scientific publication, in which you report the results of the analyses, and explain the conclusions that can be drawn. -->
+<!-- #### Report section for a scientific publication -->
 
-A linear model was fitted on the number of page visits by users, taking website version and web portal entires as independent variables, and including a two-way interaction between these variables. The analysis found a significant main effect (F (1, 995) = 36.2, p. < 0.01) for the version factor and (F (1, 995) = 178.8, p. < 0.01) for portal factor. The analysis also found a significant two-way interaction effect ( F (1, 76) = 46.25, p. < 0.01) between these two variables. A Simple Effect analysis further examined the two-way interaction. It revealed a significant (t = 9.222, p. < 0.01) difference for the web portal entries by companies (1), but no significant effect (t = -0.4258, p. = 0.6703) was found for the web portal entries by consumers (0).
+<!-- <!-- Write a small section for a scientific publication, in which you report the results of the analyses, and explain the conclusions that can be drawn. --> -->
 
-### Bayesian Approach
+<!-- A linear model was fitted on the number of page visits by users, taking website version and web portal entires as independent variables, and including a two-way interaction between these variables. The analysis found a significant main effect (F (1, 995) = 36.2, p. < 0.01) for the version factor and (F (1, 995) = 178.8, p. < 0.01) for portal factor. The analysis also found a significant two-way interaction effect ( F (1, 76) = 46.25, p. < 0.01) between these two variables. A Simple Effect analysis further examined the two-way interaction. It revealed a significant (t = 9.222, p. < 0.01) difference for the web portal entries by companies (1), but no significant effect (t = -0.4258, p. = 0.6703) was found for the web portal entries by consumers (0). -->
 
+<!-- ### Bayesian Approach -->
 
-#### Model description
 
-<!-- Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown). Justify the priors. -->
+<!-- #### Model description -->
 
-A gaussian model is fitted to each of the models. Model m0 is the base model with only an intercept. Model mWeb1 is an extension of model mWeb0 where the version in introduced as a predictor. Model mWeb2 is again an extension of model mWeb0 with portal as a predictor. In model mWeb3, both predictors are added as main effects, and model mWeb4 extends model mWeb3 by adding a two-way interaction effect between version and portal in the model. The priors are chosen with a normal distribution of N(0,1) for each of the model types.
+<!-- <!-- Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown). Justify the priors. --> -->
 
-The most complete model is the one which uses both the factors (Version and Portal) to determine the mean of the Gaussian distribution to model the dependent variable of Page Visits. The prior for the first variable 'a' is chosen to be a normal distribution with the mean as the mean of the page visits from the data and the uncertainty in this estimate is reflected by the standard deviation of the mean page visits as 2. The priors for the coefficients of Version and Portal are chosen to be normal distributions of mean 0 and deviation 1 since these will be anyway adjusted by the counts of the factors. The prior for the standard deviation of the of the number of page visits is chosen to be uninformed between 0.1 and 2 visits with all values within this interval having an equal chance to be
+<!-- A gaussian model is fitted to each of the models. Model m0 is the base model with only an intercept. Model mWeb1 is an extension of model mWeb0 where the version in introduced as a predictor. Model mWeb2 is again an extension of model mWeb0 with portal as a predictor. In model mWeb3, both predictors are added as main effects, and model mWeb4 extends model mWeb3 by adding a two-way interaction effect between version and portal in the model. The priors are chosen with a normal distribution of N(0,1) for each of the model types. -->
 
-$$ pages \sim Norm(\mu, \sigma)$$
+<!-- The most complete model is the one which uses both the factors (Version and Portal) to determine the mean of the Gaussian distribution to model the dependent variable of Page Visits. The prior for the first variable 'a' is chosen to be a normal distribution with the mean as the mean of the page visits from the data and the uncertainty in this estimate is reflected by the standard deviation of the mean page visits as 2. The priors for the coefficients of Version and Portal are chosen to be normal distributions of mean 0 and deviation 1 since these will be anyway adjusted by the counts of the factors. The prior for the standard deviation of the of the number of page visits is chosen to be uninformed between 0.1 and 2 visits with all values within this interval having an equal chance to be -->
 
-$$ \mu = a + b * versionN + c * portalN $$
+<!-- $$ pages \sim Norm(\mu, \sigma)$$ -->
 
-$$ alpha = Norm(0,1) $$
+<!-- $$ \mu = a + b * versionN + c * portalN $$ -->
 
-$$ \sigma = Uniform(0.1, 2)$$
+<!-- $$ alpha = Norm(0,1) $$ -->
 
+<!-- $$ \sigma = Uniform(0.1, 2)$$ -->
 
-#### Model comparison
 
-<!-- Conduct model analysis and provide brief interpretation of the results -->
+<!-- #### Model comparison -->
 
+<!-- <!-- Conduct model analysis and provide brief interpretation of the results --> -->
 
-```{r}
-datasub <- subset(data, select = c(pages, version, portal))
-datasub$versionN <- as.numeric(datasub$version)
-datasub$portalN <- as.numeric(datasub$portal)
 
-#Fitting each variant of the model
+<!-- ```{r} -->
+<!-- datasub <- subset(data, select = c(pages, version, portal)) -->
+<!-- datasub$versionN <- as.numeric(datasub$version) -->
+<!-- datasub$portalN <- as.numeric(datasub$portal) -->
 
-mWeb0 <-map2stan(    
-    alist(
-        pages ~ dnorm(mu, sigma),
-        mu <- a ,
-        a ~ dnorm(1, 2),
-        sigma ~ dunif(0.1, 2)
-    ), data = datasub, iter = 10000, chains = 4, cores = 4
-)
+<!-- #Fitting each variant of the model -->
 
-mWeb1 <-map2stan(    
-    alist(
-        pages ~ dnorm(mu, sigma),
-        mu <- a + b*versionN ,
-        a ~ dnorm(1, 2),
-        b ~ dnorm(0, 1),
-        sigma ~ dunif(0.1, 2)
-    ), data = datasub, iter = 10000, chains = 4, cores = 4
-)
+<!-- mWeb0 <-map2stan(     -->
+<!--     alist( -->
+<!--         pages ~ dnorm(mu, sigma), -->
+<!--         mu <- a , -->
+<!--         a ~ dnorm(1, 2), -->
+<!--         sigma ~ dunif(0.1, 2) -->
+<!--     ), data = datasub, iter = 10000, chains = 4, cores = 4 -->
+<!-- ) -->
 
-mWeb2 <-map2stan(    
-    alist(
-        pages ~ dnorm(mu, sigma),
-        mu <- a + b*portalN ,
-        a ~ dnorm(1, 2),
-        b ~ dnorm(0, 1),
-        sigma ~ dunif(0.1, 2)
-    ), data = datasub, iter = 10000, chains = 4, cores = 4
-)
+<!-- mWeb1 <-map2stan(     -->
+<!--     alist( -->
+<!--         pages ~ dnorm(mu, sigma), -->
+<!--         mu <- a + b*versionN , -->
+<!--         a ~ dnorm(1, 2), -->
+<!--         b ~ dnorm(0, 1), -->
+<!--         sigma ~ dunif(0.1, 2) -->
+<!--     ), data = datasub, iter = 10000, chains = 4, cores = 4 -->
+<!-- ) -->
 
-mWeb3 <-map2stan(    
-    alist(
-        pages ~ dnorm(mu, sigma),
-        mu <- a + b*versionN + c*portalN ,
-        a ~ dnorm(1, 2),
-        b ~ dnorm(0, 1),
-        c ~ dnorm(0, 1),
-        sigma ~ dunif(0.1, 2)
-    ), data = datasub, iter = 10000, chains = 4, cores = 4
-)
+<!-- mWeb2 <-map2stan(     -->
+<!--     alist( -->
+<!--         pages ~ dnorm(mu, sigma), -->
+<!--         mu <- a + b*portalN , -->
+<!--         a ~ dnorm(1, 2), -->
+<!--         b ~ dnorm(0, 1), -->
+<!--         sigma ~ dunif(0.1, 2) -->
+<!--     ), data = datasub, iter = 10000, chains = 4, cores = 4 -->
+<!-- ) -->
 
-mWeb4 <-map2stan(    
-    alist(
-        pages ~ dnorm(mu, sigma),
-        mu <- a + b*versionN + c*portalN + d*versionN*portalN ,
-        a ~ dnorm(1, 2),
-        b ~ dnorm(0, 1),
-        c ~ dnorm(0, 1),
-        d ~ dnorm(0, 1),
-        sigma ~ dunif(0.1, 2)
-    ), data = datasub, iter = 10000, chains = 4, cores = 4
-)
+<!-- mWeb3 <-map2stan(     -->
+<!--     alist( -->
+<!--         pages ~ dnorm(mu, sigma), -->
+<!--         mu <- a + b*versionN + c*portalN , -->
+<!--         a ~ dnorm(1, 2), -->
+<!--         b ~ dnorm(0, 1), -->
+<!--         c ~ dnorm(0, 1), -->
+<!--         sigma ~ dunif(0.1, 2) -->
+<!--     ), data = datasub, iter = 10000, chains = 4, cores = 4 -->
+<!-- ) -->
 
-pander(compare(mWeb0,mWeb1,mWeb2,mWeb3,mWeb4))
-pander(precis(mWeb4, prob= .95))
-```
+<!-- mWeb4 <-map2stan(     -->
+<!--     alist( -->
+<!--         pages ~ dnorm(mu, sigma), -->
+<!--         mu <- a + b*versionN + c*portalN + d*versionN*portalN , -->
+<!--         a ~ dnorm(1, 2), -->
+<!--         b ~ dnorm(0, 1), -->
+<!--         c ~ dnorm(0, 1), -->
+<!--         d ~ dnorm(0, 1), -->
+<!--         sigma ~ dunif(0.1, 2) -->
+<!--     ), data = datasub, iter = 10000, chains = 4, cores = 4 -->
+<!-- ) -->
 
-The compare() function indicates the best goodness of fit has been observed for the model m4 with the least WAIC value. For further investigation of the 95% credibility intervals, the precis() function indicates that the mean value of the coefficient of version is approximately 0, unlike for the coefficients of all the other variables (c, d for portal and two-way interaction respectively).
+<!-- pander(compare(mWeb0,mWeb1,mWeb2,mWeb3,mWeb4)) -->
+<!-- pander(precis(mWeb4, prob= .95)) -->
+<!-- ``` -->
+
+<!-- The compare() function indicates the best goodness of fit has been observed for the model m4 with the least WAIC value. For further investigation of the 95% credibility intervals, the precis() function indicates that the mean value of the coefficient of version is approximately 0, unlike for the coefficients of all the other variables (c, d for portal and two-way interaction respectively). -->
 
 # Part 3 - Multilevel model
 
@@ -642,14 +648,12 @@ p <- ggplot(ds, aes(x=score)) + geom_density()
 p + geom_vline(aes(xintercept=mean(score)), color="blue", linetype="dashed",size=1)
 ```
 
-The relationship between the score and the session can be observed with the next two figures. The regression line (blue) in the scatterplot clearly shows how the score rises with the amount of sessions. This can also be observed in the box plot when looking at the mean (black line) for every box.
+The relationship between the score and the session can be observed with the next two figures. The regression line (blue) in the scatterplot clearly shows how the score rises with the amount of sessions. This can also be observed in the box plot when looking at the mean (black line) for every box. Because of this, we expect that there is a fixed effect for the score over the sessions. 
 
 ```{r}
-# set labels
-ds$sessionF <- factor(ds$session, levels=c(0:49), labels=c(0:49))
 
 # boxplot score per session
-boxplot(score~sessionF, data=ds, main="Score", xlab="session", ylab="score")
+boxplot(score~session, data=ds, main="Score", xlab="session", ylab="score")
 
 # ggplot score per session
 hp <- ggplot(ds, aes(x=session, y=score)) + geom_point(shape=1) + 
@@ -661,49 +665,57 @@ hp
 
 ### Multilevel analysis
 <!-- Conduct multilevel analysis and calculate 95% confidence intervals, determine: -->
-We have conducted a multilevel analysis. We have an intercept only model (model0) which we compare to a model that includes a predictor parameter for the session (model1). By comparing these two models, we will know whether there is a difference in the score over the sessions.
+We have conducted a multilevel analysis. We have a model with a fixed intercept (model0, with *~1*) and a random intercept, *1|Subject*. This model is being compared to a second model (model1), which includes the variable session, i.e. the session number belonging to the score. This model is created by replacing the fixed part of the formula from *score~1* into *score~1+session*. By comparing the fit of the two models, we can see that the model extension results in a significantly better fit, $\chi$^2^(1)=6306.00, *p*<0.001.
+
 
 ```{r}
-# create models as given in slides lecture 4
-model0 <- lm(formula=score~1, data=ds, na.action=na.exclude)
-model1 <- lm(formula=score~sessionF, data=ds, na.action=na.exclude)
+model0 <- lme(score~1, random = ~1|Subject, data=ds, na.action=na.exclude, method="ML")
 
-# analysis, see if predictor improves fitting
-pander(anova(model0,model1))
-pander(anova(model1))
+model1 <- lme(score~session, random = ~1|Subject, data=ds, na.action=na.exclude, method="ML")
+
+anova(model0,model1)
 ```
 
-From this analysis we can see there is a significant variation between the sessions. We take a further look at the summary results.
+The output of the summary of model0 shows the standard deviation between the random-effect terms, being 19.07 for the intercept per subject, and 16.8 for the residuals. The fixed intercept value is 125.5. The summary of model1 shows an estimated fixed effect for session on the score of 0.98. With a p-value of 0.000, making this fixed effect significant.
 
 ```{r}
+pander(summary(model0))
 pander(summary(model1))
 ```
 
-The summary compares the first session (intercept) with the other sessions. Looking at the estimates, we can see that compared to the first session, the scores are higher every later session. Next, we will take a look at the Akaike Information Criterion (AIC) to compare the models on the goodness-of-fit concering the out-of-sample deviance.
+
+The summary compares the first session (intercept) with the other sessions. Looking at the estimates, we can see that compared to the first session, the scores are higher every later session. Next, we will take a look at the Akaike Information Criterion (AIC) to compare the models on the goodness-of-fit concering the out-of-sample deviance. Here we can see that model1 has the best goodness-of-fit as it has the smallest AICc value.
 
 ```{r}
-#AIC
 models <- list(model0, model1)
 model.names <- c("model0", "model1")
 pander(aictab(cand.set = models, modnames=model.names), 
        caption="Model selection based on AICc.")
 ```
-
-Here we can see that model 1 has the best goodness-of-fit as it has the smallest AICc value. Lastly, we will obtain a 95% confidence interval of the estimates we have obtained earlier.
-
-```{r}
-# gives CI95%
-pander(confint(model1), caption="95% confidence interval of the estimates.")
-```
-
 <!-- * If session has an impact on people score -->
 <!-- * If there is significant variance between the participants in their score -->
-Here we can again see an increase in score related to the sessions. From this we can conclude that the session has a positive effect on people's score. Also, it seems there is a significant variance between the participants in their score when the sessions increase.
+
+Lastly, we will obtain a 95% confidence interval, giving an insight into whether the terms are significant.
+
+```{r}
+intervals(model0,0.95)
+intervals(model1,0.95)
+```
+
+
 
 ### Report section for a scientific publication
 <!-- Write a small section for a scientific publication, in which you report the results of the analyses, and explain the conclusions that can be drawn. -->
+<!-- * If session has an impact on people score -->
+<!-- * If there is significant variance between the participants in their score -->
 
-A Linear Model analysis was conducted to test the difference between sessions on the score. The results found a significant effect (F(49,16078) = 52.79, p < .001) for the sessions on the score. From the results we can conclude that over sessions the score per participant generally increases. Moreover, the variance between the participants increases when the sessions increase, which we think is caused by missing scores on later sessions or the ground truth. We cannot make any conclusions on this until the missing data is available.
+To confirm whether the sessions had an impact on the subject's scores, a multilevel analysis was performed. This showed that there was a significant variance between the subjects and their score, SD = 19.07 (95% CI 17.90, 20.31).
+
+The relationship between the score and the session showed significant
+variance in intercepts across subjects, SD = 19.13 (95% CI 17.96, 20.37),
+$\chi$^2^(1)=6306.00, *p*<0.001. The score had an estimated fixed effect of 0.981 over the sessions.
+
+<!-- TODO: write more -->
 
 ## Bayesian approach
 
