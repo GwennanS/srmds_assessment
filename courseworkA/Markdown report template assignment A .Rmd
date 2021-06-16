@@ -722,15 +722,21 @@ $\chi$^2^(1)=6306.00, *p*<0.001. The score had an estimated fixed effect of 0.98
 ### Model description
 <!-- Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown). Justify the priors. -->
 
-For model 2, the model with session as a factor, we take as prior a normal distribution of N(125,30). This comes from the mean of the score, 125, and a bit more than the standard deviation, which is around 27. Our sigma is set at a uniform distribution of U(0.001,30).
+<!-- only fixed effect for session (no random slopes) -->
 
-$$ score \sim Norm(\mu, \sigma)$$
+For model1, the model with session as a factor, we take as prior a normal distribution of N(125,30). This comes from the mean of the score, 125, and a bit more than the standard deviation, which is around 27. Our sigma is set at a uniform distribution of U(0.001,30).
 
-$$ \mu = a + b * sessionF + c * subjF $$
+$$ score \sim Norm(\mu, \sigma)$$ <!-- [Likelihood]-->
 
-$$ alpha = Norm(125,30) $$
+$$ \mu = a + b_{session} $$ <!--[linear model]-->
 
-$$ \sigma = Uniform(0.001, 50)$$
+$$ a_{clinic} \sim Norm(0,a_{\sigma})$$ <!--[adaptive prior]-->
+
+$$ a_{\sigma} \sim Caucy(0,10)$$<!--[hyper prior]-->
+
+$$ a \sim Norm(125,25)$$ <!--[fixed prior]-->
+
+$$ \sigma = Caucy(0, 90)$$ <!--[fixed prior]-->
 
 ### Model comparison
 <!-- Select the first 100 participants from the data set. (hint to overcome the Stan problem with a zero index, increase subject id number with 1). Compare models with with increasing complexity.  -->
@@ -742,57 +748,70 @@ ds$Subject <- ds$Subject +1 # increase subject number with 1 to overcome Stan ze
 mean(ds$score) # check mean
 sd(ds$score) # check standard deviation
 
-ds$sessionF <- factor(ds$session, levels=c(0:49), labels=c(0:49))
-ds$subjF <- factor(ds$Subject, levels=c(1:100), labels=c(1:100))
-
-da <- subset(ds, select=c(score, sessionF))
-da1 <- subset(ds, select=c(score, sessionF, subjF))
-
 # create model with fixed intercept (i)
 m0 <- map2stan(
   alist(
     score ~ dnorm(mu, sigma),
-    mu <- a,
-    a ~dnorm(125,30), # mean and sd from what we found above
-    sigma ~dunif(0.001,50)
-  ), data = da, iter = 10000, chains = 4, cores = 4
+    mu <- a_Subject[Subject],
+    
+    # fixed prior
+    a_Subject[Subject] ~ dnorm(125,25), 
+    sigma ~dcauchy(0,90)
+  ), data = ds, iter = 10000, chains = 4, cores = 4
 )
+```
 
+```{r}
 # create model extended with an adaptive prior for subject id (ii)
 m1 <- map2stan(
   alist(
     score ~ dnorm(mu, sigma),
-    mu <- a + a_subj[subjF],
-    a_subj[subjF] ~ dnorm(0,sigma_subj),
-    sigma_subj ~ dcauchy(0,10),
-    a ~ dnorm(125,30),
-    sigma ~ dcauchy(0.001,50)
-  ), data = da1, iter = 10000, chains = 4, cores = 4
+    mu <- a + a_Subject[Subject],
+    
+    # adaptive prior
+    a_Subject[Subject] ~ dnorm(125,sigma_subject),
+    
+    # hyper prior
+    sigma_subject ~dcauchy(0,10),
+    
+    # fixed prior
+    a ~ dnorm(125,25),
+    sigma ~dcauchy(0,90)
+  ), data = ds, iter = 10000, chains = 4, cores = 4
 )
+```
 
+```{r}
 # create model with session as a factor (iii)
 m2 <- map2stan(
   alist(
     score ~ dnorm(mu, sigma),
-    mu <- a[sessionF],
-    a[sessionF] ~ dnorm(125,30),
-    sigma ~dunif(0.001,50)
-  ), data = da, iter = 10000, chains = 4, cores = 4
+    mu <- a + a_Subject[Subject] + b*session,
+    
+    # adaptive prior
+    a_Subject[Subject] ~ dnorm(125,sigma_subject),
+    
+    # hyper prior
+    sigma_subject ~ dcauchy(0,10),
+    
+    # fixed priors
+    a ~ dnorm(125,25),
+    b ~ dnorm(0,5),
+    sigma ~dcauchy(0,90)
+  ), data = ds, iter = 10000, chains = 4, cores = 4
 )
 
 pander(compare(m0,m1,m2,func=WAIC))
 ```
 
-We have created and compared the three described models. From the results we can see that model 1, the model with the adaptive prior for subject id, has the best fit since it has the smallest WAIC value and largest Akaike weight.
+We have created and compared the three described models. From the results we can see that model2 has the best fit since it has the smallest WAIC value and largest Akaike weight.
 
 ### Estimates examination
 <!-- Examine the estimate of parameters of the model with best fit, and provide a brief interpretation. -->
-From the previous comparison we could see that model 1 is the best fit model. We will further examine this model with 95% credible intervals of the parameters of this model.
+From the previous comparison we could see that model2 is the best fit model. We will further examine this model with 95% credible intervals of the parameters of this model. We take a look at the estimated values of the parameters of this model
 
 ```{r}
-pander(precis(m1, depth=2, prob=.95))
+pander(precis(m2, depth=2, prob=.95))
 ```
-
-We can observe that the mean between the subjects has a high variance. This means that although the scores increase per session, the subjects have very different prior skills, achieving relatively higher or lower scores in their first session than average.
 
 
