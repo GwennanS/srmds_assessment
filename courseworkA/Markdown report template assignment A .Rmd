@@ -40,15 +40,11 @@ We will aim to answer the following research question:
 
 What is the effect of webcam visibility during online dialogue on the frequency of joint laughter?
 
-When recognizing laughter we do not focus on the reason why someone is laughing. We
-consider anything from an awkward laugh in a moment of silence to laughing out loud about
-a joke as a laughter episode regardless of the context.
+When recognizing laughter we do not focus on the reason why someone is laughing. We consider anything from an awkward laugh in a moment of silence to laughing out loud about a joke as a laughter episode regardless of the context.
 
 ## The related conceptual model 
-The conceptual model related to the research question can be viewed in \autoref{fig:concept_model}. The main question is about the effect of mutual visibility on joint laughter. The mediating variable is acquaintancy, which we can define as the level of friendliness or intimacy between people who did not know each other before the experiment. This can occur when people find similarities in their interests and behaviours. Familiarity is like acquaintancy but with the factor of it being before the experiment, meaning when people know each other beforehand. Another moderating variable is the duration of the experiment. The participants will do the experiment for about one hour, which can have a negative effect on the frequency of laughter, thus on the frequency of joint laughter.
+The conceptual model related to the research question can be viewed in \autoref{fig:concept_model}. The main question is about the effect of mutual visibility on joint laughter. The mediating variable is chemistry, which we can define as the level of friendliness or intimacy between people who did not know each other before the experiment. This can occur on a high level when people find similarities in their interests and behaviours, or find that they are able to easily talk with another. Familiarity happens when people knew each other already before the experiment. Another moderating variable is the duration of the experiment. The participants will do the experiment for about one hour, which can have a negative effect on the frequency of laughter, thus on the frequency of joint laughter.
 
-
-<!-- TODO: CHANGE THIS FIGURE TO MATCH CORRECT WORDS -->
 
 <!-- ![\label{cm}](img/A-1 conceptual model.png) -->
 ```{r concept_model, echo=FALSE, fig.cap="\\label{fig:concept_model}The conceptual model to test the effect of mutual webcam visibility on joint laughter", out.width = '100%'}
@@ -59,9 +55,7 @@ knitr::include_graphics("img/A-1 conceptual model.png")
 ## Experimental Design 
 One of the most important requirements for the setup of the experiment was the creation of a comfortable and pleasant ambiance so that people would laugh. Therefore, it was decided that a game would comply, as the participants get the chance to interact with each other in a undemanding setting where the attention of the participants would be drawn to a task. It was reasoned that this would contribute to a reduction of awkwardness and give all the participants the option to speak and laugh. Additionally, the game needed to have a smooth flow that would automatically keep going to keep the interference of the researchers to a minimum. 
 
-The game that was chosen is called 30 Seconds. During the game, participants work together in teams (in the case of the experiment: two teams of two people) and gain points by guessing what the team member is describing. These descriptions include concepts such as famous persons, locations, movies and brands. Every team gets 30 seconds to guess as many concepts on the card as possible. Who is describing and who is guessing switches after every card.
-
-The participants will be playing on their laptops, seeing the other three participants and a chat screen on which they will receive the words for the game. This within-subject experiment will be held where half of the experiments will start with the webcams on, while the other half will start with the webcams off. 
+The game that was chosen is called 30 Seconds. During the game, participants work together in teams (in the case of the experiment: two teams of two people) and gain points by guessing what the team member is describing. These descriptions include concepts such as famous persons, locations, movies and brands. Every team gets 30 seconds to guess as many concepts on the card as possible. Who is describing and who is guessing switches after every card. The participants will be playing on their laptops, seeing the other three participants and a chat screen on which they will receive the words for the game. This within-subject experiment will be held where half of the experiments will start with the webcams on, while the other half will start with the webcams off. 
 
 
 ## Experimental procedure 
@@ -85,17 +79,15 @@ knitr::include_graphics("img/exp_setup.png")
 
 
 ## Measures
-A pre-test will be held to define the level of familiarity. The participants will receive a neutral picture (e.g. from a driver's license) of the other three participants, after which they have to indicate whether they know the person. The remaining test includes a question like "Do you feel related to this person?", after which the participant can indicate why (e.g. because of their skin colour, gender, hair colour, etc.). The same questionnaire will be held after the experiment to check the level of acquaintancy.
+A pre-test will be held to define the level of familiarity. The participants will receive a neutral picture (e.g. from a driver's license) of the other three participants, after which they have to indicate whether they know the person. The remaining test includes a question like "Do you feel related to this person?", after which the participant can indicate why (e.g. because of their skin colour, gender, hair colour, etc.). The same questionnaire will be held after the experiment to check the level of chemistry.
 
-The data that has been collected during the experiment includes audio and video of participants. The first step in data analysis involves annotating the signals. This will be done with a program in which we can manually select timesteps in which the participant is laughing. In the end we will have annotations for every person that contains the total amount of laughter (frequency), the amount of laughter with their webcam off, and the amount of laughter with their webcam on..
-
-In a case where different people will annotate this data, we will first let every one of them annotate the same data sample. Then we can calculate the consistency in the annotations with for example Krippendorf's Alpha or Cohen's Kappa. When this is high enough, they can start annotating separate data.
+The data that has been collected during the experiment includes audio and video of participants. The first step in data analysis involves annotating the signals. This will be done with a program in which we can manually select timesteps in which the participant is laughing. In the end we will have annotations for every person that contains the total amount of laughter (frequency), the amount of laughter with their webcam off, and the amount of laughter with their webcam on.. In a case where different people will annotate this data, we will first let every one of them annotate the same data sample. Then we can calculate the consistency in the annotations with for example Krippendorf's Alpha or Cohen's Kappa. When this is high enough, they can start annotating separate data.
 
 ## Participants
 <!-- Describe which participants will recruit in the study and how they will be recruited-->
-The research is not specifically about a certain group of people, but more in general. However, we do want to aim for people with experience in an online setting and people who speak the same language. To be exact, we will conduct the experiment with people from the ages of 18 to 50 who speak dutch. The number of patricipants depends on the acceptable margin or error, which we do not know since we would have to go much more in-depth. However, since the population size basically includes more than 10.000 people and the independent variable is categorical, we should aim for around 385 participants (W.P. Brinkman, 2009). This results into around 96 experiments.
+The research is not specifically about a certain group of people, but more in general. However, we do want to aim for people with experience in an online setting and people who speak the same language. To be exact, we will conduct the experiment with people from the ages of 18 to 50 who speak dutch. The number of participants depends on the acceptable margin or error, which we do not know since we would have to go much more in-depth. However, since the population size basically includes more than 10.000 people and the independent variable is categorical, we should aim for around 385 participants (W.P. Brinkman, 2009). This results into around 96 experiments.
 
-The experiments should be easy to conduct since the participants participate online; there is no need to travel. Moreover, the whole experiment should not take long. There will be 48 cards and for each card they have 30 seconds to explain. Taking some talking afterwards into account, the experiment should take 45 to 60 minutes.
+The experiments should be easy to conduct since the participants participate online; there is no need to travel. Moreover, the whole experiment should not take long. There will be 48 cards and for each card they have 30 seconds to explain. Taking some talking afterwards into account, the experiment should take 45 to 60 minutes, with taking 10 minutes before and after into account for the pre- and post-test.
 
 To find the participants we can thus search online. Using a medium on which we state the experiment, we can find dutch people from all around the Netherlands of different age groups. They could for example sign up for a specific date, and if four people have signed up, the experiment can be held. 
 
@@ -709,13 +701,7 @@ intervals(model1,0.95)
 <!-- * If session has an impact on people score -->
 <!-- * If there is significant variance between the participants in their score -->
 
-To confirm whether the sessions had an impact on the subject's scores, a multilevel analysis was performed. This showed that there was a significant variance between the subjects and their score, SD = 19.07 (95% CI 17.90, 20.31).
-
-The relationship between the score and the session showed significant
-variance in intercepts across subjects, SD = 19.13 (95% CI 17.96, 20.37),
-$\chi$^2^(1)=6306.00, *p*<0.001. The score had an estimated fixed effect of 0.981 over the sessions.
-
-<!-- TODO: write more -->
+To confirm whether the sessions had an impact on the subject's scores, a multilevel analysis was performed. This showed that there was a significant variance between the subjects and their score, SD = 19.07 (95% CI 17.90, 20.31). The relationship between the score and the session showed significant variance in intercepts across subjects as well, SD = 19.13 (95% CI 17.96, 20.37), $\chi$^2^(1)=6306.00, *p*<0.001. The score had an estimated fixed effect of 0.981 over the sessions.
 
 ## Bayesian approach
 
@@ -724,39 +710,44 @@ $\chi$^2^(1)=6306.00, *p*<0.001. The score had an estimated fixed effect of 0.98
 
 <!-- only fixed effect for session (no random slopes) -->
 
-For model1, the model with session as a factor, we take as prior a normal distribution of N(125,30). This comes from the mean of the score, 125, and a bit more than the standard deviation, which is around 27. Our sigma is set at a uniform distribution of U(0.001,30).
-
-$$ score \sim Norm(\mu, \sigma)$$ <!-- [Likelihood]-->
-
-$$ \mu = a + b_{session} $$ <!--[linear model]-->
-
-$$ a_{clinic} \sim Norm(0,a_{\sigma})$$ <!--[adaptive prior]-->
-
-$$ a_{\sigma} \sim Caucy(0,10)$$<!--[hyper prior]-->
-
-$$ a \sim Norm(125,25)$$ <!--[fixed prior]-->
-
-$$ \sigma = Caucy(0, 90)$$ <!--[fixed prior]-->
-
-### Model comparison
-<!-- Select the first 100 participants from the data set. (hint to overcome the Stan problem with a zero index, increase subject id number with 1). Compare models with with increasing complexity.  -->
+For model2, the model with session as a factor, we have a normal distribution containing a linear model and a fixed prior. The linear model consists of a fixed prior with normal distribution of N(125,27). This comes from the mean of the score, 125, and the standard deviation, which is around 27. It further consists of an adaptive prior for subject, being a normal distribution with mean coming from the mean of the sessions, and a fixed prior for session, also being a normal distribution. The fixed prior, sigma, is a cauchy distribution Cauchy(20,0.5), estimated from the expected variance in scores.
 
 ```{r}
 ds <- ds[!(ds$Subject>99),] # select first 100 subjects
 ds$Subject <- ds$Subject +1 # increase subject number with 1 to overcome Stan zero index problem
 
-mean(ds$score) # check mean
-sd(ds$score) # check standard deviation
+mean(ds$score) # check mean of score 125
+sd(ds$score) # check standard deviation of score 27.4 (met hoger aantal 25.77 -> 1.7)
+```
 
+$$ score \sim Norm(\mu, \sigma)$$ <!-- [Likelihood]-->
+
+$$ \mu = a + a_{subject_{i}} + b*session $$ <!--[linear model]-->
+
+$$ a_{subject_{i}} \sim Norm(0,a_{\sigma})$$ <!--[adaptive prior] mean of sessions, a -->
+
+$$ a_{\sigma} \sim Cauchy(0,10)$$<!--[hyper prior] variance of sessions, choose something for variance on variance :P like 0.5-->
+
+$$ a \sim Norm(125,27)$$ <!--[fixed prior] mean, variation -->
+
+$$ b \sim Norm(0,10)$$
+
+$$ \sigma = Cauchy(20, 0.5)$$ <!--[fixed prior] variance of score, variance of the variance of the score -->
+
+### Model comparison
+<!-- Select the first 100 participants from the data set. (hint to overcome the Stan problem with a zero index, increase subject id number with 1). Compare models with with increasing complexity.  -->
+We have created and compared the three described models. From the results we can see that model2 has the best fit since it has the smallest WAIC value and largest Akaike weight.
+
+```{r}
 # create model with fixed intercept (i)
 m0 <- map2stan(
   alist(
     score ~ dnorm(mu, sigma),
-    mu <- a_Subject[Subject],
+    mu <- a_subject[Subject],
     
     # fixed prior
-    a_Subject[Subject] ~ dnorm(125,25), 
-    sigma ~dcauchy(0,90)
+    a_subject[Subject] ~ dnorm(125,27), 
+    sigma ~dcauchy(20,0.5)
   ), data = ds, iter = 10000, chains = 4, cores = 4
 )
 ```
@@ -766,17 +757,17 @@ m0 <- map2stan(
 m1 <- map2stan(
   alist(
     score ~ dnorm(mu, sigma),
-    mu <- a + a_Subject[Subject],
+    mu <- a + a_subject[Subject],
     
     # adaptive prior
-    a_Subject[Subject] ~ dnorm(125,sigma_subject),
+    a_subject[Subject] ~ dnorm(0,sigma_subject),
     
     # hyper prior
     sigma_subject ~dcauchy(0,10),
     
     # fixed prior
-    a ~ dnorm(125,25),
-    sigma ~dcauchy(0,90)
+    a ~ dnorm(125,27),
+    sigma ~dcauchy(20,0.5)
   ), data = ds, iter = 10000, chains = 4, cores = 4
 )
 ```
@@ -786,32 +777,31 @@ m1 <- map2stan(
 m2 <- map2stan(
   alist(
     score ~ dnorm(mu, sigma),
-    mu <- a + a_Subject[Subject] + b*session,
+    mu <- a + a_subject[Subject] + b*session,
     
     # adaptive prior
-    a_Subject[Subject] ~ dnorm(125,sigma_subject),
+    a_subject[Subject] ~ dnorm(0,sigma_subject),
     
     # hyper prior
     sigma_subject ~ dcauchy(0,10),
     
     # fixed priors
-    a ~ dnorm(125,25),
-    b ~ dnorm(0,5),
-    sigma ~dcauchy(0,90)
+    a ~ dnorm(125,27),
+    b ~ dnorm(0,10),
+    sigma ~dcauchy(20,0.5)
   ), data = ds, iter = 10000, chains = 4, cores = 4
 )
 
 pander(compare(m0,m1,m2,func=WAIC))
 ```
 
-We have created and compared the three described models. From the results we can see that model2 has the best fit since it has the smallest WAIC value and largest Akaike weight.
 
 ### Estimates examination
 <!-- Examine the estimate of parameters of the model with best fit, and provide a brief interpretation. -->
-From the previous comparison we could see that model2 is the best fit model. We will further examine this model with 95% credible intervals of the parameters of this model. We take a look at the estimated values of the parameters of this model
+From the previous comparison we could see that model2 is the best fit model. We take a look at the estimated values of the parameters of this model. We can see that not all values were correctly estimated by us.
 
 ```{r}
-pander(precis(m2, depth=2, prob=.95))
+pander(precis(m2, depth=1, prob=.95))
 ```
 
 
