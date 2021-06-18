@@ -95,21 +95,21 @@ To find the participants we can thus search online. Using a medium on which we s
 <!-- Describe the statistical test you suggest to care out on the collected data-->
 To determine the significance of the results we will subject the data to statistical tests. To test the effect of mutual visibility (categorical, since it is either on or off) on the frequency (numerical) we will use the Wilcoxon signed rank test. The Wilcoxon signed rank test is a suitable statistical test when the measurements for a single variable are taken under two different conditions. It is similar to the paired t-test, however the paired t-test assumes that the data is normally distributed which we cannot assume for frequency of laughter. It tests the null hypothesis that the median difference of a two sets of observations is zero. The frequentist's approach is chosen since the experiment is repeated with the fixed parameters. Moreover, with this approach we can better control the Type I error. <!-- TODO: more explanation? -->
 
-<!-- # Part 2 - Generalized linear models -->
+# Part 2 - Generalized linear models
 
-<!-- ## Question 1 Twitter sentiment analysis (Between groups - single factor) -->
+## Question 1 Twitter sentiment analysis (Between groups - single factor)
 
-<!-- ### Conceptual model -->
-<!-- Make a conceptual model for the following research question: Is there a difference in the sentiment of the tweets related to the different celebrities? -->
+### Conceptual model
+Make a conceptual model for the following research question: Is there a difference in the sentiment of the tweets related to the different celebrities?
 
-<!-- ```{r concept_model_twitter, echo=FALSE, fig.cap="\\label{fig:concept_model_twitter}The conceptual model for the research question: Is there a difference in the sentiment of the tweets related to the different celebrities?r", out.width = '100%'} -->
-<!-- knitr::include_graphics("img/twitter_model.png") -->
-<!-- ``` -->
+```{r concept_model_twitter, echo=FALSE, fig.cap="\\label{fig:concept_model_twitter}The conceptual model for the research question: Is there a difference in the sentiment of the tweets related to the different celebrities?r", out.width = '100%'}
+knitr::include_graphics("img/twitter_model.png")
+```
 
-<!-- ### Collecting tweets, and data preparation -->
+### Collecting tweets, and data preparation
 
-<!-- We found five celebrities in US politics: Donald Trump, Tucker Carlson, Bernie Sanders, Alexandria Ocasio-Cortez, Joe Biden. -->
-<!-- As dutch students we are not well-versed in the popular English twitter celebrities, so US politics was the best option for us to find celebrities that had enough recent Tweets for the Twitter API. -->
+We found five celebrities in US politics: Donald Trump, Tucker Carlson, Bernie Sanders, Alexandria Ocasio-Cortez, Joe Biden.
+As dutch students we are not well-versed in the popular English twitter celebrities, so US politics was the best option for us to find celebrities that had enough recent Tweets for the Twitter API.
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, include = FALSE}
@@ -150,8 +150,10 @@ library(pander)
 library(AICcmodavg)
 library(foreign)
 library(nlme)
+library(dplyr)
+library(pairwiseComparisons)
 # <!-- ################### functions -->
-# 
+#
 # <!-- #  -->
 # <!-- # clearTweets <- function(tweets, excl) { -->
 # <!-- #  -->
@@ -260,132 +262,140 @@ semFrame <- readRDS(file="semFrame.Rda")
 
 ```
 
-<!-- ### Homogeneity of variance analysis -->
-<!-- ```{r} -->
-<!-- pander(leveneTest(semFrame$score, semFrame$Celeb)) -->
-<!-- ``` -->
+### Homogeneity of variance analysis
+```{r}
+pander(leveneTest(semFrame$score, semFrame$Celeb))
+```
 
-<!-- The Levene test reveals a p-value smaller than 0.001, indicating that there is significant difference between the group variances in sentiment score. We conclude that the variance among the five groups is not equal. -->
+The Levene test reveals a p-value smaller than 0.001, indicating that there is significant difference between the group variances in sentiment score. We conclude that the variance among the five groups is not equal.
 
-<!-- ### Visual inspection Mean and distribution sentiments -->
+### Visual inspection Mean and distribution sentiments
 
-<!-- We plot both a line density and a distribution histogram which includes a mean line. -->
-<!-- ```{r} -->
-<!-- #boxplot(score ~ Celeb, data = semFrame, text.font = 4) -->
-<!-- sm.density.compare(semFrame$score, semFrame$Celeb, xlab = "Score", -->
-<!--                    col=c('red', 'blue', 'green', 'hotpink', 'gold'), lty=c(1,1,1,1,1)) -->
-<!--   title(main="Visual inspection Mean and distribution sentiments") -->
-<!--   legend('topright', legend = levels(semFrame$Celeb), -->
-<!--          col=c('red', 'blue', 'green', 'hotpink', 'gold'), -->
-<!--          title="Celebs", lty=1, cex=0.8, text.font = 4, bg='lightblue') -->
+We plot both a line density and a distribution histogram which includes a mean line.
+```{r}
+#boxplot(score ~ Celeb, data = semFrame, text.font = 4)
+#sm.density.compare(semFrame$score, semFrame$Celeb, xlab = "Score",
+#                   col=c('red', 'blue', 'green', 'hotpink', 'gold'), lty=c(1,1,1,1,1))
+#  title(main="Visual inspection Mean and distribution sentiments")
+#  legend('topright', legend = levels(semFrame$Celeb),
+#         col=c('red', 'blue', 'green', 'hotpink', 'gold'),
+#         title="Celebs", lty=1, cex=0.8, text.font = 4, bg='lightblue')
 
-<!-- cdat <- ddply(semFrame, "Celeb", summarise, score.mean=mean(score)) -->
-<!-- ggplot(semFrame, aes(x=score, fill=Celeb)) + -->
-<!--   geom_histogram(binwidth=1, position="dodge") + -->
-<!--   geom_vline(data=cdat, aes(xintercept=score.mean,  colour=Celeb), -->
-<!--                linetype="solid", size=0.5)  -->
+cdat <- ddply(semFrame, "Celeb", summarise, score.mean=mean(score))
+ggplot(semFrame, aes(x=score, fill=Celeb)) +
+  geom_histogram(binwidth=1, position="dodge") +
+  geom_vline(data=cdat, aes(xintercept=score.mean,  colour=Celeb),
+               linetype="solid", size=0.5)
 
-<!-- ``` -->
+cdat_grouped <- group_by(semFrame, Celeb)
+summarize(cdat_grouped,
+mean_score = mean(score),
+sd_score = sd(score))
 
-<!-- We see all US politic Celebs have a mean around 0. #trump has the highest sentiment mean and the largest difference with the rest. -->
+```
 
-<!-- ### Frequentist approach -->
+We see all US politic Celebs have a mean around 0. #trump has the highest sentiment mean and the largest difference with the rest.
 
-<!-- #### Linear model -->
+### Frequentist approach
 
-<!-- A one-way between subjects ANOVA was conducted to compare the effect of relation to celebrities on sentiment score in five conditions. -->
+#### Linear model
 
-<!-- ```{r} -->
-<!-- modelTwitter0 <- lm(formula = score ~ 1 , data = semFrame) -->
-<!-- modelTwitter1 <- lm(formula = score ~ Celeb , data = semFrame) -->
-<!-- pander(anova(modelTwitter0, modelTwitter1, test = "F")) -->
-<!-- ``` -->
+A one-way between subjects ANOVA was conducted to compare the effect of relation to celebrities on sentiment score in five conditions.
 
-<!-- There was a significant effect of relation to celebrities on sentiment score at the p<.001 level for the five conditions [F(4, 1465) = 56.06, p < 0.001].  -->
+```{r}
+modelTwitter0 <- lm(formula = score ~ 1 , data = semFrame)
+modelTwitter1 <- lm(formula = score ~ Celeb , data = semFrame)
+pander(anova(modelTwitter0, modelTwitter1, test = "F"))
+```
 
-<!-- ```{r, echo=FALSE, message=FALSE, warning=FALSE, include = FALSE} -->
-<!-- #(summary(model1)) -->
+There was a significant effect of relation to celebrities on sentiment score at the p<.001 level for the five conditions [F(4, 1465) = 56.06, p < 0.001].
 
-<!-- #The p-value of the Celeb variable is low (p < 0.001), so it appears that the relation to celebrities has a real impact on the sentiment score. -->
-<!-- ``` -->
+```{r, echo=FALSE, message=FALSE, warning=FALSE, include = FALSE}
+#(summary(model1))
 
-
-<!-- ```{r, echo=FALSE, message=FALSE, warning=FALSE, include = FALSE} -->
-<!-- # smodel0 <-summary(model0) -->
-<!-- # llm0 <-sum(dnorm(semFrame$score, mean = predict(model0), sd= smodel0$sigma, log=TRUE)) -->
-<!-- # AIC_model0 <- -2*llm0 + 2*2 -->
-<!-- # AIC_model0 -->
-<!-- # smodel1 <-summary(model1) -->
-<!-- # llm1 <-sum(dnorm(semFrame$score, mean = predict(model1), sd= smodel1$sigma, log=TRUE)) -->
-<!-- # AIC_model1 <- -2*llm1 + 2*3 -->
-<!-- # AIC_model1 -->
-<!-- ``` -->
-<!-- ```{r} -->
-<!-- #AIC -->
-<!-- modelsTwitter <- list(modelTwitter0, modelTwitter1) -->
-<!-- modelTwitter.names <- c("modelTwitter0", "modelTwitter1") -->
-<!-- pander(aictab(cand.set = modelsTwitter, modnames=modelTwitter.names),  -->
-<!--        caption="Model selection based on AICc.") -->
-<!-- ``` -->
-
-<!-- A lower AIC indicates a better fit, which is the model with the predictor. -->
-
-<!-- #### Post Hoc analysis -->
-
-<!-- ```{r} -->
-<!-- pander(pairwise.t.test(semFrame$score, semFrame$Celeb, paired = FALSE, p.adjust.method = "bonferroni")) -->
-<!-- ``` -->
-
-<!-- Post hoc comparisons using the Bonferroni correction indicated that the corrected p-value for the trump condition was significantly different than the other conditions (p<0.001). However, between the others condition it does not show a significantly difference. -->
-
-<!-- #### Report section for a scientific publication -->
-
-<!-- A one-way between subjects ANOVA was conducted to compare the effect of relation to celebrities on sentiment score in five conditions.  -->
-<!-- There was a significant effect of relation to celebrities on sentiment score at the p<.001 level for the five conditions [F(4, 1465) = 56.06, p < 0.001].  -->
-<!-- However, post hoc comparisons using the Bonferroni correction indicated that only the corrected p-value for the trump condition was significantly different than the other conditions (p<0.001), between the others condition it does not show a significantly difference.  -->
-<!-- Taken together, these results suggest that some celebrities really do have an effect on the sentiment in Tweets. -->
-
-<!-- ### Bayesian Approach -->
-
-<!-- #### Model description -->
-<!-- The sentiment scores seem to center around 0, and all seem to be single digits. -->
-
-<!-- $$ score \sim Norm(\mu, \sigma) $$ -->
-<!-- $$ \mu = \alpha +b*Celeb $$ -->
-<!-- $$ \alpha = Norm(0, 10) $$ -->
-<!-- $$ \sigma  = Uniform(0.001, 10) $$ -->
-
-<!-- #### Model comparison -->
-
-<!-- ```{r} -->
-<!-- mTwitter0 <-map2stan(alist( -->
-<!--   score ~ dnorm(mu, sigma), -->
-<!--   mu <-a, -->
-<!--   a ~ dnorm(0, 10), -->
-<!--   sigma ~ dunif(0.001, 10)),  -->
-<!--   data =  semFrame ,  iter= 10000, chains = 4,   cores = 4 ) -->
-
-<!-- mTwitter1 <-map2stan(alist( -->
-<!--   score ~ dnorm(mu, sigma), -->
-<!--   mu <-a[Celeb] , -->
-<!--   a[Celeb] ~ dnorm(0, 10), -->
-<!--   sigma ~ dunif(0.001, 10)),  -->
-<!--   data =  semFrame ,iter= 10000, chains = 4, cores = 4 ) -->
-
-<!-- pander(compare(mTwitter0, mTwitter1, func=WAIC)) -->
-<!-- ``` -->
-
-<!-- Lower WAIC indicates a better performing model, so with predictors (mTwitter1) is the winning model. -->
+#The p-value of the Celeb variable is low (p < 0.001), so it appears that the relation to celebrities has a real impact on the sentiment score.
+```
 
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE, include = FALSE}
+# smodel0 <-summary(model0)
+# llm0 <-sum(dnorm(semFrame$score, mean = predict(model0), sd= smodel0$sigma, log=TRUE))
+# AIC_model0 <- -2*llm0 + 2*2
+# AIC_model0
+# smodel1 <-summary(model1)
+# llm1 <-sum(dnorm(semFrame$score, mean = predict(model1), sd= smodel1$sigma, log=TRUE))
+# AIC_model1 <- -2*llm1 + 2*3
+# AIC_model1
+```
+```{r}
+#AIC
+modelsTwitter <- list(modelTwitter0, modelTwitter1)
+modelTwitter.names <- c("modelTwitter0", "modelTwitter1")
+pander(aictab(cand.set = modelsTwitter, modnames=modelTwitter.names),
+       caption="Model selection based on AICc.")
+```
 
-<!-- #### Comparison celebrity pair -->
+A lower AIC indicates a better fit, which is the model with the predictor.
 
-<!-- ```{r} -->
-<!-- pander(precis(mTwitter1, depth=2, prob = .95)) -->
-<!-- ``` -->
+#### Post Hoc analysis
 
-<!-- Looking at the credibility intervals of the celebrities effects, We see the conditions where the mean of a condition does not fall within a credibility interval of an other condition. This holds for the a[1] (Trump) condition and a couple other combinations. We can again conclude that some celebrities really do have an effect on the sentiment in Tweets.  -->
+```{r}
+pander(pairwise.t.test(semFrame$score, semFrame$Celeb, paired = FALSE, p.adjust.method = "bonferroni"))
+```
+
+Post hoc comparisons using the Bonferroni correction indicated that the corrected p-value for the trump condition was significantly different than the other conditions (p<0.001). However, between the others condition it does not show a significantly difference.
+
+#### Report section for a scientific publication
+
+A one-way between subjects ANOVA was conducted to compare the effect of relation to celebrities on sentiment score in five conditions.
+There was a significant effect of relation to celebrities on sentiment score at the p<.001 level for the five conditions [F(4, 1465) = 56.06, p < 0.001].
+However, post hoc comparisons using the Bonferroni correction indicated that only the corrected p-value for the trump condition (M = 1.07, SD = 1.22) was significantly different than the other conditions (p<0.001), between the others condition it does not show a significantly difference.
+Taken together, these results suggest that some celebrities really do have an effect on the sentiment in Tweets.
+
+### Bayesian Approach
+
+#### Model description
+The sentiment scores seem to center around 0, and all seem to be single digits.
+
+$$ score \sim Norm(\mu, \sigma) $$
+$$ \mu = \alpha_{Celeb} $$
+$$ \alpha_{Celeb} \sim  Norm(0, 10) $$
+$$ \sigma  \sim  Uniform(0.001, 10) $$
+
+#### Model comparison
+
+```{r}
+mTwitter0 <-map2stan(alist(
+  score ~ dnorm(mu, sigma),
+  mu <-a,
+  a ~ dnorm(0, 10),
+  sigma ~ dunif(0.001, 10)),
+  data =  semFrame ,  iter= 10000, chains = 4,   cores = 4 )
+
+mTwitter1 <-map2stan(alist(
+  score ~ dnorm(mu, sigma),
+  mu <-a[Celeb] ,
+  a[Celeb] ~ dnorm(0, 10),
+  sigma ~ dunif(0.001, 10)),
+  data =  semFrame ,iter= 10000, chains = 4, cores = 4 )
+
+pander(compare(mTwitter0, mTwitter1, func=WAIC))
+```
+
+Lower WAIC indicates a better performing model, so with predictors (mTwitter1) is the better approach to model what is happening.
+
+
+
+#### Comparison celebrity pair
+
+```{r}
+pander(precis(mTwitter1, depth=2, prob = .95))
+pander(select(pairwise_comparisons(data = semFrame, x = Celeb, y = score, type = "bayes", 
+                                   paired = FALSE, p.adjust.method = "bonferroni" ), group1,
+              group2, estimate, conf.level, pd, bf10))
+```
+
+Looking at the credibility intervals of the celebrities effects, We see the conditions where the mean of a condition does not fall within a credibility interval of an other condition. This holds for the a[1] (Trump) condition and a couple other combinations. We can again conclude that some celebrities really do have an effect on the sentiment in Tweets.
 
 <!-- ## Question 2 - Website visits (between groups - Two factors) -->
 
@@ -620,188 +630,188 @@ semFrame <- readRDS(file="semFrame.Rda")
 
 <!-- The compare() function indicates the best goodness of fit has been observed for the model m4 with the least WAIC value. For further investigation of the 95% credibility intervals, the precis() function indicates that the mean value of the coefficient of version is approximately 0, unlike for the coefficients of all the other variables (c, d for portal and two-way interaction respectively). -->
 
-# Part 3 - Multilevel model
+<!-- # Part 3 - Multilevel model -->
 
-## Visual inspection
-<!-- Use graphics to inspect the distribution of the score, and relationship between session and score -->
-The boxplot and density plot show the distribution of the score. We can see that the mean score is 122 points. The minimum is set at 59, with outliers until 46, while the maximum is set at 190, with outliers until 248.
+<!-- ## Visual inspection -->
+<!-- <!-- Use graphics to inspect the distribution of the score, and relationship between session and score --> -->
+<!-- The boxplot and density plot show the distribution of the score. We can see that the mean score is 122 points. The minimum is set at 59, with outliers until 46, while the maximum is set at 190, with outliers until 248. -->
 
-```{r}
-# Get data
-filepath <- ("set0.csv")
-ds <- read.csv(file=filepath, header=TRUE)
-ds <- data.frame(ds)
+<!-- ```{r} -->
+<!-- # Get data -->
+<!-- filepath <- ("set0.csv") -->
+<!-- ds <- read.csv(file=filepath, header=TRUE) -->
+<!-- ds <- data.frame(ds) -->
 
-# boxplot score overall distribution (session independent)
-boxplot(ds$score)
+<!-- # boxplot score overall distribution (session independent) -->
+<!-- boxplot(ds$score) -->
 
-# density score overall distribution (with mean line)
-p <- ggplot(ds, aes(x=score)) + geom_density()
-p + geom_vline(aes(xintercept=mean(score)), color="blue", linetype="dashed",size=1)
-```
+<!-- # density score overall distribution (with mean line) -->
+<!-- p <- ggplot(ds, aes(x=score)) + geom_density() -->
+<!-- p + geom_vline(aes(xintercept=mean(score)), color="blue", linetype="dashed",size=1) -->
+<!-- ``` -->
 
-The relationship between the score and the session can be observed with the next two figures. The regression line (blue) in the scatterplot clearly shows how the score rises with the amount of sessions. This can also be observed in the box plot when looking at the mean (black line) for every box. Because of this, we expect that there is a fixed effect for the score over the sessions. 
+<!-- The relationship between the score and the session can be observed with the next two figures. The regression line (blue) in the scatterplot clearly shows how the score rises with the amount of sessions. This can also be observed in the box plot when looking at the mean (black line) for every box. Because of this, we expect that there is a fixed effect for the score over the sessions.  -->
 
-```{r}
+<!-- ```{r} -->
 
-# boxplot score per session
-boxplot(score~session, data=ds, main="Score", xlab="session", ylab="score")
+<!-- # boxplot score per session -->
+<!-- boxplot(score~session, data=ds, main="Score", xlab="session", ylab="score") -->
 
-# ggplot score per session
-hp <- ggplot(ds, aes(x=session, y=score)) + geom_point(shape=1) + 
-  geom_smooth(formula = y ~ x,method=lm)
-hp
-```
+<!-- # ggplot score per session -->
+<!-- hp <- ggplot(ds, aes(x=session, y=score)) + geom_point(shape=1) +  -->
+<!--   geom_smooth(formula = y ~ x,method=lm) -->
+<!-- hp -->
+<!-- ``` -->
 
-## Frequentist approach
+<!-- ## Frequentist approach -->
 
-### Multilevel analysis
-<!-- Conduct multilevel analysis and calculate 95% confidence intervals, determine: -->
-We have conducted a multilevel analysis. We have a model with a fixed intercept (model0, with *~1*) and a random intercept, *1|Subject*. This model is being compared to a second model (model1), which includes the variable session, i.e. the session number belonging to the score. This model is created by replacing the fixed part of the formula from *score~1* into *score~1+session*. By comparing the fit of the two models, we can see that the model extension results in a significantly better fit, $\chi$^2^(1)=6306.00, *p*<0.001.
-
-
-```{r}
-model0 <- lme(score~1, random = ~1|Subject, data=ds, na.action=na.exclude, method="ML")
-
-model1 <- lme(score~session, random = ~1|Subject, data=ds, na.action=na.exclude, method="ML")
-
-anova(model0,model1)
-```
-
-The output of the summary of model0 shows the standard deviation between the random-effect terms, being 19.07 for the intercept per subject, and 16.8 for the residuals. The fixed intercept value is 125.5. The summary of model1 shows an estimated fixed effect for session on the score of 0.98. With a p-value of 0.000, making this fixed effect significant.
-
-```{r}
-pander(summary(model0))
-pander(summary(model1))
-```
+<!-- ### Multilevel analysis -->
+<!-- <!-- Conduct multilevel analysis and calculate 95% confidence intervals, determine: --> -->
+<!-- We have conducted a multilevel analysis. We have a model with a fixed intercept (model0, with *~1*) and a random intercept, *1|Subject*. This model is being compared to a second model (model1), which includes the variable session, i.e. the session number belonging to the score. This model is created by replacing the fixed part of the formula from *score~1* into *score~1+session*. By comparing the fit of the two models, we can see that the model extension results in a significantly better fit, $\chi$^2^(1)=6306.00, *p*<0.001. -->
 
 
-The summary compares the first session (intercept) with the other sessions. Looking at the estimates, we can see that compared to the first session, the scores are higher every later session. Next, we will take a look at the Akaike Information Criterion (AIC) to compare the models on the goodness-of-fit concering the out-of-sample deviance. Here we can see that model1 has the best goodness-of-fit as it has the smallest AICc value.
+<!-- ```{r} -->
+<!-- model0 <- lme(score~1, random = ~1|Subject, data=ds, na.action=na.exclude, method="ML") -->
 
-```{r}
-models <- list(model0, model1)
-model.names <- c("model0", "model1")
-pander(aictab(cand.set = models, modnames=model.names), 
-       caption="Model selection based on AICc.")
-```
-<!-- * If session has an impact on people score -->
-<!-- * If there is significant variance between the participants in their score -->
+<!-- model1 <- lme(score~session, random = ~1|Subject, data=ds, na.action=na.exclude, method="ML") -->
 
-Lastly, we will obtain a 95% confidence interval, giving an insight into whether the terms are significant.
+<!-- anova(model0,model1) -->
+<!-- ``` -->
 
-```{r}
-intervals(model0,0.95)
-intervals(model1,0.95)
-```
+<!-- The output of the summary of model0 shows the standard deviation between the random-effect terms, being 19.07 for the intercept per subject, and 16.8 for the residuals. The fixed intercept value is 125.5. The summary of model1 shows an estimated fixed effect for session on the score of 0.98. With a p-value of 0.000, making this fixed effect significant. -->
+
+<!-- ```{r} -->
+<!-- pander(summary(model0)) -->
+<!-- pander(summary(model1)) -->
+<!-- ``` -->
 
 
+<!-- The summary compares the first session (intercept) with the other sessions. Looking at the estimates, we can see that compared to the first session, the scores are higher every later session. Next, we will take a look at the Akaike Information Criterion (AIC) to compare the models on the goodness-of-fit concering the out-of-sample deviance. Here we can see that model1 has the best goodness-of-fit as it has the smallest AICc value. -->
 
-### Report section for a scientific publication
-<!-- Write a small section for a scientific publication, in which you report the results of the analyses, and explain the conclusions that can be drawn. -->
-<!-- * If session has an impact on people score -->
-<!-- * If there is significant variance between the participants in their score -->
+<!-- ```{r} -->
+<!-- models <- list(model0, model1) -->
+<!-- model.names <- c("model0", "model1") -->
+<!-- pander(aictab(cand.set = models, modnames=model.names),  -->
+<!--        caption="Model selection based on AICc.") -->
+<!-- ``` -->
+<!-- <!-- * If session has an impact on people score --> -->
+<!-- <!-- * If there is significant variance between the participants in their score --> -->
 
-To confirm whether the sessions had an impact on the subject's scores, a multilevel analysis was performed. This showed that there was a significant variance between the subjects and their score, SD = 19.07 (95% CI 17.90, 20.31). The relationship between the score and the session showed significant variance in intercepts across subjects as well, SD = 19.13 (95% CI 17.96, 20.37), $\chi$^2^(1)=6306.00, *p*<0.001. The score had an estimated fixed effect of 0.981 over the sessions.
+<!-- Lastly, we will obtain a 95% confidence interval, giving an insight into whether the terms are significant. -->
 
-## Bayesian approach
-
-### Model description
-<!-- Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown). Justify the priors. -->
-
-<!-- only fixed effect for session (no random slopes) -->
-
-For model2, the model with session as a factor, we have a normal distribution containing a linear model and a fixed prior. The linear model consists of a fixed prior with normal distribution of N(125,27). This comes from the mean of the score, 125, and the standard deviation, which is around 27. It further consists of an adaptive prior for subject, being a normal distribution with mean coming from the mean of the sessions, and a fixed prior for session, also being a normal distribution. The fixed prior, sigma, is a cauchy distribution Cauchy(20,0.5), estimated from the expected variance in scores.
-
-```{r}
-ds <- ds[!(ds$Subject>99),] # select first 100 subjects
-ds$Subject <- ds$Subject +1 # increase subject number with 1 to overcome Stan zero index problem
-
-mean(ds$score) # check mean of score 125
-sd(ds$score) # check standard deviation of score 27.4 (met hoger aantal 25.77 -> 1.7)
-```
-
-$$ score \sim Norm(\mu, \sigma)$$ <!-- [Likelihood]-->
-
-$$ \mu = a + a_{subject_{i}} + b*session $$ <!--[linear model]-->
-
-$$ a_{subject_{i}} \sim Norm(0,a_{\sigma})$$ <!--[adaptive prior] mean of sessions, a -->
-
-$$ a_{\sigma} \sim Cauchy(0,10)$$<!--[hyper prior] variance of sessions, choose something for variance on variance :P like 0.5-->
-
-$$ a \sim Norm(125,27)$$ <!--[fixed prior] mean, variation -->
-
-$$ b \sim Norm(0,10)$$
-
-$$ \sigma = Cauchy(20, 0.5)$$ <!--[fixed prior] variance of score, variance of the variance of the score -->
-
-### Model comparison
-<!-- Select the first 100 participants from the data set. (hint to overcome the Stan problem with a zero index, increase subject id number with 1). Compare models with with increasing complexity.  -->
-We have created and compared the three described models. From the results we can see that model2 has the best fit since it has the smallest WAIC value and largest Akaike weight.
-
-```{r}
-# create model with fixed intercept (i)
-m0 <- map2stan(
-  alist(
-    score ~ dnorm(mu, sigma),
-    mu <- a_subject[Subject],
-    
-    # fixed prior
-    a_subject[Subject] ~ dnorm(125,27), 
-    sigma ~dcauchy(20,0.5)
-  ), data = ds, iter = 10000, chains = 4, cores = 4
-)
-```
-
-```{r}
-# create model extended with an adaptive prior for subject id (ii)
-m1 <- map2stan(
-  alist(
-    score ~ dnorm(mu, sigma),
-    mu <- a + a_subject[Subject],
-    
-    # adaptive prior
-    a_subject[Subject] ~ dnorm(0,sigma_subject),
-    
-    # hyper prior
-    sigma_subject ~dcauchy(0,10),
-    
-    # fixed prior
-    a ~ dnorm(125,27),
-    sigma ~dcauchy(20,0.5)
-  ), data = ds, iter = 10000, chains = 4, cores = 4
-)
-```
-
-```{r}
-# create model with session as a factor (iii)
-m2 <- map2stan(
-  alist(
-    score ~ dnorm(mu, sigma),
-    mu <- a + a_subject[Subject] + b*session,
-    
-    # adaptive prior
-    a_subject[Subject] ~ dnorm(0,sigma_subject),
-    
-    # hyper prior
-    sigma_subject ~ dcauchy(0,10),
-    
-    # fixed priors
-    a ~ dnorm(125,27),
-    b ~ dnorm(0,10),
-    sigma ~dcauchy(20,0.5)
-  ), data = ds, iter = 10000, chains = 4, cores = 4
-)
-
-pander(compare(m0,m1,m2,func=WAIC))
-```
+<!-- ```{r} -->
+<!-- intervals(model0,0.95) -->
+<!-- intervals(model1,0.95) -->
+<!-- ``` -->
 
 
-### Estimates examination
-<!-- Examine the estimate of parameters of the model with best fit, and provide a brief interpretation. -->
-From the previous comparison we could see that model2 is the best fit model. We take a look at the estimated values of the parameters of this model. We can see that not all values were correctly estimated by us.
 
-```{r}
-pander(precis(m2, depth=1, prob=.95))
-```
+<!-- ### Report section for a scientific publication -->
+<!-- <!-- Write a small section for a scientific publication, in which you report the results of the analyses, and explain the conclusions that can be drawn. --> -->
+<!-- <!-- * If session has an impact on people score --> -->
+<!-- <!-- * If there is significant variance between the participants in their score --> -->
+
+<!-- To confirm whether the sessions had an impact on the subject's scores, a multilevel analysis was performed. This showed that there was a significant variance between the subjects and their score, SD = 19.07 (95% CI 17.90, 20.31). The relationship between the score and the session showed significant variance in intercepts across subjects as well, SD = 19.13 (95% CI 17.96, 20.37), $\chi$^2^(1)=6306.00, *p*<0.001. The score had an estimated fixed effect of 0.981 over the sessions. -->
+
+<!-- ## Bayesian approach -->
+
+<!-- ### Model description -->
+<!-- <!-- Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown). Justify the priors. --> -->
+
+<!-- <!-- only fixed effect for session (no random slopes) --> -->
+
+<!-- For model2, the model with session as a factor, we have a normal distribution containing a linear model and a fixed prior. The linear model consists of a fixed prior with normal distribution of N(125,27). This comes from the mean of the score, 125, and the standard deviation, which is around 27. It further consists of an adaptive prior for subject, being a normal distribution with mean coming from the mean of the sessions, and a fixed prior for session, also being a normal distribution. The fixed prior, sigma, is a cauchy distribution Cauchy(20,0.5), estimated from the expected variance in scores. -->
+
+<!-- ```{r} -->
+<!-- ds <- ds[!(ds$Subject>99),] # select first 100 subjects -->
+<!-- ds$Subject <- ds$Subject +1 # increase subject number with 1 to overcome Stan zero index problem -->
+
+<!-- mean(ds$score) # check mean of score 125 -->
+<!-- sd(ds$score) # check standard deviation of score 27.4 (met hoger aantal 25.77 -> 1.7) -->
+<!-- ``` -->
+
+<!-- $$ score \sim Norm(\mu, \sigma)$$ <!-- [Likelihood]--> -->
+
+<!-- $$ \mu = a + a_{subject_{i}} + b*session $$ <!--[linear model]--> -->
+
+<!-- $$ a_{subject_{i}} \sim Norm(0,a_{\sigma})$$ <!--[adaptive prior] mean of sessions, a --> -->
+
+<!-- $$ a_{\sigma} \sim Cauchy(0,10)$$<!--[hyper prior] variance of sessions, choose something for variance on variance :P like 0.5--> -->
+
+<!-- $$ a \sim Norm(125,27)$$ <!--[fixed prior] mean, variation --> -->
+
+<!-- $$ b \sim Norm(0,10)$$ -->
+
+<!-- $$ \sigma = Cauchy(20, 0.5)$$ <!--[fixed prior] variance of score, variance of the variance of the score --> -->
+
+<!-- ### Model comparison -->
+<!-- <!-- Select the first 100 participants from the data set. (hint to overcome the Stan problem with a zero index, increase subject id number with 1). Compare models with with increasing complexity.  --> -->
+<!-- We have created and compared the three described models. From the results we can see that model2 has the best fit since it has the smallest WAIC value and largest Akaike weight. -->
+
+<!-- ```{r} -->
+<!-- # create model with fixed intercept (i) -->
+<!-- m0 <- map2stan( -->
+<!--   alist( -->
+<!--     score ~ dnorm(mu, sigma), -->
+<!--     mu <- a_subject[Subject], -->
+
+<!--     # fixed prior -->
+<!--     a_subject[Subject] ~ dnorm(125,27),  -->
+<!--     sigma ~dcauchy(20,0.5) -->
+<!--   ), data = ds, iter = 10000, chains = 4, cores = 4 -->
+<!-- ) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- # create model extended with an adaptive prior for subject id (ii) -->
+<!-- m1 <- map2stan( -->
+<!--   alist( -->
+<!--     score ~ dnorm(mu, sigma), -->
+<!--     mu <- a + a_subject[Subject], -->
+
+<!--     # adaptive prior -->
+<!--     a_subject[Subject] ~ dnorm(0,sigma_subject), -->
+
+<!--     # hyper prior -->
+<!--     sigma_subject ~dcauchy(0,10), -->
+
+<!--     # fixed prior -->
+<!--     a ~ dnorm(125,27), -->
+<!--     sigma ~dcauchy(20,0.5) -->
+<!--   ), data = ds, iter = 10000, chains = 4, cores = 4 -->
+<!-- ) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- # create model with session as a factor (iii) -->
+<!-- m2 <- map2stan( -->
+<!--   alist( -->
+<!--     score ~ dnorm(mu, sigma), -->
+<!--     mu <- a + a_subject[Subject] + b*session, -->
+
+<!--     # adaptive prior -->
+<!--     a_subject[Subject] ~ dnorm(0,sigma_subject), -->
+
+<!--     # hyper prior -->
+<!--     sigma_subject ~ dcauchy(0,10), -->
+
+<!--     # fixed priors -->
+<!--     a ~ dnorm(125,27), -->
+<!--     b ~ dnorm(0,10), -->
+<!--     sigma ~dcauchy(20,0.5) -->
+<!--   ), data = ds, iter = 10000, chains = 4, cores = 4 -->
+<!-- ) -->
+
+<!-- pander(compare(m0,m1,m2,func=WAIC)) -->
+<!-- ``` -->
+
+
+<!-- ### Estimates examination -->
+<!-- <!-- Examine the estimate of parameters of the model with best fit, and provide a brief interpretation. --> -->
+<!-- From the previous comparison we could see that model2 is the best fit model. We take a look at the estimated values of the parameters of this model. We can see that not all values were correctly estimated by us. -->
+
+<!-- ```{r} -->
+<!-- pander(precis(m2, depth=1, prob=.95)) -->
+<!-- ``` -->
 
 
