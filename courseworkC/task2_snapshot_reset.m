@@ -1,14 +1,17 @@
 clear;
 
 % 0. load data
-load fisheriris
-%load humanactivity
+%load fisheriris
+load humanactivity
 %load cities
+%load ovariancancer
 
-x = meas;
-%x = feat;
+%x = obs.';
+%x = meas.';
+x = feat.';
 %x = ratings;
-
+d = 2;
+tic
 % 1. Compute the center of the points
 [m,n] = size(x); % get size (m=row, n=column)
 x_sum = sum(x);             % calculate sum
@@ -19,35 +22,48 @@ y = x - x_bar;          % use formula from slides
 
 % 2.5 Sample data
 %random
-rand = randsample(m,round(m/10) );
-%yr = y(rand, :);
+rand1 = randsample(floor(n/5),floor(n/50) );
+rand2 = rand1 + floor(n/5);
+rand3 = rand2 + floor(n/5);
+rand4 = rand3 + floor(n/5);
+rand5 = rand4 + floor(n/5);
+yr = y(:, [rand1 rand2 rand3 rand4 rand5]);
 %periodically
-yr = y(1:1:end, :);
+%yr = y(:, 1:10:end);
 
 % 3. Compute the Gram matrix
 g = yr.' * yr;     % use formula from slides
 
 % 4.Compute eigenvalues and eigenvectors of 1/m G and sort
-[eigvec,eigval] = eig(1/n * g, 'vector'); 
-[eigval,ind]=sort(eigval);
+[eigvec,eigvalmat] = eig(1/m *g); % use formula from slides
+eigval = diag(eigvalmat);
+[eigval,ind]=sort(eigval, 'descend');
 eigvec = eigvec(:, ind);
 
 % 5. Compute the basis vectors of the affine spaces
-for i = 1:size(eigvec,2)
-    u(:,i) = y * eigvec(:,i) * inv(sqrtm(eigval(i))); 
+for i = 1:d
+    u(:,i) =( yr * eigvec(:,i)) * 1/(sqrt(eigval(i))); 
 end
+toc
 
 % Other way of computing u because I didn't understand wtf we were doing
-new = zeros(m, length(eigval));
-for j = 1:length(eigval)
-    xi = (x-x_bar) * eigvec(:,j);
+new = zeros(n, m);
+for j = 1:d
+    %xi = (x-x_bar).' * u(:,j);
     %xi = ((x-x_bar).' .* U(:,j)) .* U(:,j) + x_bar.';
-    new(:,j) = (x-x_bar) * eigvec(:,j);
+    new(:,j) = (y).' * u(:,j);
 end
 
-% find dimention (by hand)
-d = 2;
-diffeig = sum(eigval(end-d:end))/sum(eigval);
+% evaluate 
+diffeig = sum(eigval(1:d))/sum(eigval);
+xnew = zeros(n, m);
+for j = 1:d
+    xnew =  xnew+ new(:,j) * u(:,j).';
+end
+xnew = xnew.' + x_bar;
+
+dif = norm(x - xnew);
+
 
 % Visualize the affine subspace of dimension 1, 2 or 3
 
@@ -89,8 +105,9 @@ diffeig = sum(eigval(end-d:end))/sum(eigval);
   
 % 2D
 figure;
-%gscatter(u(:,end-1), u(:, end), actid, 'rgbmc')
-gscatter(u(:,end-1), u(:, end), species, 'rgb')
+gscatter(new(:,1), new(:, 2), actid, 'rgbmc')
+%gscatter(new(:,1), new(:,2), species, 'rgb')
+%gscatter(new(:,1), new(:, 2), grp, 'rg')
 
 % 3D
 %figure;

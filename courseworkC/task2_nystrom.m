@@ -1,6 +1,6 @@
 % MATLAB cities dataset
-load cities
-x = ratings;
+load fisheriris
+x = meas;
 
 % 1. Compute the center of the points
 [m,n] = size(x); % get size (m=row, n=column)
