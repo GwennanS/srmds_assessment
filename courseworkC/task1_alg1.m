@@ -4,7 +4,7 @@
 % MATLAB datasets, comment a different one for another dataset
 % load cities
 % load stockreturns
-%load humanactivity
+% load humanactivity
 %load fisheriris
  load ovariancancer
 
@@ -31,8 +31,8 @@ c = 1/n * (y *  y.'); % use formula from slides
 [eigvec,eigvalmat] = eig(c);
 eigval = diag(eigvalmat);
 [eigval,ind]=sort(eigval, 'descend');
-eigvec = normalize(eigvec(:, ind), 'scale');
-d = 5;
+eigvec = eigvec(:, ind);
+d = 3;
 
 %compute projections
 new = zeros(n, m);
@@ -70,9 +70,11 @@ figure
 %figure;
 %plot(new(:, 1));
 %figure;
-%gscatter((new(:,1)), (new(:,2)), actid, 'rgbmc')
+gscatter((new(:,1)), (new(:,2)), actid, 'rgbmc')
 %gscatter(new(:,1), new(:, 2), species, 'rgb')
-gscatter((new(:,1)), (new(:,2)), grp, 'rg')
+%gscatter((new(:,1)), (new(:,2)), grp, 'rg')
+xlabel("first coordinate of projection x'")
+ylabel("second coordinate of projection x'")
 %scatter3(new(:,1), new(:, 2), new(:,3), 3,  grp2idx(grp), 'filled')
 %colormap([1 0 0; % red
 %              0 0 1]); % blue  

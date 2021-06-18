@@ -1,4 +1,4 @@
-clear;
+%clear;
 % MATLAB datasets, comment a different one for another dataset
 % load cities
 % load stockreturns
@@ -12,7 +12,7 @@ load ovariancancer
 %x = meas; % for fisheriris
 x = obs.';
 
-d = 5;
+d = 3;
 tic
 % 1. Compute the center of the points
 [m,n] = size(x); % get size (m=row, n=column)
@@ -36,8 +36,8 @@ rand = randsample(m,round(m/10) );
 % 3. Compute the covariance matrix
 call = 1/n * (y *  y.');     % use formula from slides
 call = call(index,index);
-ct = call(1:ceil(end/5),1:ceil(end/5));
-b = call(ceil(end/5)+1:end,1:ceil(end/5));
+ct = call(1:ceil(end/2),1:ceil(end/2));
+b = call(ceil(end/2)+1:end,1:ceil(end/2));
 
 % 4. Compute eigenvalues and eigenvectors of the samller covariance matrix
 [eigvec2,eigvalmat] = eig(ct);
@@ -49,7 +49,7 @@ eigvec2 = eigvec2(:, ind);
 utilde = zeros(m,size(eigvec2,1));
 utilde( 1:size(eigvec2,1),:) = eigvec2;
 utilde(size(eigvec2,1)+1:end,:) = (b * eigvec2 )* (inv(eigvalmat));
-
+%utilde = eigvec2;
 %compute projections
 new = zeros(n, m);
 for j = 1:d
@@ -74,7 +74,9 @@ dif = norm(x - xnew);
 figure
 %gscatter((new(:,1)), (new(:,2)), actid, 'rgbmc')
 gscatter(new(:,1), new(:, 3), grp, 'rg')
-figure;
+xlabel("first coordinate of projection x'")
+ylabel("second coordinate of projection x'")
+%figure;
 %scatter3(new(:,1), new(:, 2), new(:,3), 3,  grp2idx(grp), 'filled')
 colormap([1 0 0; % red
               0 0 1]); % blue 

@@ -34,7 +34,7 @@ tic
 [eigvec2,eigvalmat2] = eig(1/n * g); % use formula from slides
 eigval2 = diag(eigvalmat2);
 [eigval2,ind]=sort(eigval2, 'descend');
-eigvec2 = normalize(eigvec2(:, ind), 'scale');
+eigvec2 = eigvec2(:, ind);
 
 d = 3;
 % 5. Compute the basis vectors of the affine spaces
@@ -75,8 +75,8 @@ dif = norm(x - xnew);
 figure;
 gscatter(new(:,1), new(:, 2), grp, 'rg')
 %gscatter(new(:,1), new(:, 2), actid, 'rgbmc')
-xlabel('a1');
-ylabel('a2');
+xlabel("first coordinate of projection x'")
+ylabel("second coordinate of projection x'")
 %figure;
 %scatter3(new(:,1), new(:, 2), new(:,3), 3,  grp2idx(grp), 'filled')
 %colormap([1 0 0; % red
